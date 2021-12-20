@@ -11,9 +11,4 @@ class UserRole extends Model
 
     protected $guarded = [];
     public $timestamps = false;
-
-    public function user()
-    {
-        return $this->belongsToMany(User::class);
-    }
 }

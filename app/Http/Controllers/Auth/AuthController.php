@@ -15,7 +15,7 @@ class AuthController extends Controller
     }
 
     // proses validasi data login
-    public function loginValidate(Request $request)
+    public function loginProcess(Request $request)
     {
         // validasi input dari form
         $user = $request->validate([

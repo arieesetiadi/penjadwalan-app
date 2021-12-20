@@ -29,8 +29,15 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // relasi dengan model UserRole
     public function role()
     {
         return $this->hasOne(UserRole::class, 'id', 'user_role_id');
+    }
+
+    // relasi dengan model Instansi
+    public function instansi()
+    {
+        return $this->hasOne(Instansi::class, 'id', 'instansi_id');
     }
 }
