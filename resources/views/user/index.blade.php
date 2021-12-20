@@ -67,7 +67,7 @@
             <div class="table-responsive mt-3">
                 <table class="table align-middle">
                     @if (count($users) > 1)
-                        <thead class="table-secondary">
+                        <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>

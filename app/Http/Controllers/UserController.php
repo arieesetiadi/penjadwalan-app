@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,6 +30,7 @@ class UserController extends Controller
     public function create()
     {
         $data['title'] = 'Tambah Users';
+        $data['userRoles'] = UserRole::all();
 
         // redirect ke halaman kelola users
         return view('user.create', $data);
