@@ -70,6 +70,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th></th>
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Email</th>
@@ -84,6 +85,13 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
+                                    <td>
+                                        @if ($user->gender == 'Pria')
+                                            <img src="{{ asset('images/avatars/man.png') }}" alt="" class="rounded-circle" width="45" height="45">
+                                        @else
+                                            <img src="{{ asset('images/avatars/woman.png') }}" alt="" class="rounded-circle" width="45" height="45">
+                                        @endif
+                                    </td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>

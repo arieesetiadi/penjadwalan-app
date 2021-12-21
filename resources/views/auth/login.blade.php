@@ -93,7 +93,7 @@
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
                                                     <input name="rememberMe" class="form-check-input" type="checkbox"
-                                                        id="rememberMe" checked="">
+                                                        id="rememberMe">
                                                     <label class="form-check-label" for="rememberMe">Remember
                                                         Me</label>
                                                 </div>

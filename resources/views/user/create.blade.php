@@ -126,6 +126,11 @@
                                         is-invalid
                                     @enderror"
                                         placeholder="Password" aria-label="password">
+                                        <div class="border d-flex align-items-center justify-content-center px-3">
+                                            <a id="toggle-password" class="link-dark" href="#">
+                                                <i id="eye-icon" class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
                                 </div>
                                 @error('password')
                                     <span class="text-danger position-absolute d-block">{{ $message }}</span>

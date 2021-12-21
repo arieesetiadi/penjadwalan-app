@@ -29,6 +29,9 @@
 <script src="{{ asset('js/app.js') }}"></script>
 {{-- <script src="{{ asset('js/index2.js') }}"></script> --}}
 
+{{-- show/hide password --}}
+<script src="{{ asset('js/password.js') }}"></script>
+
 
 </body>
 
