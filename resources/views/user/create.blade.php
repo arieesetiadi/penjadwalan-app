@@ -3,23 +3,8 @@
 
 <!--start content-->
 <main class="page-content">
-    {{-- greeting to login user --}}
-    @if (session('greeting'))
-        <div
-            class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
-            <div class="d-flex align-items-center">
-                <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>
-                </div>
-                <div class="ms-3">
-                    <div class="text-success">{{ session('greeting') }}</div>
-                </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
         <div class="breadcrumb-title pe-3">USERS</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
@@ -42,20 +27,22 @@
                     <div class="row">
                         <div class="col-lg-6">
                             {{-- username --}}
-                            <div>
+                            <div class="mb-2">
                                 <label class="mb-2" for="username">Username :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-person"></i>
                                     </span>
-                                    <input name="username" id="username" type="text" class="form-control"
+                                    <input name="username" id="username" type="text" class="form-control is-invalid"
                                         placeholder="Username" aria-label="Username">
                                 </div>
+                                <small class="text-danger position-relative d-block">Please enter a message in the
+                                    textarea.</small>
                             </div>
                             {{-- name --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="name">Nama :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-card-heading"></i>
                                     </span>
@@ -64,9 +51,9 @@
                                 </div>
                             </div>
                             {{-- email --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="email">Email :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-envelope"></i>
                                     </span>
@@ -75,7 +62,7 @@
                                 </div>
                             </div>
                             {{-- phone --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="phone">Nomor Telepon :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
@@ -88,21 +75,22 @@
                         </div>
                         <div class="col-lg-6">
                             {{-- instansi --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="instansi">Nama Instansi :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-building"></i>
                                     </span>
                                     <input name="instansi" id="instansi" type="text" class="form-control"
-                                        placeholder="Nama Instansi" aria-label="instansi">
+                                        placeholder="Nama Instansi" aria-label="instansi"
+                                        data-url="{{ route('search-instansi') }}">
                                 </div>
                             </div>
 
                             {{-- password --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="password">Password :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-lock"></i>
                                     </span>
@@ -112,9 +100,9 @@
                             </div>
 
                             {{-- user role --}}
-                            <div>
+                            <div class="mb-4">
                                 <label class="mb-2" for="userRole">Jenis Pengguna :</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-briefcase"></i>
                                     </span>

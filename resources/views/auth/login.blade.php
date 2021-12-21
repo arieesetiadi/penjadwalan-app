@@ -37,7 +37,7 @@
                                             alt="">
                                     </center>
                                     <h4 class="card-title text-center mt-4">DINAS KOMINFO KOTA DENPASAR</h4>
-                                    <form class="form-body" action="{{ route('loginProcess') }}" method="POST">
+                                    <form class="form-body" action="{{ route('login-process') }}" method="POST">
                                         @csrf
                                         @if (session('status'))
                                             <center>

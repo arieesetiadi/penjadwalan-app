@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,17 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
 
 // route validasi login
-Route::post('/login', [AuthController::class, 'loginProcess'])->name('loginProcess');
+Route::post('/login', [AuthController::class, 'loginProcess'])->name('login-process');
 
 // route logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // ================= Resource Route ==================== 
 Route::resources([
     'user' => UserController::class
 ]);
+
+
+// ================= Search Route ==================== 
+Route::get('/search-instansi', [SearchController::class, 'searchInstansi'])->name('search-instansi');

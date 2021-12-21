@@ -13,4 +13,13 @@ class Instansi extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public static function getDataLikeName($name)
+    {
+        return
+            Instansi
+            ::where('name', 'like', '%' . $name . '%')
+            ->select('name')
+            ->get();
+    }
 }
