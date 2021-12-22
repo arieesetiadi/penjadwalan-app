@@ -40,7 +40,11 @@
                                     placeholder="Username" aria-label="Username" value="{{ old('username') }}">
                                 </div>
                                 @error('username')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
                             {{-- name --}}
@@ -57,7 +61,11 @@
                                     placeholder="Nama" aria-label="name" value="{{ old('name') }}">
                                 </div>
                                 @error('name')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
                             {{-- email --}}
@@ -74,7 +82,11 @@
                                     placeholder="Email" aria-label="email" value="{{ old('email') }}">
                                 </div>
                                 @error('email')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
                             {{-- phone --}}
@@ -91,7 +103,11 @@
                                     placeholder="Nomor Telepon" aria-label="phone" value="{{ old('phone') }}">
                                 </div>
                                 @error('phone')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -110,7 +126,11 @@
                                     placeholder="Nama Instansi" aria-label="instansi" data-url="{{ route('search-instansi') }}" value="{{ old('instansi') }}">
                                 </div>
                                 @error('instansi')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
 
@@ -125,7 +145,7 @@
                                     @error('password')
                                         is-invalid
                                     @enderror"
-                                        placeholder="Password" aria-label="password">
+                                        placeholder="Password" aria-label="password" value="{{ old('password') }}">
                                         <div class="border d-flex align-items-center justify-content-center px-3">
                                             <a id="toggle-password" class="link-dark" href="#">
                                                 <i id="eye-icon" class="bi bi-eye"></i>
@@ -133,7 +153,11 @@
                                         </div>
                                 </div>
                                 @error('password')
-                                    <span class="text-danger position-absolute d-block">{{ $message }}</span>
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
                                 @enderror
                             </div>
 
@@ -154,10 +178,14 @@
                                             <option value="{{ $userRole->id }}">{{ $userRole->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('userRole')
-                                        <span class="text-danger position-absolute d-block">{{ $message }}</span>
-                                    @enderror
                                 </div>
+                                @error('userRole')
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
+                                @enderror
                             </div>
 
                             {{-- gender --}}
