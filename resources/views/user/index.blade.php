@@ -20,7 +20,7 @@
 
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">USERS</div>
+        <div class="breadcrumb-title pe-3">PENGGUNA</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -60,7 +60,7 @@
                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
                             class="bi bi-search"></i></div>
                     <form action="{{ route('user.search') }}" method="GET">
-                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari nama user..">
+                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari nama pengguna..">
                     </form>
                 </div>
             </div>
@@ -105,14 +105,18 @@
                                     <td>{{ $user->role->name }}</td>
                                     <td>
                                         <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                            <a href="javascript:;" class="text-dark" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Ubah">
+                                            <a href="{{ route('user.edit', $user->id) }}" class="text-dark"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>
                                             </a>
-                                            <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Hapus">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Hapus">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

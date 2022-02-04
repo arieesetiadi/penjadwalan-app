@@ -21,8 +21,9 @@
     {{-- form --}}
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('user.store') }}" method="POST">
+            <form action="{{ route('user.update', $user->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
@@ -38,7 +39,8 @@
                                     @error('username')
                                         is-invalid
                                     @enderror"
-                                        placeholder="Username" aria-label="Username" value="{{ old('username') }}">
+                                        placeholder="Username" aria-label="Username"
+                                        value="{{ old('username', $user->username) }}">
                                 </div>
                                 @error('username')
                                     <span class="text-danger position-absolute d-block">
@@ -61,7 +63,7 @@
                                     @error('name')
                                         is-invalid
                                     @enderror"
-                                        placeholder="Nama" aria-label="name" value="{{ old('name') }}">
+                                        placeholder="Nama" aria-label="name" value="{{ old('name', $user->name) }}">
                                 </div>
                                 @error('name')
                                     <span class="text-danger position-absolute d-block">
@@ -84,7 +86,8 @@
                                     @error('email')
                                         is-invalid
                                     @enderror"
-                                        placeholder="Email" aria-label="email" value="{{ old('email') }}">
+                                        placeholder="Email" aria-label="email"
+                                        value="{{ old('email', $user->email) }}">
                                 </div>
                                 @error('email')
                                     <span class="text-danger position-absolute d-block">
@@ -107,7 +110,8 @@
                                     @error('phone')
                                         is-invalid
                                     @enderror"
-                                        placeholder="Nomor Telepon" aria-label="phone" value="{{ old('phone') }}">
+                                        placeholder="Nomor Telepon" aria-label="phone"
+                                        value="{{ old('phone', $user->phone) }}">
                                 </div>
                                 @error('phone')
                                     <span class="text-danger position-absolute d-block">
@@ -137,6 +141,9 @@
                                             @if (old('division') && old('division') == $division->id)
                                                 <option selected value="{{ $division->id }}">{{ $division->name }}
                                                 </option>
+                                            @elseif ($division->id == $user->division_id)
+                                                <option selected value="{{ $division->id }}">{{ $division->name }}
+                                                </option>
                                             @else
                                                 <option value="{{ $division->id }}">{{ $division->name }}
                                                 </option>
@@ -155,7 +162,7 @@
 
                             {{-- Password --}}
                             <div class="mb-4">
-                                <label class="mb-2" for="password">Password :</label>
+                                <label class="mb-2" for="password">Password (Optional) :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-lock"></i>
@@ -199,6 +206,9 @@
                                             @if (old('role') && old('role') == $role->id)
                                                 <option selected value="{{ $role->id }}">{{ $role->name }}
                                                 </option>
+                                            @elseif ($role->id == $user->role_id)
+                                                <option selected value="{{ $role->id }}">{{ $role->name }}
+                                                </option>
                                             @else
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endif
@@ -217,16 +227,17 @@
                             {{-- Gender --}}
                             <div>
                                 <label class="mb-3 d-block" for="password">Jenis Kelamin :</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="pria" value="Pria"
-                                        checked>
-                                    <label class="form-check-label" for="pria">Pria</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="wanita"
-                                        value="Wanita">
-                                    <label class="form-check-label" for="wanita">Wanita</label>
-                                </div>
+
+                                @foreach (['Pria', 'Wanita'] as $gender)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                            id="{{ strtolower($gender) }}" value="{{ $gender }}"
+                                            {{ $gender == $user->gender ? 'checked' : '' }}>
+
+                                        <label class="form-check-label"
+                                            for="{{ strtolower($gender) }}">{{ $gender }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

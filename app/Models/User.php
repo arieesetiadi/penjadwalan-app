@@ -36,19 +36,38 @@ class User extends Authenticatable
         return self::orderByDesc('id')->get();
     }
 
-    public static function insert($user)
+    public static function insert($data)
     {
         self
             ::create([
-                'username' => $user['username'],
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'password' => Hash::make($user['password']),
-                'phone' => $user['phone'],
-                'role_id' => $user['role'],
-                'division_id' => $user['division'],
-                'gender' => $user['gender']
+                'username' => $data['username'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'],
+                'role_id' => $data['role'],
+                'division_id' => $data['division'],
+                'gender' => $data['gender']
             ]);
+    }
+
+    public static function updateById($data, $id)
+    {
+        $user = self::where('id', $id);
+
+        $user->update([
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'role_id' => $data['role'],
+            'division_id' => $data['division'],
+            'gender' => $data['gender']
+        ]);
+
+        if ($data['password']) {
+            $user->update(['password' => Hash::make($data['password'])]);
+        }
     }
 
     public static function search($key)
@@ -57,6 +76,12 @@ class User extends Authenticatable
             ::where('name', 'like', '%' . $key . '%')
             ->orderByDesc('id')
             ->get();
+    }
+
+    public static function getById($id)
+    {
+        return self
+            ::find($id);
     }
 
     //  =================================================================

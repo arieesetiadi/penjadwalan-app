@@ -173,12 +173,12 @@
                         <div class="menu-title">Jadwal</div>
                     </a>
                 </li>
-                <li class="menu-label">Users</li>
+                <li class="menu-label">Pengguna</li>
                 <li>
                     <a href="{{ route('user.index') }}">
                         <div class="parent-icon"><i class="bi bi-people-fill"></i>
                         </div>
-                        <div class="menu-title">Kelola Users</div>
+                        <div class="menu-title">Kelola Pengguna</div>
                     </a>
                 </li>
             </ul>

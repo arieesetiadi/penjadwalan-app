@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Division;
 use App\Models\Role;
 use App\Models\User;
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Kelola Users';
+        $data['title'] = 'Kelola Pengguna';
         $data['users'] = User::get();
 
         // Redirect ke halaman kelola users
@@ -37,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Tambah Users';
+        $data['title'] = 'Tambah Pengguna';
         $data['roles'] = Role::all();
         $data['divisions'] = Division::all();
 
@@ -78,7 +79,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['title'] = 'Ubah Pengguna';
+        $data['roles'] = Role::all();
+        $data['divisions'] = Division::all();
+        $data['user'] = User::getById($id);
+
+        // Redirect ke halaman kelola users
+        return view('user.edit', $data);
     }
 
     /**
@@ -88,9 +95,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        // Insert data user
+        User::updateById($request->all(), $id);
+
+        return redirect()->route('user.index')->with('status', 'Berhasil mengubah data pengguna.');
     }
 
     /**
@@ -101,12 +111,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 
     public function search(Request $request)
     {
-        $data['title'] = 'Kelola Users';
+        $data['title'] = 'Kelola Pengguna';
         $data['users'] = User::search($request->key);
 
         // Redirect ke halaman kelola users
