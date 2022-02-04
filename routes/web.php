@@ -32,10 +32,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // ================= Resource Route ==================== 
+
+// Users
+Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
 Route::resources([
     'user' => UserController::class
 ]);
-
-
-// ================= Search Route ==================== 
-Route::get('/search-instansi', [SearchController::class, 'searchInstansi'])->name('search-instansi');

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -29,15 +30,47 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // relasi dengan model UserRole
-    public function role()
+    //  =================================================================
+    public static function get()
     {
-        return $this->hasOne(UserRole::class, 'id', 'user_role_id');
+        return self::orderByDesc('id')->get();
     }
 
-    // relasi dengan model Instansi
-    public function instansi()
+    public static function insert($user)
     {
-        return $this->hasOne(Instansi::class, 'id', 'instansi_id');
+        return self
+            ::create([
+                'username' => $user['username'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'password' => Hash::make($user['password']),
+                'phone' => $user['phone'],
+                'role_id' => $user['role'],
+                'division_id' => $user['division'],
+                'gender' => $user['gender']
+            ]);
+    }
+
+    public static function getLike($key)
+    {
+        return self
+            ::where('name', 'like', '%' . $key . '%')
+            ->orderByDesc('id')
+            ->get();
+    }
+
+
+    //  =================================================================
+
+    // Relasi dengan model Role
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    // Relasi dengan model Instansi
+    public function division()
+    {
+        return $this->hasOne(Division::class, 'id', 'division_id');
     }
 }

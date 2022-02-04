@@ -3,15 +3,15 @@
 
 <!--start content-->
 <main class="page-content">
-    {{-- greeting to login user --}}
-    @if (session('greeting'))
+    {{-- Alert untuk keberhasilan --}}
+    @if (session('status'))
         <div
             class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
             <div class="d-flex align-items-center">
                 <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>
                 </div>
                 <div class="ms-3">
-                    <div class="text-success">{{ session('greeting') }}</div>
+                    <div class="text-success">{{ session('status') }}</div>
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -58,7 +58,8 @@
                     <div class="ms-auto position-relative">
                         <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
                                 class="bi bi-search"></i></div>
-                        <input class="form-control ps-5" type="text" placeholder="Cari nama user..">
+                        <input id="input-user-search" class="form-control ps-5" type="text"
+                            placeholder="Cari nama user..">
                     </div>
                 @else
                     <div class="ms-auto position-relative"></div>
@@ -76,7 +77,7 @@
                                 <th>Email</th>
                                 <th>Telepon</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Instansi</th>
+                                <th>Divisi</th>
                                 <th>Tipe</th>
                                 <th>Aksi</th>
                             </tr>
@@ -87,9 +88,11 @@
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>
                                         @if ($user->gender == 'Pria')
-                                            <img src="{{ asset('images/avatars/man.png') }}" alt="" class="rounded-circle" width="45" height="45">
+                                            <img src="{{ asset('images/avatars/man.png') }}" alt=""
+                                                class="rounded-circle" width="45" height="45">
                                         @else
-                                            <img src="{{ asset('images/avatars/woman.png') }}" alt="" class="rounded-circle" width="45" height="45">
+                                            <img src="{{ asset('images/avatars/woman.png') }}" alt=""
+                                                class="rounded-circle" width="45" height="45">
                                         @endif
                                     </td>
                                     <td>{{ $user->name }}</td>
@@ -98,7 +101,7 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->gender }}</td>
                                     <td>
-                                        {{ $user->instansi->name }}
+                                        {{ $user->division->name }}
                                     </td>
                                     <td>{{ $user->role->name }}</td>
                                     <td>

@@ -16,14 +16,7 @@ class DashboardController extends Controller
     {
         $data['title'] = 'Dashboard';
 
-        // cek role dari user yang sedang login
-        switch (auth()->user()->user_role_id) {
-            case 1:
-                return view('dashboard.admin', $data);
-            case 2:
-                return view('dashboard.admin', $data);
-            default:
-                return view('dashboard.admin', $data);
-        }
+        // redirect ke halaman dashboard
+        return view('dashboard', $data);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Division;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
@@ -21,9 +23,9 @@ class UserController extends Controller
     public function index()
     {
         $data['title'] = 'Kelola Users';
-        $data['users'] = User::all();
+        $data['users'] = User::get();
 
-        // redirect ke halaman kelola users
+        // Redirect ke halaman kelola users
         return view('user.index', $data);
     }
 
@@ -35,9 +37,10 @@ class UserController extends Controller
     public function create()
     {
         $data['title'] = 'Tambah Users';
-        $data['userRoles'] = UserRole::all();
+        $data['roles'] = Role::all();
+        $data['divisions'] = Division::all();
 
-        // redirect ke halaman kelola users
+        // Redirect ke halaman kelola users
         return view('user.create', $data);
     }
 
@@ -49,7 +52,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        dd($request->validate());
+        // Insert data user
+        User::insert($request->all());
+
+        return redirect()->route('user.index')->with('status', 'Berhasil menambah pengguna baru.');
     }
 
     /**
@@ -95,5 +101,15 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $key = $request->key;
+
+        // Ambil data users berdasarkan key
+        $results = User::getLike($key);
+
+        return response()->json($results);
     }
 }

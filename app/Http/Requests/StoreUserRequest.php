@@ -24,25 +24,42 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|max:20',
+            'username' => 'required|unique:users|max:20',
             'name' => 'required|max:100',
-            'email' => 'required|max:100|email|unique:users',
+            'email' => 'required|max:50|email|unique:users',
             'password' => 'required|max:255',
             'phone' => 'required|numeric',
             'gender' => 'required',
-            'userRole' => 'required',
-            'instansi' => 'required'
+            'role' => 'required',
+            'division' => 'required'
         ];
     }
 
     public function attributes()
     {
         return [
+            'username' => 'Username',
             'name' => 'Nama',
             'email' => 'Email',
-            'phone' => 'Nomor telepon',
-            'gender' => 'Jenis kelamin',
-            'userRole' => 'Jenis pengguna',
+            'password' => 'Password',
+            'phone' => 'Nomor Telepon',
+            'gender' => 'Jenis Kelamin',
+            'role' => 'Jenis Pengguna',
+            'division' => 'Divisi',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => ':attribute wajib diisi.',
+            'unique' => ':attribute telah terdaftar.',
+            'numeric' => ':attribute wajib berupa angka.',
+            'email' => ':attribute tidak valid',
+            'username.max' => 'Panjang maksimal :attribute adalah 20 karakter.',
+            'name.max' => 'Panjang maksimal :attribute adalah 100 karakter.',
+            'email.max' => 'Panjang maksimal :attribute adalah 50 karakter.',
+            'password.max' => 'Panjang maksimal :attribute adalah 255 karakter.',
         ];
     }
 }

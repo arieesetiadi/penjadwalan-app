@@ -5,12 +5,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" /> --}}
+
     <!--plugins-->
     <link href="{{ asset('plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
     <link href="{{ asset('plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
     <link href="{{ asset('plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
     <link href="{{ asset('plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+
     <!-- Bootstrap CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-extended.css') }}" rel="stylesheet" />
@@ -18,9 +19,12 @@
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    {{-- ajax header --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- ajax header --}}
+    <meta id="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- API Routes --}}
+    <meta id="url-user-search" content="{{ route('user.search') }}">
 
     <!-- loader-->
     <link href="{{ asset('css/pace.min.css') }}" rel="stylesheet" />
@@ -30,6 +34,9 @@
     <link href="{{ asset('css/light-theme.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/semi-dark.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/header-colors.css') }}" rel="stylesheet" />
+
+    {{-- Favicon --}}
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <title>{{ $title ??= 'Title' }} | Kominfo Denpasar</title>
 </head>

@@ -26,18 +26,19 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
-                            {{-- username --}}
+                            {{-- Username --}}
                             <div class="mb-4">
                                 <label class="mb-2" for="username">Username :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-person"></i>
                                     </span>
-                                    <input name="username" id="username" type="text" class="form-control 
+                                    <input name="username" id="username" type="text"
+                                        class="form-control 
                                     @error('username')
                                         is-invalid
-                                    @enderror" 
-                                    placeholder="Username" aria-label="Username" value="{{ old('username') }}">
+                                    @enderror"
+                                        placeholder="Username" aria-label="Username" value="{{ old('username') }}">
                                 </div>
                                 @error('username')
                                     <span class="text-danger position-absolute d-block">
@@ -47,18 +48,20 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- name --}}
+
+                            {{-- Name --}}
                             <div class="mb-4">
                                 <label class="mb-2" for="name">Nama :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-card-heading"></i>
                                     </span>
-                                    <input name="name" id="name" type="text" class="form-control 
+                                    <input name="name" id="name" type="text"
+                                        class="form-control 
                                     @error('name')
                                         is-invalid
-                                    @enderror" 
-                                    placeholder="Nama" aria-label="name" value="{{ old('name') }}">
+                                    @enderror"
+                                        placeholder="Nama" aria-label="name" value="{{ old('name') }}">
                                 </div>
                                 @error('name')
                                     <span class="text-danger position-absolute d-block">
@@ -68,18 +71,20 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- email --}}
+
+                            {{-- Email --}}
                             <div class="mb-4">
                                 <label class="mb-2" for="email">Email :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-envelope"></i>
                                     </span>
-                                    <input name="email" id="email" type="email" class="form-control
+                                    <input name="email" id="email" type="email"
+                                        class="form-control
                                     @error('email')
                                         is-invalid
                                     @enderror"
-                                    placeholder="Email" aria-label="email" value="{{ old('email') }}">
+                                        placeholder="Email" aria-label="email" value="{{ old('email') }}">
                                 </div>
                                 @error('email')
                                     <span class="text-danger position-absolute d-block">
@@ -89,18 +94,20 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- phone --}}
+
+                            {{-- Phone --}}
                             <div class="mb-4">
                                 <label class="mb-2" for="phone">Nomor Telepon :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-phone"></i>
                                     </span>
-                                    <input name="phone" id="phone" type="number" class="form-control 
+                                    <input name="phone" id="phone" type="number"
+                                        class="form-control 
                                     @error('phone')
                                         is-invalid
                                     @enderror"
-                                    placeholder="Nomor Telepon" aria-label="phone" value="{{ old('phone') }}">
+                                        placeholder="Nomor Telepon" aria-label="phone" value="{{ old('phone') }}">
                                 </div>
                                 @error('phone')
                                     <span class="text-danger position-absolute d-block">
@@ -112,20 +119,32 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            {{-- instansi --}}
+                            {{-- Divisi --}}
                             <div class="mb-4">
-                                <label class="mb-2" for="instansi">Nama Instansi :</label>
+                                <label class="mb-2" for="role">Divisi :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-building"></i>
                                     </span>
-                                    <input name="instansi" id="instansi" type="text" class="form-control 
-                                    @error('instansi')
+                                    <select name="division" id="division"
+                                        class="form-select 
+                                    @error('division')
                                         is-invalid
                                     @enderror"
-                                    placeholder="Nama Instansi" aria-label="instansi" data-url="{{ route('search-instansi') }}" value="{{ old('instansi') }}">
+                                        aria-label="Divisi">
+                                        <option selected hidden value="">Pilih divisi</option>
+                                        @foreach ($divisions as $division)
+                                            @if (old('division') && old('division') == $division->id)
+                                                <option selected value="{{ $division->id }}">{{ $division->name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $division->id }}">{{ $division->name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
-                                @error('instansi')
+                                @error('divisi')
                                     <span class="text-danger position-absolute d-block">
                                         <small>
                                             {{ $message }}
@@ -134,23 +153,24 @@
                                 @enderror
                             </div>
 
-                            {{-- password --}}
+                            {{-- Password --}}
                             <div class="mb-4">
                                 <label class="mb-2" for="password">Password :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-lock"></i>
                                     </span>
-                                    <input name="password" id="password" type="password" class="form-control 
+                                    <input name="password" id="password" type="password"
+                                        class="form-control 
                                     @error('password')
                                         is-invalid
                                     @enderror"
                                         placeholder="Password" aria-label="password" value="{{ old('password') }}">
-                                        <div class="border d-flex align-items-center justify-content-center px-3">
-                                            <a id="toggle-password" class="link-dark" href="#">
-                                                <i id="eye-icon" class="bi bi-eye"></i>
-                                            </a>
-                                        </div>
+                                    <div class="border d-flex align-items-center justify-content-center px-3">
+                                        <a id="toggle-password" class="link-dark" href="#">
+                                            <i id="eye-icon" class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 @error('password')
                                     <span class="text-danger position-absolute d-block">
@@ -161,25 +181,31 @@
                                 @enderror
                             </div>
 
-                            {{-- user role --}}
+                            {{-- Role --}}
                             <div class="mb-4">
-                                <label class="mb-2" for="userRole">Jenis Pengguna :</label>
+                                <label class="mb-2" for="role">Jenis Pengguna :</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-briefcase"></i>
                                     </span>
-                                    <select name="userRole" id="userRole" class="form-select 
-                                    @error('userRole')
+                                    <select name="role" id="role"
+                                        class="form-select 
+                                    @error('role')
                                         is-invalid
                                     @enderror"
                                         aria-label="User Roles">
                                         <option selected hidden value="">Pilih jenis pengguna</option>
-                                        @foreach ($userRoles as $userRole)
-                                            <option value="{{ $userRole->id }}">{{ $userRole->name }}</option>
+                                        @foreach ($roles as $role)
+                                            @if (old('role') && old('role') == $role->id)
+                                                <option selected value="{{ $role->id }}">{{ $role->name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('userRole')
+                                @error('role')
                                     <span class="text-danger position-absolute d-block">
                                         <small>
                                             {{ $message }}
@@ -188,7 +214,7 @@
                                 @enderror
                             </div>
 
-                            {{-- gender --}}
+                            {{-- Gender --}}
                             <div>
                                 <label class="mb-3 d-block" for="password">Jenis Kelamin :</label>
                                 <div class="form-check form-check-inline">

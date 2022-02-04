@@ -1,9 +1,9 @@
 {{-- Include header --}}
 @include('layout.header')
 
-<!--start content-->
+<!--Start content-->
 <main class="page-content">
-    {{-- main Content --}}
+    {{-- Main Content --}}
     @if (session('greeting'))
         <div
             class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
@@ -18,7 +18,7 @@
         </div>
     @endif
 </main>
-<!--end page main-->
+<!--End Page Main-->
 
 {{-- Include footer --}}
 @include('layout.footer')
