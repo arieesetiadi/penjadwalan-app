@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public static function insert($user)
     {
-        return self
+        self
             ::create([
                 'username' => $user['username'],
                 'name' => $user['name'],
@@ -51,14 +51,13 @@ class User extends Authenticatable
             ]);
     }
 
-    public static function getLike($key)
+    public static function search($key)
     {
         return self
             ::where('name', 'like', '%' . $key . '%')
             ->orderByDesc('id')
             ->get();
     }
-
 
     //  =================================================================
 

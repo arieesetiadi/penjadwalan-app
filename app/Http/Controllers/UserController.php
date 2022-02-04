@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -105,11 +106,10 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $key = $request->key;
+        $data['title'] = 'Kelola Users';
+        $data['users'] = User::search($request->key);
 
-        // Ambil data users berdasarkan key
-        $results = User::getLike($key);
-
-        return response()->json($results);
+        // Redirect ke halaman kelola users
+        return view('user.index', $data);
     }
 }

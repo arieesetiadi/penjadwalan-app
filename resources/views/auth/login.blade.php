@@ -16,7 +16,7 @@
     <!-- loader-->
     <link href="{{ asset('css/pace.min.css') }}" rel="stylesheet" />
 
-    <title>Onedash - Bootstrap 5 Admin Template</title>
+    <title>Login | Kominfo Denpasar</title>
 </head>
 
 <body>

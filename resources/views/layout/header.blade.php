@@ -23,9 +23,6 @@
     {{-- ajax header --}}
     <meta id="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- API Routes --}}
-    <meta id="url-user-search" content="{{ route('user.search') }}">
-
     <!-- loader-->
     <link href="{{ asset('css/pace.min.css') }}" rel="stylesheet" />
 

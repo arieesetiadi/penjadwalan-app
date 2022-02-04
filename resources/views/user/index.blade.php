@@ -55,19 +55,18 @@
                             PDF
                         </button>
                     </div>
-                    <div class="ms-auto position-relative">
-                        <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
-                                class="bi bi-search"></i></div>
-                        <input id="input-user-search" class="form-control ps-5" type="text"
-                            placeholder="Cari nama user..">
-                    </div>
-                @else
-                    <div class="ms-auto position-relative"></div>
                 @endif
+                <div class="ms-auto position-relative">
+                    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
+                            class="bi bi-search"></i></div>
+                    <form action="{{ route('user.search') }}" method="GET">
+                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari nama user..">
+                    </form>
+                </div>
             </div>
-            <div class="table-responsive mt-3">
-                <table class="table align-middle">
-                    @if (count($users) > 1)
+            <div id="users-table-wrapper" class="table-responsive mt-3">
+                <table id="users-table" class="table align-middle">
+                    @if (count($users) > 0)
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -89,10 +88,10 @@
                                     <td>
                                         @if ($user->gender == 'Pria')
                                             <img src="{{ asset('images/avatars/man.png') }}" alt=""
-                                                class="rounded-circle" width="45" height="45">
+                                                class="rounded-circle" width="35" height="35">
                                         @else
                                             <img src="{{ asset('images/avatars/woman.png') }}" alt=""
-                                                class="rounded-circle" width="45" height="45">
+                                                class="rounded-circle" width="35" height="35">
                                         @endif
                                     </td>
                                     <td>{{ $user->name }}</td>
@@ -121,7 +120,7 @@
                         </tbody>
                     @else
                         <thead>
-                            <h6 class="text-center">Tidak ada users yang terdaftar.</h6>
+                            <h6 class="text-center">Data pengguna tidak ditemukan.</h6>
                         </thead>
                     @endif
                 </table>
