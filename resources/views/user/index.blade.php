@@ -39,18 +39,21 @@
             <div class="d-flex align-items-center justify-content-end">
                 {{-- user buttons --}}
                 <div>
-                    <a href="{{ route('user.create') }}" class="btn btn-sm ">
+                    <a href="{{ route('user.create') }}" class="btn btn-sm" title="Tambah Pengguna"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom">
                         <i class="bi bi-person-plus"></i>
                         Tambah
                     </a>
                 </div>
                 @if (count($users) > 1)
                     <div>
-                        <button class="btn btn-sm ">
+                        <button class="btn btn-sm" title="Export Excell" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom">
                             <i class="bi bi-file-earmark-spreadsheet"></i>
                             Excell
                         </button>
-                        <button class="btn btn-sm ">
+                        <button class="btn btn-sm" title="Export PDF" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom">
                             <i class="bi bi-file-earmark-pdf"></i>
                             PDF
                         </button>
@@ -109,14 +112,37 @@
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>
                                             </a>
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Hapus">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn" data-bs-toggle="modal"
+                                                data-bs-target="#modal-user-delete-{{ $user->id }}">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                            <div class="modal fade" id="modal-user-delete-{{ $user->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form action="{{ route('user.destroy', $user->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Konfirmasi
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Data <strong>{{ $user->name }}</strong> akan dihapus
+                                                                dari sistem.
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light border"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">OK</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

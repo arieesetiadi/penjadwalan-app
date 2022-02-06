@@ -161,16 +161,9 @@
                 <li class="menu-label">Penjadwalan</li>
                 <li>
                     <a href="#">
-                        <div class="parent-icon"><i class="bi bi-card-list"></i>
-                        </div>
-                        <div class="menu-title">Request</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
                         <div class="parent-icon"><i class="bi bi-card-checklist"></i>
                         </div>
-                        <div class="menu-title">Jadwal</div>
+                        <div class="menu-title">Penjadwalan</div>
                     </a>
                 </li>
                 <li class="menu-label">Pengguna</li>
