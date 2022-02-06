@@ -137,43 +137,55 @@
             </div>
             <!--navigation-->
             <ul class="metismenu" id="menu">
-                {{-- <li class="mm-active">
-                    <a href="javascript:;" class="" aria-expanded="true">
-                        <div class="parent-icon"><i class="bi bi-house-fill"></i>
-                        </div>
-                        <div class="menu-title">Dashboard</div>
-                    </a>
-                    <ul>
-                        <li class="mm-active"> <a href="#"><i class="bi bi-circle"></i>Email</a>
-                        </li>
-                        <li> <a href="#"><i class="bi bi-circle"></i>Chat Box</a>
-                        </li>
-                    </ul>
-                </li> --}}
+                {{-- <li class="mm-active"></li> --}}
 
-                <li>
-                    <a href="/" class="" aria-expanded="true">
-                        <div class="parent-icon"><i class="bi bi-house-fill"></i>
-                        </div>
-                        <div class="menu-title">Dashboard</div>
-                    </a>
-                </li>
+                {{-- Bisa diakses oleh Admin dan Petugas --}}
+                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+                    <li>
+                        <a href="/" class="" aria-expanded="true">
+                            <div class="parent-icon"><i class="bi bi-house-fill"></i>
+                            </div>
+                            <div class="menu-title">Dashboard</div>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="menu-label">Penjadwalan</li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class="bi bi-card-checklist"></i>
-                        </div>
-                        <div class="menu-title">Penjadwalan</div>
-                    </a>
-                </li>
-                <li class="menu-label">Pengguna</li>
-                <li>
-                    <a href="{{ route('user.index') }}">
-                        <div class="parent-icon"><i class="bi bi-people-fill"></i>
-                        </div>
-                        <div class="menu-title">Kelola Pengguna</div>
-                    </a>
-                </li>
+
+                {{-- Hanya diakses oleh Peminjam --}}
+                @if (auth()->user()->role_id == 3)
+                    <li>
+                        <a href="{{ route('pengajuan') }}">
+                            <div class="parent-icon"><i class="bi bi-list"></i>
+                            </div>
+                            <div class="menu-title">Pengajuan</div>
+                        </a>
+                    </li>
+                @endif
+
+                {{-- Bisa diakses oleh Admin dan Petugas --}}
+                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+                    <li>
+                        <a href="#">
+                            <div class="parent-icon"><i class="bi bi-list-check"></i>
+                            </div>
+                            <div class="menu-title">Jadwal</div>
+                        </a>
+                    </li>
+                @endif
+
+                {{-- Hanya diakses oleh Administrator --}}
+                @if (auth()->user()->role_id == 1)
+                    <li class="menu-label">Pengguna</li>
+                    <li>
+                        <a href="{{ route('user.index') }}">
+                            <div class="parent-icon"><i class="bi bi-people-fill"></i>
+                            </div>
+                            <div class="menu-title">Kelola Pengguna</div>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
             <!--end navigation-->
         </aside>

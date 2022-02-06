@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        // boleh mengakses sistem hanya ketika sudah login
+        // Boleh mengakses sistem hanya ketika sudah login
         $this->middleware('auth');
     }
 
@@ -16,7 +16,10 @@ class DashboardController extends Controller
     {
         $data['title'] = 'Dashboard';
 
-        // redirect ke halaman dashboard
+        // Redirect ke halaman pengajuan jika role Peminjam
+        if (auth()->user()->role_id == 3) return redirect()->route('pengajuan');
+
+        // Redirect ke halaman dashboard
         return view('dashboard', $data);
     }
 }

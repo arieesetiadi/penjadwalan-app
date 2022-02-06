@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// route halaman dashboard
+// Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index']);
 
-// route halaman login
+// Route halaman login
 Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
 
-// route validasi login
+// Route validasi login
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login-process');
 
-// route logout
+// Route logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
@@ -35,6 +36,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Users
 Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
-Route::resources([
-    'user' => UserController::class
-]);
+Route::resource('user', UserController::class);
+
+// Schedules
+Route::get('pengajuan', [ScheduleController::class, 'pengajuan'])->name('pengajuan');
+Route::resource('schedule', ScheduleController::class);
