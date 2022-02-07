@@ -139,23 +139,20 @@
             <ul class="metismenu" id="menu">
                 {{-- <li class="mm-active"></li> --}}
 
-                {{-- Bisa diakses oleh Admin dan Petugas --}}
-                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
-                    <li>
-                        <a href="/" class="" aria-expanded="true">
-                            <div class="parent-icon"><i class="bi bi-house-fill"></i>
-                            </div>
-                            <div class="menu-title">Dashboard</div>
-                        </a>
-                    </li>
-                @endif
+                <li>
+                    <a href="/" class="" aria-expanded="true">
+                        <div class="parent-icon"><i class="bi bi-house-fill"></i>
+                        </div>
+                        <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
 
                 <li class="menu-label">Penjadwalan</li>
 
                 {{-- Hanya diakses oleh Peminjam --}}
                 @if (auth()->user()->role_id == 3)
                     <li>
-                        <a href="{{ route('pengajuan') }}">
+                        <a href="{{ route('request') }}">
                             <div class="parent-icon"><i class="bi bi-list"></i>
                             </div>
                             <div class="menu-title">Pengajuan</div>

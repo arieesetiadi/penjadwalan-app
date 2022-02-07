@@ -39,5 +39,6 @@ Route::get('/user/search', [UserController::class, 'search'])->name('user.search
 Route::resource('user', UserController::class);
 
 // Schedules
-Route::get('pengajuan', [ScheduleController::class, 'pengajuan'])->name('pengajuan');
+Route::get('request', [ScheduleController::class, 'request'])->name('request');
+Route::post('request', [ScheduleController::class, 'requestProcess'])->name('request-process');
 Route::resource('schedule', ScheduleController::class);

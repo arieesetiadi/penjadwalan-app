@@ -31,7 +31,7 @@ class AuthController extends Controller
         }
 
         // redirect ke halaman dashboard
-        return redirect()->to('/')->with('greeting', 'Selamat datang, ' . auth()->user()->name);
+        return redirect()->to('/')->with('status', 'Selamat datang, ' . auth()->user()->name);
     }
 
     // proses logout

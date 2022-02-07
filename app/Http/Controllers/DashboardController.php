@@ -16,10 +16,17 @@ class DashboardController extends Controller
     {
         $data['title'] = 'Dashboard';
 
-        // Redirect ke halaman pengajuan jika role Peminjam
-        if (auth()->user()->role_id == 3) return redirect()->route('pengajuan');
-
-        // Redirect ke halaman dashboard
-        return view('dashboard', $data);
+        // Cek role dari user yang sedang login
+        switch (auth()->user()->role_id) {
+            case 1:
+                // Redirect ke dashboard Administrator
+                return view('dashboard.administrator', $data);
+            case 2:
+                // Redirect ke dashboard Petugas
+                return view('dashboard.petugas', $data);
+            default:
+                // Redirect ke dashboard Peminjam
+                return view('dashboard.peminjam', $data);
+        }
     }
 }

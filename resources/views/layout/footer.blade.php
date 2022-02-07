@@ -8,7 +8,6 @@
 </div>
 <!--end wrapper-->
 
-
 <!-- Bootstrap bundle JS -->
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <!--plugins-->

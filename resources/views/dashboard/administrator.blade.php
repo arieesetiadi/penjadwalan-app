@@ -26,7 +26,7 @@
     <!--end breadcrumb-->
 
     {{-- Main Content --}}
-    @if (session('greeting'))
+    @if (session('status'))
         <div>
             <div class="row">
                 <div class="col">
@@ -36,7 +36,7 @@
                             <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="ms-3">
-                                <div class="text-success">{{ session('greeting') }}</div>
+                                <div class="text-success">{{ session('status') }}</div>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"
