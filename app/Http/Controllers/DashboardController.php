@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -21,10 +22,16 @@ class DashboardController extends Controller
             case 1:
                 // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
+
             case 2:
                 // Redirect ke dashboard Petugas
                 return view('dashboard.petugas', $data);
+
             default:
+                $data['schedules'] = Schedule::getByBorrowerId(auth()->user()->id);
+                $data['countPending'] = 3;
+                $data['countActive'] = 2;
+
                 // Redirect ke dashboard Peminjam
                 return view('dashboard.peminjam', $data);
         }

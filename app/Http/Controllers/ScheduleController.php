@@ -41,11 +41,14 @@ class ScheduleController extends Controller
 
     public function destroy($id)
     {
-        //
+        Schedule::deleteById($id);
+
+        return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
     }
 
     public function request()
     {
+        dd(Schedule::getActive());
         $data['title'] = 'Pengajuan Jadwal';
 
         return view('schedule.request', $data);
@@ -61,6 +64,6 @@ class ScheduleController extends Controller
         // Insert data pengajuan
         Schedule::insert($request->all());
 
-        return redirect()->route('dashboard')->status('status', 'Berhasil mengajukan jadwal peminjaman.');
+        return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 }

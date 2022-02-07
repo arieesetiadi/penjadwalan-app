@@ -85,9 +85,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($users as $i => $user)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $i + 1 }}</td>
                                     <td>
                                         @if ($user->gender == 'Pria')
                                             <img src="{{ asset('images/avatars/man.png') }}" alt=""
@@ -112,10 +112,12 @@
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>
                                             </a>
-                                            <button type="button" class="btn" data-bs-toggle="modal"
-                                                data-bs-target="#modal-user-delete-{{ $user->id }}">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
+                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-user-delete-{{ $user->id }}">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </div>
                                             <div class="modal fade" id="modal-user-delete-{{ $user->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">

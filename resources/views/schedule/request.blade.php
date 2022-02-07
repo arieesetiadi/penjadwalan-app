@@ -46,7 +46,7 @@
                     @csrf
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 {{-- Date --}}
                                 <div class="mb-4">
                                     <label class="mb-2" for="date">Tanggal :</label>

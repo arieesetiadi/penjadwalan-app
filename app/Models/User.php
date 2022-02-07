@@ -92,7 +92,7 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
-    // Relasi dengan model Instansi
+    // Relasi dengan model Division
     public function division()
     {
         return $this->hasOne(Division::class, 'id', 'division_id');

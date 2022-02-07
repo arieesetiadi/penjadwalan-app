@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route halaman dashboard
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Route halaman login
 Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
