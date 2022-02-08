@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -20,6 +21,11 @@ class DashboardController extends Controller
         // Cek role dari user yang sedang login
         switch (auth()->user()->role_id) {
             case 1:
+                $data['countUser'] = User::count();
+                $data['countPending'] = count(Schedule::getPending());
+                $data['countActive'] = count(Schedule::getActive());
+                $data['pendingSchedules'] = Schedule::getPending();
+
                 // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
 
@@ -29,8 +35,8 @@ class DashboardController extends Controller
 
             default:
                 $data['schedules'] = Schedule::getByBorrowerId(auth()->user()->id);
-                $data['countPending'] = 3;
-                $data['countActive'] = 2;
+                $data['countPending'] = count(Schedule::getPending());
+                $data['countActive'] = count(Schedule::getActive());
 
                 // Redirect ke dashboard Peminjam
                 return view('dashboard.peminjam', $data);

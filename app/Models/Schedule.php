@@ -20,28 +20,54 @@ class Schedule extends Model
     {
         return self
             ::whereDate('date', '>=', now()->format('Y-m-d'))
-            ->where('end', '>', now()->format('H:i:s'))
-            ->where('is_approved', false)
+            ->where('status', 'pending')
             ->get();
     }
 
     public static function getActive()
     {
         return self
-            ::where([
-                ['date', '>=', now()->format('Y-m-d')],
-                ['end', '>', now()->format('H:i:s')]
-            ])
-            ->where('is_approved', true)
+            ::whereDate('date', '>=', now()->format('Y-m-d'))
+            ->where('status', 'active')
             ->get();
+    }
+
+    public static function setActive($id)
+    {
+        $schedule = self::find($id);
+
+        $schedule->update([
+            'status' => 'active'
+        ]);
+
+        return $schedule->description;
     }
 
     // Fungsi untuk cek ketersediaan jadwal
     public static function check($date, $start, $end)
     {
         $activeSchedules = self::getActive();
+        $rules = null;
 
-        return true;
+        foreach ($activeSchedules as $i => $active) {
+            if ($start < $active->start) {
+                $rules =
+                    ($active->start >= $start) &&
+                    ($active->start <= $end)
+                    ||
+                    ($active->end >= $start) &&
+                    ($active->end <= $end);
+            } else {
+                $rules =
+                    ($start >= $active->start) &&
+                    ($start <= $active->end)
+                    ||
+                    ($end >= $active->start) &&
+                    ($end <= $active->end);
+            }
+        }
+
+        return !$rules;
     }
 
     public static function insert($data)

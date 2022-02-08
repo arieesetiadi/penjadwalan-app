@@ -39,6 +39,7 @@ Route::get('/user/search', [UserController::class, 'search'])->name('user.search
 Route::resource('user', UserController::class);
 
 // Schedules
-Route::get('request', [ScheduleController::class, 'request'])->name('request');
-Route::post('request', [ScheduleController::class, 'requestProcess'])->name('request-process');
+Route::get('/request', [ScheduleController::class, 'request'])->name('request');
+Route::post('/request', [ScheduleController::class, 'requestProcess'])->name('request-process');
+Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses'])->name('schedule.approve');
 Route::resource('schedule', ScheduleController::class);

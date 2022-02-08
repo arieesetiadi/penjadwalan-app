@@ -48,7 +48,8 @@ class ScheduleController extends Controller
 
     public function request()
     {
-        dd(Schedule::getActive());
+        dump(Schedule::getActive());
+        dd(Schedule::check('2022-02-08', '09:00:00', '11:01:00'));
         $data['title'] = 'Pengajuan Jadwal';
 
         return view('schedule.request', $data);
@@ -65,5 +66,10 @@ class ScheduleController extends Controller
         Schedule::insert($request->all());
 
         return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
+    }
+
+    public function scheduleProses($id)
+    {
+        return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
     }
 }

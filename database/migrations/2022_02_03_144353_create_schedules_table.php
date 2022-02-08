@@ -21,7 +21,7 @@ class CreateSchedulesTable extends Migration
             $table->string('description');
             $table->foreignId('user_borrower_id');
             $table->foreignId('user_officer_id')->nullable();
-            $table->boolean('is_approved');
+            $table->string('status');
             $table->dateTime('requested_at');
             $table->dateTime('approved_at')->nullable();
             $table->timestamps();

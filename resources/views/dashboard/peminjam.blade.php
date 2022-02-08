@@ -114,7 +114,7 @@
                                     <td>{{ dateFormat($schedule->requested_at) }}</td>
 
                                     <td>
-                                        @if ($schedule->is_approved)
+                                        @if ($schedule->status == 'active')
                                             <span class="badge bg-primary text-white">Disetujui</span>
                                         @else
                                             <span class="badge bg-warning text-dark">Pending</span>
