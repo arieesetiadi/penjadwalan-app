@@ -107,7 +107,7 @@
                                     </td>
                                     <td>{{ $user->role->name }}</td>
                                     <td>
-                                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                        <div class="table-actions d-flex align-items-center gap-3">
                                             <a href="{{ route('user.edit', $user->id) }}" class="text-dark"
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>

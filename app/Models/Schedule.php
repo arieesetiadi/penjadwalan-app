@@ -37,7 +37,9 @@ class Schedule extends Model
         $schedule = self::find($id);
 
         $schedule->update([
-            'status' => 'active'
+            'status' => 'active',
+            'approved_at' => now()->format('Y-m-d H:i:s'),
+            'user_officer_id' => auth()->user()->id
         ]);
 
         return $schedule->description;
@@ -57,7 +59,7 @@ class Schedule extends Model
                     ||
                     ($active->end >= $start) &&
                     ($active->end <= $end);
-            } else {
+            } else if ($end >= $active->start) {
                 $rules =
                     ($start >= $active->start) &&
                     ($start <= $active->end)
@@ -65,9 +67,9 @@ class Schedule extends Model
                     ($end >= $active->start) &&
                     ($end <= $active->end);
             }
-        }
 
-        return !$rules;
+            if ($rules) return false;
+        }
     }
 
     public static function insert($data)

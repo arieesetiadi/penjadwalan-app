@@ -25,6 +25,7 @@ class DashboardController extends Controller
                 $data['countPending'] = count(Schedule::getPending());
                 $data['countActive'] = count(Schedule::getActive());
                 $data['pendingSchedules'] = Schedule::getPending();
+                $data['activeSchedules'] = Schedule::getActive();
 
                 // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
