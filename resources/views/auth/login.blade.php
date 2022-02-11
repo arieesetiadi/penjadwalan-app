@@ -26,7 +26,7 @@
 
         <!--start content-->
         <main class="authentication-content">
-            <div class="container" style="width: 40%">
+            <div class="container" style="width: 30%">
                 <div class="authentication-card">
                     <div class="card shadow rounded overflow-hidden">
                         <div class="row g-0">

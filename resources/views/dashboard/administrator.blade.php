@@ -115,7 +115,7 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Tanggal</td>
+                                    <td>Tanggal Rapat</td>
                                     <td>Mulai</td>
                                     <td>Selesai</td>
                                     <td>Keterangan</td>
@@ -266,7 +266,7 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Tanggal</td>
+                                    <td>Tanggal Rapat</td>
                                     <td>Mulai</td>
                                     <td>Selesai</td>
                                     <td>Keterangan</td>
@@ -275,7 +275,6 @@
                                     <td>Disetujui pada</td>
                                     <td>Disetujui oleh</td>
                                     <td>Countdown</td>
-                                    <td>Aksi</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -417,46 +416,10 @@
                                         </td>
 
                                         <td>
-                                            <span class="countdown"
-                                                data-then="{{ $active->date . ' ' . $active->start }}"
-                                                id="countdown-{{ $active->id }}"></span>
-                                        </td>
-
-                                        <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <div>
-                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-approve-{{ $active->id }}">
-                                                        <i class="bi bi-check2"></i> Setujui
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade"
-                                                    id="modal-schedule-approve-{{ $active->id }}" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <form action="{{ route('schedule.approve', $active->id) }}"
-                                                            method="GET">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">
-                                                                        Persetujuan
-                                                                    </h5>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Tekan OK untuk menyetujui jadwal
-                                                                    <strong>{{ $active->description }}</strong>.
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light border"
-                                                                        data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">OK</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <strong>
+                                                <span class="countdown"
+                                                    data-then="{{ $active->date . ' ' . $active->start }}"></span>
+                                            </strong>
                                         </td>
                                     </tr>
                                 @endforeach

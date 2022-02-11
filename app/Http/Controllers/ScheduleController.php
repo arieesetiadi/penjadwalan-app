@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Models\Schedule;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -48,9 +49,19 @@ class ScheduleController extends Controller
 
     public function request()
     {
-        dump(Schedule::getActive());
-        dd(Schedule::check('2022-02-08', '09:00:00', '11:01:00'));
+        // Ambil tanggal pertama dan terakhir bulan ini untuk membuat periode
+        $firstDate = now()->firstOfMonth();
+        $lastDate = now()->lastOfMonth();
+
         $data['title'] = 'Pengajuan Jadwal';
+        $data['daysName'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        $data['datesOfMonth'] = CarbonPeriod::create($firstDate->toDateString(), $lastDate->toDateString());
+        $data['offset'] = getOffset($data['daysName'], $firstDate);
+        $data['activeSchedules'] = Schedule::getActive();
+        $data['current'] = now();
+
+        // Ambil seluruh data perhari di bulan ini
+        $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
 
         return view('schedule.request', $data);
     }

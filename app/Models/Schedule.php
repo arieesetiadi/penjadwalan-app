@@ -32,6 +32,39 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getByBorrowerId($id)
+    {
+        return self
+            ::where('user_borrower_id', $id)
+            ->orderByDesc('id')
+            ->get();
+    }
+
+    public static function getByOfficerId($id)
+    {
+        return self
+            ::where('user_officer_id', $id)
+            ->orderByDesc('id')
+            ->get();
+    }
+
+    public static function getByDate($date)
+    {
+        return self
+            ::whereDate('date', $date)
+            ->orderByDesc('date')
+            ->get();
+    }
+
+    public static function getInMonth($dates)
+    {
+        foreach ($dates as $date) {
+            $data[] = self::getByDate($date);
+        }
+
+        return $data;
+    }
+
     public static function setActive($id)
     {
         $schedule = self::find($id);
@@ -85,22 +118,6 @@ class Schedule extends Model
                 'is_approved' => false,
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
-    }
-
-    public static function getByBorrowerId($id)
-    {
-        return self
-            ::where('user_borrower_id', $id)
-            ->orderByDesc('id')
-            ->get();
-    }
-
-    public static function getByOfficerId($id)
-    {
-        return self
-            ::where('user_officer_id', $id)
-            ->orderByDesc('id')
-            ->get();
     }
 
     public static function deleteById($id)

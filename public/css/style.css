@@ -32,6 +32,10 @@ body {
     overflow-x: hidden;
 }
 
+.col-7 {
+    width: 14%;
+}
+
 .wrapper {
     width: auto;
     position: relative;
