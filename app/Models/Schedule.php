@@ -32,6 +32,16 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getActiveByDate($date)
+    {
+        $date = Carbon::make($date)->format('Y-m-d');
+
+        return self
+            ::whereDate('date', $date)
+            ->where('status', 'active')
+            ->get();
+    }
+
     public static function getByBorrowerId($id)
     {
         return self
@@ -52,7 +62,7 @@ class Schedule extends Model
     {
         return self
             ::whereDate('date', $date)
-            ->orderByDesc('date')
+            ->orderBy('start', 'asc')
             ->get();
     }
 
@@ -81,31 +91,39 @@ class Schedule extends Model
     // Fungsi untuk cek ketersediaan jadwal
     public static function check($date, $start, $end)
     {
-        $activeSchedules = self::getActive();
+        $activeSchedules = self::getActiveByDate($date);
+        $start = Carbon::make($start)->toTimeString();
+        $end = Carbon::make($end)->toTimeString();
+        return [$start, $end];
         $rules = null;
 
-        foreach ($activeSchedules as $i => $active) {
+        foreach ($activeSchedules as $active) {
             if ($start < $active->start) {
                 $rules =
                     ($active->start >= $start) &&
-                    ($active->start <= $end)
+                    ($active->start < $end)
                     ||
                     ($active->end >= $start) &&
                     ($active->end <= $end);
-            } else if ($end >= $active->start) {
+            } else if ($start >= $active->start) {
                 $rules =
                     ($start >= $active->start) &&
-                    ($start <= $active->end)
+                    ($start < $active->end)
                     ||
                     ($end >= $active->start) &&
                     ($end <= $active->end);
             }
 
-            if ($rules) return false;
+            // Jika jadwal sudah terdaftar, return false
+            if ($rules) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
-    public static function insert($data)
+    public static function insertRequest($data)
     {
         self
             ::create([
@@ -115,7 +133,7 @@ class Schedule extends Model
                 'description' => $data['description'],
                 'user_borrower_id' => auth()->user()->id,
                 'user_officer_id' => 0,
-                'is_approved' => false,
+                'status' => 'pending',
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }

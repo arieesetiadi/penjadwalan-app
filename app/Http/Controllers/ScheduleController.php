@@ -49,6 +49,14 @@ class ScheduleController extends Controller
 
     public function request()
     {
+        // $a = [
+        //     "date" => "2022-02-10",
+        //     "start" => "10:00",
+        //     "end" => "11:00"
+        // ];
+
+        // dd(Schedule::check($a['date'], $a['start'], $a['end']));
+
         $current = session('currentMonth') ? Carbon::make(session('currentMonth')) : now();
 
         $data['title'] = 'Pengajuan Jadwal';
@@ -72,9 +80,9 @@ class ScheduleController extends Controller
         }
 
         // Insert data pengajuan
-        Schedule::insert($request->all());
+        Schedule::insertRequest($request->all());
 
-        return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
+        return back()->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 
     public function scheduleProses($id)
