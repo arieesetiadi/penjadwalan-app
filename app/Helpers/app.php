@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 function dateFormat($date)
 {
@@ -19,4 +20,13 @@ function getOffset($daysName, $firstDate)
             return $i;
         }
     }
+}
+
+function makePeriod($date)
+{
+    // Ambil tanggal pertama dan terakhir bulan ini untuk membuat periode
+    $firstDate = $date->firstOfMonth()->toDateString();
+    $lastDate = $date->lastOfMonth()->toDateString();
+
+    return CarbonPeriod::create($firstDate, $lastDate);
 }

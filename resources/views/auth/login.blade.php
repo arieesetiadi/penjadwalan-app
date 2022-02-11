@@ -61,7 +61,7 @@
                                                         @error('username')
                                                             border-danger
                                                         @enderror"
-                                                        id="username" placeholder="Username">
+                                                        id="username" placeholder="Username" autofocus>
                                                 </div>
                                                 @error('username')
                                                     <small class="text-danger">

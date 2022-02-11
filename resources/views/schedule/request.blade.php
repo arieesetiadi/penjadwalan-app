@@ -169,11 +169,13 @@
                 <div class="card">
                     <div class="card-header bg-light">
                         <center>
-                            <a href="#">
+                            <a
+                                href="{{ route('change-month', ['current' => $current->format('Y-m-d'), 'counter' => -1]) }}">
                                 <i class="bi bi-caret-left-square-fill text-dark"></i>
                             </a>
                             <span class="d-block-inline mx-4">{{ $current->isoFormat('MMMM Y') }}</span>
-                            <a href="#">
+                            <a
+                                href="{{ route('change-month', ['current' => $current->format('Y-m-d'), 'counter' => 1]) }}">
                                 <i class="bi bi-caret-right-square-fill text-dark"></i>
                             </a>
                         </center>
@@ -203,7 +205,7 @@
                                     <div class="col-7 mb-3">
                                         {{-- Tombol date --}}
                                         <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                            class="btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d') ? 'btn-primary' : 'btn-outline-dark' }} w-100 position-relative">
+                                            class="btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d') ? 'btn-primary' : 'btn-outline-secondary' }} w-100 position-relative">
                                             <span
                                                 class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                             <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"

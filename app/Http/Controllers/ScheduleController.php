@@ -49,16 +49,14 @@ class ScheduleController extends Controller
 
     public function request()
     {
-        // Ambil tanggal pertama dan terakhir bulan ini untuk membuat periode
-        $firstDate = now()->firstOfMonth();
-        $lastDate = now()->lastOfMonth();
+        $current = session('currentMonth') ? Carbon::make(session('currentMonth')) : now();
 
         $data['title'] = 'Pengajuan Jadwal';
         $data['daysName'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-        $data['datesOfMonth'] = CarbonPeriod::create($firstDate->toDateString(), $lastDate->toDateString());
-        $data['offset'] = getOffset($data['daysName'], $firstDate);
+        $data['datesOfMonth'] = makePeriod($current);
+        $data['offset'] = getOffset($data['daysName'], $current->firstOfMonth());
         $data['activeSchedules'] = Schedule::getActive();
-        $data['current'] = now();
+        $data['current'] = $current;
 
         // Ambil seluruh data perhari di bulan ini
         $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
@@ -82,5 +80,14 @@ class ScheduleController extends Controller
     public function scheduleProses($id)
     {
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
+    }
+
+    public function changeMonth($current, $counter)
+    {
+        // Ambil bulan selanjutnya berdasarkan counter
+        $current = Carbon::make($current)->addMonth($counter);
+
+        // Redirect ke halaman request
+        return redirect()->route('request')->with('currentMonth', $current->toDateString());
     }
 }

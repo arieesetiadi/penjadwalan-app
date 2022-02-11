@@ -42,4 +42,5 @@ Route::resource('user', UserController::class);
 Route::get('/request', [ScheduleController::class, 'request'])->name('request');
 Route::post('/request', [ScheduleController::class, 'requestProcess'])->name('request-process');
 Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses'])->name('schedule.approve');
+Route::get('/change-month/{current}/{counter}', [ScheduleController::class, 'changeMonth'])->name('change-month');
 Route::resource('schedule', ScheduleController::class);
