@@ -12,7 +12,10 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        //
+        $data['title'] = 'Jadwal';
+        $data['schedules'] = Schedule::orderByDesc('id')->get();
+
+        return view('schedule.index', $data);
     }
 
     public function create()
@@ -88,6 +91,11 @@ class ScheduleController extends Controller
     public function scheduleProses($id)
     {
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
+    }
+
+    public function scheduleDecline($id)
+    {
+        return redirect()->to('/')->with('status', 'Pengajuan jadwal ' . Schedule::setDecline($id) . ' telah ditolak');
     }
 
     public function changeMonth($current, $counter)

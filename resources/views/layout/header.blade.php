@@ -163,10 +163,10 @@
                 {{-- Bisa diakses oleh Admin dan Petugas --}}
                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                     <li>
-                        <a href="#">
+                        <a href="{{ route('schedule.index') }}">
                             <div class="parent-icon"><i class="bi bi-list-check"></i>
                             </div>
-                            <div class="menu-title">Jadwal</div>
+                            <div class="menu-title">Kelola Jadwal</div>
                         </a>
                     </li>
                 @endif

@@ -121,7 +121,7 @@
                                     <td>Keterangan</td>
                                     <td>Peminjam</td>
                                     <td>Diajukan pada</td>
-                                    <td>Status</td>
+                                    {{-- <td>Status</td> --}}
                                     <td>Aksi</td>
                                 </tr>
                             </thead>
@@ -199,16 +199,13 @@
 
                                         <td>{{ dateFormat($pending->requested_at) }}</td>
 
-                                        <td>
-                                            @if ($pending->status == 'active')
-                                                <span class="badge bg-primary text-white">Disetujui</span>
-                                            @else
-                                                <span class="badge bg-warning text-dark">Pending</span>
-                                            @endif
-                                        </td>
+                                        {{-- <td>
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        </td> --}}
 
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
+                                                {{-- Setuju --}}
                                                 <div>
                                                     <a href="#" class="text-dark" data-bs-toggle="modal"
                                                         data-bs-target="#modal-schedule-approve-{{ $pending->id }}">
@@ -241,6 +238,40 @@
                                                         </form>
                                                     </div>
                                                 </div>
+
+                                                {{-- Tolak --}}
+                                                <div>
+                                                    <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-schedule-decline-{{ $pending->id }}">
+                                                        <i class="bi bi-x-lg"></i> Tolak
+                                                    </a>
+                                                </div>
+                                                <div class="modal fade"
+                                                    id="modal-schedule-decline-{{ $pending->id }}" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form action="{{ route('schedule.decline', $pending->id) }}"
+                                                            method="GET">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Tolak Pengajuan
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Tekan OK untuk menolak pengajuan jadwal
+                                                                    <strong>{{ $pending->description }}</strong>.
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light border"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -249,7 +280,7 @@
                         </table>
                     </div>
                 @else
-                    <h6 class="text-center">Pengguna tidak memiliki jadwal pinjaman</h6>
+                    <h6 class="text-center">Jadwal tidak tersedia</h6>
                 @endif
             </div>
         </div>
@@ -427,7 +458,7 @@
                         </table>
                     </div>
                 @else
-                    <h6 class="text-center">Pengguna tidak memiliki jadwal pinjaman</h6>
+                    <h6 class="text-center">Jadwal tidak tersedia</h6>
                 @endif
             </div>
         </div>

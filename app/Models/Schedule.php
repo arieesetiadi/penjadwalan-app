@@ -88,6 +88,17 @@ class Schedule extends Model
         return $schedule->description;
     }
 
+    public static function setDecline($id)
+    {
+        $schedule = self::find($id);
+
+        $schedule->update([
+            'status' => 'decline'
+        ]);
+
+        return $schedule->description;
+    }
+
     // Fungsi untuk cek ketersediaan jadwal
     public static function check($date, $start, $end)
     {
