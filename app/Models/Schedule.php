@@ -16,6 +16,13 @@ class Schedule extends Model
 
     //  =================================================================
 
+    public static function getById($id)
+    {
+        return self
+            ::where('id', $id)
+            ->get();
+    }
+
     public static function getPending()
     {
         return self
@@ -145,6 +152,8 @@ class Schedule extends Model
                 'user_borrower_id' => $data['user'],
                 'user_officer_id' => auth()->user()->id,
                 'status' => 'active',
+                'requested_at' => now()->format('Y-m-d H:i:s.u0'),
+                'approved_at' => now()->format('Y-m-d H:i:s.u0'),
                 'created_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
@@ -163,6 +172,21 @@ class Schedule extends Model
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
+
+    public static function updateById($data, $id)
+    {
+        self
+            ::where('id', $id)
+            ->update([
+                'date' => Carbon::make($data['date'])->format('Y-m-d'),
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'description' => $data['description'],
+                'user_borrower_id' => $data['user'],
+                'updated_at' => now()->format('Y-m-d H:i:s.u0')
+            ]);
+    }
+
 
     public static function deleteById($id)
     {

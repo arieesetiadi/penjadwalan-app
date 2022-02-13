@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreScheduleRequest;
+use App\Models\Note;
 use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
@@ -47,21 +48,37 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
-        dd($id);
+        $data = getCalendarData();
+        $data['title'] = 'Ubah Jadwal';
+        $data['users'] = User::getBorrower();
+        $data['schedule'] = Schedule::getById($id)[0];
+
+        return view('schedule.edit', $data);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreScheduleRequest $request, $id)
     {
-        dd($request->all(), $id);
+        // Redirect back, jika jadwal tidak dapat digunakan
+        if (!Schedule::check($request->date, $request->start, $request->end)) {
+            return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
+        }
+
+        // Insert data pengajuan
+        Schedule::updateById($request->all(), $id);
+
+        return redirect()->route('schedule.index')->with('status', 'Berhasil mengubah jadwal peminjaman.');
     }
 
     public function destroy($id)
     {
-        $route = auth()->user()->role_id == 3 ? '/' : '/schedule';
-        dd($route);
         Schedule::deleteById($id);
+        Note::deleteByScheduleId($id);
 
-        return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
+        if (auth()->user()->role_id == 3) {
+            return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
+        }
+
+        return redirect()->route('schedule.index')->with('status', 'Jadwal telah dihapus');
     }
 
     public function request()

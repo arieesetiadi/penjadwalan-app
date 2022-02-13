@@ -122,7 +122,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                        <div class="table-actions d-flex align-items-center gap-3">
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $schedule->id }}">
