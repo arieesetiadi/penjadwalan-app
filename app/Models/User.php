@@ -36,6 +36,13 @@ class User extends Authenticatable
         return self::orderByDesc('id')->get();
     }
 
+    public static function getBorrower()
+    {
+        return self
+            ::where('role_id', 3)
+            ->get();
+    }
+
     public static function insert($data)
     {
         self

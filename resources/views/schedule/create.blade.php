@@ -8,13 +8,13 @@
         <div class="row">
             <div class="col">
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <div class="breadcrumb-title pe-3">PENGAJUAN</div>
+                    <div class="breadcrumb-title pe-3">JADWAL</div>
                     <div class="ps-3">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 p-0">
                                 <li class="breadcrumb-item"><i class="bx bx-home-alt"></i>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Jadwal</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $title ??= 'Title' }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -33,10 +33,10 @@
             <section>
                 <div class="card">
                     <div class="card-header bg-light">
-                        Form Pengajuan
+                        Form Tambah Jadwal
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('request-process') }}" method="POST">
+                        <form action="{{ route('schedule.store') }}" method="POST">
                             @csrf
                             <div class="container-fluid">
                                 <div class="row">
@@ -139,6 +139,42 @@
                                                 </span>
                                             @enderror
                                         </div>
+
+                                        {{-- Peminjam --}}
+                                        <div class="mb-4">
+                                            <label class="mb-2" for="role">Nama Peminjam :</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                                <select name="user" id="user"
+                                                    class="form-select 
+                                                    @error('user')
+                                                        is-invalid
+                                                    @enderror"
+                                                    aria-label="Divisi" required>
+                                                    <option selected hidden value="">Nama peminjam</option>
+                                                    @foreach ($users as $user)
+                                                        @if (old('user') && old('user') == $user->id)
+                                                            <option selected value="{{ $user->id }}">
+                                                                {{ $user->name . ' - ' . $user->division->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $user->id }}">
+                                                                {{ $user->name . ' - ' . $user->division->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @error('divisi')
+                                                <span class="text-danger position-absolute d-block">
+                                                    <small>
+                                                        {{ $message }}
+                                                    </small>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row ">
@@ -153,6 +189,7 @@
             </section>
         </div>
         <div class="col-8">
+            {{-- Kalender --}}
             @include('components.calendar')
         </div>
     </div>

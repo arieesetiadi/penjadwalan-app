@@ -134,6 +134,21 @@ class Schedule extends Model
         }
     }
 
+    public static function insert($data)
+    {
+        self
+            ::create([
+                'date' => Carbon::make($data['date'])->format('Y-m-d'),
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'description' => $data['description'],
+                'user_borrower_id' => $data['user'],
+                'user_officer_id' => auth()->user()->id,
+                'status' => 'active',
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ]);
+    }
+
     public static function insertRequest($data)
     {
         self

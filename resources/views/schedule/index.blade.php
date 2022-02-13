@@ -41,7 +41,7 @@
                 <div>
                     <a href="{{ route('schedule.create') }}" class="btn btn-sm" title="Tambah Pengguna"
                         data-bs-toggle="tooltip" data-bs-placement="bottom">
-                        <i class="bi bi-person-plus"></i>
+                        <i class="bi bi-plus-lg"></i>
                         Tambah
                     </a>
                 </div>
@@ -151,7 +151,8 @@
                                         </div>
                                     </td>
 
-                                    <td>{{ dateFormat($schedule->requested_at) }}</td>
+                                    <td>{{ $schedule->requested_at != null ? dateFormat($schedule->requested_at) : '-' }}
+                                    </td>
                                     <td>{{ $schedule->approved_at != null ? dateFormat($schedule->approved_at) : '-' }}
                                     </td>
 

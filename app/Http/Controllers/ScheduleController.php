@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreScheduleRequest;
 use App\Models\Schedule;
+use App\Models\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -20,12 +20,24 @@ class ScheduleController extends Controller
 
     public function create()
     {
-        //
+        $data = getCalendarData();
+        $data['title'] = 'Tambah Jadwal';
+        $data['users'] = User::getBorrower();
+
+        return view('schedule.create', $data);
     }
 
-    public function store(Request $request)
+    public function store(StoreScheduleRequest $request)
     {
-        //
+        // Redirect back, jika jadwal tidak dapat digunakan
+        if (!Schedule::check($request->date, $request->start, $request->end)) {
+            return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
+        }
+
+        // Insert data pengajuan
+        Schedule::insert($request->all());
+
+        return redirect()->route('schedule.index')->with('status', 'Berhasil menambah jadwal peminjaman.');
     }
 
     public function show($id)
@@ -35,16 +47,18 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all(), $id);
     }
 
     public function destroy($id)
     {
+        $route = auth()->user()->role_id == 3 ? '/' : '/schedule';
+        dd($route);
         Schedule::deleteById($id);
 
         return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
@@ -52,25 +66,8 @@ class ScheduleController extends Controller
 
     public function request()
     {
-        // $a = [
-        //     "date" => "2022-02-10",
-        //     "start" => "10:00",
-        //     "end" => "11:00"
-        // ];
-
-        // dd(Schedule::check($a['date'], $a['start'], $a['end']));
-
-        $current = session('currentMonth') ? Carbon::make(session('currentMonth')) : now();
-
+        $data = getCalendarData();
         $data['title'] = 'Pengajuan Jadwal';
-        $data['daysName'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-        $data['datesOfMonth'] = makePeriod($current);
-        $data['offset'] = getOffset($data['daysName'], $current->firstOfMonth());
-        $data['activeSchedules'] = Schedule::getActive();
-        $data['current'] = $current;
-
-        // Ambil seluruh data perhari di bulan ini
-        $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
 
         return view('schedule.request', $data);
     }
@@ -103,7 +100,9 @@ class ScheduleController extends Controller
         // Ambil bulan selanjutnya berdasarkan counter
         $current = Carbon::make($current)->addMonth($counter);
 
+        $route = auth()->user()->role_id == 3 ? 'request' : 'schedule.create';
+
         // Redirect ke halaman request
-        return redirect()->route('request')->with('currentMonth', $current->toDateString());
+        return redirect()->route($route)->with('currentMonth', $current->toDateString());
     }
 }
