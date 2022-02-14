@@ -116,8 +116,12 @@
                                     <td>
                                         @if ($schedule->status == 'active')
                                             <span class="badge bg-primary text-white">Disetujui</span>
-                                        @else
+                                        @elseif ($schedule->status == 'decline')
+                                            <span class="badge bg-danger text-white">Decline</span>
+                                        @elseif ($schedule->status == 'pending')
                                             <span class="badge bg-warning text-dark">Pending</span>
+                                        @elseif ($schedule->status == 'finish')
+                                            <span class="badge bg-success text-white">Finish</span>
                                         @endif
                                     </td>
 

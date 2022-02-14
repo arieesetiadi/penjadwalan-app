@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Notification\Email;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Mail\ScheduleApproved;
+use App\Mail\ScheduleDeclined;
+use App\Mail\ScheduleRequested;
 use App\Models\Note;
 use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
 {
@@ -99,16 +103,23 @@ class ScheduleController extends Controller
         // Insert data pengajuan
         Schedule::insertRequest($request->all());
 
+        // Kirim notifikasi ke petugas & administrator
+        Mail::send(new ScheduleRequested($request->all(), auth()->user()->id));
+
         return back()->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 
     public function scheduleProses($id)
     {
+        Mail::send(new ScheduleApproved($id, auth()->user()->id));
+
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
     }
 
     public function scheduleDecline($id)
     {
+        Mail::send(new ScheduleDeclined($id, auth()->user()->id));
+
         return redirect()->to('/')->with('status', 'Pengajuan jadwal ' . Schedule::setDecline($id) . ' telah ditolak');
     }
 

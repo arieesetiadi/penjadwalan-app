@@ -43,6 +43,13 @@ class User extends Authenticatable
             ->get();
     }
 
+    public static function getOfficers()
+    {
+        return self
+            ::where('role_id', 2)
+            ->get();
+    }
+
     public static function insert($data)
     {
         self

@@ -46,6 +46,7 @@ class Schedule extends Model
         return self
             ::whereDate('date', $date)
             ->where('status', 'active')
+            ->orderBy('start', 'asc')
             ->get();
     }
 
@@ -76,7 +77,7 @@ class Schedule extends Model
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {
-            $data[] = self::getByDate($date);
+            $data[] = self::getActiveByDate($date);
         }
 
         return $data;

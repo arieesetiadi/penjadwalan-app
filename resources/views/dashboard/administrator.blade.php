@@ -121,7 +121,7 @@
                                     <td>Keterangan</td>
                                     <td>Peminjam</td>
                                     <td>Diajukan pada</td>
-                                    {{-- <td>Status</td> --}}
+                                    <td>Status</td>
                                     <td>Aksi</td>
                                 </tr>
                             </thead>
@@ -199,9 +199,9 @@
 
                                         <td>{{ dateFormat($pending->requested_at) }}</td>
 
-                                        {{-- <td>
+                                        <td>
                                             <span class="badge bg-warning text-dark">Pending</span>
-                                        </td> --}}
+                                        </td>
 
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
