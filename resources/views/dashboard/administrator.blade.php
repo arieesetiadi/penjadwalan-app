@@ -280,7 +280,7 @@
                         </table>
                     </div>
                 @else
-                    <h6 class="text-center">Jadwal tidak tersedia</h6>
+                    <h6 class="text-center">-</h6>
                 @endif
             </div>
         </div>
@@ -458,7 +458,7 @@
                         </table>
                     </div>
                 @else
-                    <h6 class="text-center">Jadwal tidak tersedia</h6>
+                    <h6 class="text-center">-</h6>
                 @endif
             </div>
         </div>

@@ -3,6 +3,7 @@ $(function () {
 
     setInterval(() => {
         countdowns.forEach((countdown, i) => {
+            console.log($(countdown).data("schedule-id"));
             i = ++i % 4;
             let now = new Date().getTime();
             let then = new Date($(countdown).data("then")).getTime();

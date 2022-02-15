@@ -35,9 +35,10 @@ class DashboardController extends Controller
                 return view('dashboard.petugas', $data);
 
             default:
-                $data['schedules'] = Schedule::getByBorrowerId(auth()->user()->id);
-                $data['countPending'] = count(Schedule::getPending());
-                $data['countActive'] = count(Schedule::getActive());
+                $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
+                $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
+                $data['countPending'] = count($data['pendingSchedules']);
+                $data['countActive'] = count($data['activeSchedules']);
 
                 // Redirect ke dashboard Peminjam
                 return view('dashboard.peminjam', $data);

@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Mail\ScheduleApproved;
 use App\Mail\ScheduleDeclined;
+use App\Mail\ScheduleStarted;
+use App\Models\Schedule;
 use App\Models\User;
 
 /*
@@ -24,6 +26,10 @@ use App\Models\User;
 |
 */
 
+Route::get('/test', function () {
+    dd(Schedule::getAlmostStarted(10));
+});
+
 Route::get('/mail', function () {
     // dd(User::getById(3)->only('name', 'email'));
     // Mail
@@ -34,6 +40,7 @@ Route::get('/mail', function () {
     //         'description' => 'Rapat Penting Damamaya'
     //     ], 3));
     // Mail::send(new ScheduleDeclined(1, 2));
+    Mail::send(new ScheduleStarted(2));
 });
 
 // Route halaman dashboard

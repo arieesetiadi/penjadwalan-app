@@ -31,6 +31,17 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getAlmostStarted($diff)
+    {
+        $date = now()->format('Y-m-d');
+        $then = Carbon::make(now()->format('H:i'))->addMinute($diff)->format('H:i:s');
+
+        return self
+            ::whereDate('date', $date)
+            ->where('start', $then)
+            ->get('id');
+    }
+
     public static function getActive()
     {
         return self
@@ -46,6 +57,25 @@ class Schedule extends Model
         return self
             ::whereDate('date', $date)
             ->where('status', 'active')
+            ->orderBy('start', 'asc')
+            ->get();
+    }
+
+    public static function getActiveByBorrowerId($id)
+    {
+        return self
+            ::where('user_borrower_id', $id)
+            ->where('status', 'active')
+            ->orderBy('start', 'asc')
+            ->get();
+    }
+
+    public static function getPendingByBorrowerId($id)
+    {
+        return self
+            ::where('user_borrower_id', $id)
+            ->where('status', 'pending')
+            ->orWhere('status', 'decline')
             ->orderBy('start', 'asc')
             ->get();
     }
@@ -187,7 +217,6 @@ class Schedule extends Model
                 'updated_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
-
 
     public static function deleteById($id)
     {

@@ -106,7 +106,7 @@ class ScheduleController extends Controller
         // Kirim notifikasi ke petugas & administrator
         Mail::send(new ScheduleRequested($request->all(), auth()->user()->id));
 
-        return back()->with('status', 'Berhasil mengajukan jadwal peminjaman.');
+        return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 
     public function scheduleProses($id)
