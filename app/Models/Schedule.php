@@ -42,6 +42,17 @@ class Schedule extends Model
             ->get('id');
     }
 
+    public static function getAlmostFinish()
+    {
+        $date = now()->format('Y-m-d');
+        $now = Carbon::make(now()->format('H:i'))->format('H:i:s');
+
+        return self
+            ::whereDate('date', $date)
+            ->where('end', $now)
+            ->get('id');
+    }
+
     public static function getActive()
     {
         return self
@@ -132,6 +143,17 @@ class Schedule extends Model
 
         $schedule->update([
             'status' => 'decline'
+        ]);
+
+        return $schedule->description;
+    }
+
+    public static function setFinish($id)
+    {
+        $schedule = self::find($id);
+
+        $schedule->update([
+            'status' => 'finish'
         ]);
 
         return $schedule->description;

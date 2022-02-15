@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\SendScheduleNotificationCommand;
+use App\Console\Commands\SetScheduleFinish;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,11 +17,13 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         SendScheduleNotificationCommand::class,
+        SetScheduleFinish::class
     ];
 
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('notification:send')->everyMinute();
+        $schedule->command('schedule:finish')->everyMinute();
     }
 
     /**
