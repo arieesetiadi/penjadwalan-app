@@ -91,6 +91,15 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getFinishByBorrowerId($id)
+    {
+        return self
+            ::where('user_borrower_id', $id)
+            ->where('status', 'finish')
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+
     public static function getByBorrowerId($id)
     {
         return self
@@ -262,5 +271,11 @@ class Schedule extends Model
     public function officer()
     {
         return $this->belongsTo(User::class, 'user_officer_id', 'id');
+    }
+
+    // Relasi dengan Note
+    public function note()
+    {
+        return $this->hasOne(Note::class, 'id', 'schedule_id');
     }
 }

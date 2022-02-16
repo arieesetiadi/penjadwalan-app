@@ -37,6 +37,7 @@ class DashboardController extends Controller
             default:
                 $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
                 $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
+                $data['finishSchedules'] = Schedule::getFinishByBorrowerId(auth()->user()->id);
                 $data['countPending'] = count($data['pendingSchedules']);
                 $data['countActive'] = count($data['activeSchedules']);
 

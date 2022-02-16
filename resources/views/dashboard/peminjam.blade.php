@@ -64,12 +64,12 @@
     </div>
 
     {{-- Active --}}
-    <div class="card">
-        <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
-        </div>
-        <div class="card-body">
-            @if (count($activeSchedules) > 0)
+    @if (count($activeSchedules) > 0)
+        <div class="card">
+            <div class="card-header">
+                <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
+            </div>
+            <div class="card-body">
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
                         <thead>
@@ -235,19 +235,17 @@
                         </tbody>
                     </table>
                 </div>
-            @else
-                <h6 class="text-center">Pengguna tidak memiliki jadwal pinjaman</h6>
-            @endif
+            </div>
         </div>
-    </div>
+    @endif
 
     {{-- Pending --}}
-    <div class="card">
-        <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Jadwal Pending</h6>
-        </div>
-        <div class="card-body">
-            @if (count($pendingSchedules) > 0)
+    @if (count($pendingSchedules) > 0)
+        <div class="card">
+            <div class="card-header">
+                <h6 class="text-center text-dark mt-2">Jadwal Pending</h6>
+            </div>
+            <div class="card-body">
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
                         <thead>
@@ -328,11 +326,161 @@
                         </tbody>
                     </table>
                 </div>
-            @else
-                <h6 class="text-center">Pengguna tidak memiliki jadwal pending</h6>
-            @endif
+            </div>
         </div>
-    </div>
+    @endif
+
+    {{-- Finish --}}
+    @if (count($finishSchedules) > 0)
+        <div class="card">
+            <div class="card-header">
+                <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
+            </div>
+            <div class="card-body">
+                <div id="users-table-wrapper" class="table-responsive">
+                    <table id="users-table" class="table align-middle">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Tanggal Rapat</td>
+                                <td>Mulai</td>
+                                <td>Selesai</td>
+                                <td>Keterangan</td>
+                                <td>Diajukan pada</td>
+                                <td>Disetujui pada</td>
+                                <td>Disetujui oleh</td>
+                                <td>Notulen</td>
+                                <td>Aksi</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($finishSchedules as $i => $finish)
+                                <tr>
+                                    <td>{{ $i + 1 }}</td>
+                                    <td>{{ dateFormat($finish->date) }}</td>
+                                    <td>{{ timeFormat($finish->start) }}</td>
+                                    <td>{{ timeFormat($finish->end) }}</td>
+                                    <td>{{ $finish->description }}</td>
+
+                                    <td>{{ dateFormat($finish->requested_at) }}</td>
+
+                                    <td>{{ !is_null($finish->approved_at) ? dateFormat($finish->approved_at) : '-' }}
+                                    </td>
+
+                                    <td>
+                                        @if ($finish->user_officer_id)
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <span>{{ $finish->officer->name }}</span>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Detail Petugas">
+                                                    <a href="#" class="" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-officer-{{ $finish->id }}">
+                                                        <i class="bi bi-info-square-fill"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="modal fade" id="modal-officer-{{ $finish->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Detail Petugas
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>
+                                                                    @if ($finish->officer->gender == 'Pria')
+                                                                        <img src="{{ asset('images/avatars/man.png') }}"
+                                                                            alt="" class="rounded-circle" width="100"
+                                                                            height="100" class="my-3 d-block">
+                                                                    @else
+                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                            alt="" class="rounded-circle" width="100"
+                                                                            height="100" class="my-3 d-block">
+                                                                    @endif
+                                                                </center>
+                                                                <span class="text-dark d-block">Nama
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->officer->name }}</span>
+
+                                                                <span class="text-dark d-block">Divisi
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->officer->division->name }}</span>
+
+                                                                <span class="text-dark d-block">Email
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->officer->email }}</span>
+
+                                                                <span class="text-dark d-block">Telepon
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->officer->phone }}</span>
+
+                                                                <span class="text-dark d-block">Jenis
+                                                                    Kelamin :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->officer->gender }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        <a href="#">Detail</a>
+                                    </td>
+
+                                    <td>
+                                        <div class="table-actions d-flex align-items-center gap-3">
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Upload Notulen">
+                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-schedule-delete-{{ $finish->id }}">
+                                                    <i class="bi bi-upload"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal fade" id="modal-schedule-delete-{{ $finish->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form action="{{ route('schedule.destroy', $finish->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <h5 class="modal-title mb-3" id="exampleModalLabel">
+                                                                    Upload Notulen
+                                                                </h5>
+                                                                @include('components.notulen-form')
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light border"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">OK</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
 </main>
 <!--End Page Main-->
 
