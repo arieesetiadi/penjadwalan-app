@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NoteController;
 use App\Mail\ScheduleApproved;
 use App\Mail\ScheduleDeclined;
 use App\Mail\ScheduleStarted;
@@ -69,3 +70,7 @@ Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses
 Route::get('/schedule/decline/{id}', [ScheduleController::class, 'scheduleDecline'])->name('schedule.decline');
 Route::get('/change-month/{current}/{counter}', [ScheduleController::class, 'changeMonth'])->name('change-month');
 Route::resource('schedule', ScheduleController::class);
+
+// Notes
+Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
+Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->name('note.broadcast');

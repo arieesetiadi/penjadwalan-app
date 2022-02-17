@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Models\Schedule;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Str;
 
 function dateFormat($date)
 {
@@ -44,4 +45,9 @@ function getCalendarData()
     $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
 
     return $data;
+}
+
+function str($content)
+{
+    return Str::of($content);
 }

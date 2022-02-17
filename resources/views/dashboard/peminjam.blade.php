@@ -449,26 +449,8 @@
                                             </div>
                                             <div class="modal fade" id="modal-schedule-delete-{{ $finish->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <form action="{{ route('schedule.destroy', $finish->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <div class="modal-content">
-                                                            <div class="modal-body">
-                                                                <h5 class="modal-title mb-3" id="exampleModalLabel">
-                                                                    Upload Notulen
-                                                                </h5>
-                                                                @include('components.notulen-form')
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light border"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">OK</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                <div class="modal-dialog modal-lg">
+                                                    @include('components.notulen-form')
                                                 </div>
                                             </div>
                                         </div>

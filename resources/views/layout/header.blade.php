@@ -35,6 +35,9 @@
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.0.0/quill.js"></script>
+
     <title>{{ $title ??= 'Title' }} | Kominfo Denpasar</title>
 </head>
 
