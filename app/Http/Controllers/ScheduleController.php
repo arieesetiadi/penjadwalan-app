@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('rolecheck:1,2');
+    }
+
     public function index()
     {
         $data['title'] = 'Jadwal';

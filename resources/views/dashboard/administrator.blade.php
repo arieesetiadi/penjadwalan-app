@@ -25,32 +25,12 @@
     </div>
     <!--end breadcrumb-->
 
-    {{-- Main Content --}}
-    @if (session('status'))
-        <div>
-            <div class="row">
-                <div class="col">
-                    <div
-                        class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
-                        <div class="d-flex align-items-center">
-                            <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>
-                            </div>
-                            <div class="ms-3">
-                                <div class="text-success">{{ session('status') }}</div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
+    {{-- Alert set --}}
+    @include('components.alert-set')
 
     <div>
         <div class="row">
             {{-- Jumlah Pengguna --}}
-            {{-- Hanya dilihat oleh Admin --}}
             <div class="col">
                 <div class="card radius-10 border-0 border-3">
                     <div class="card-body">
@@ -59,14 +39,13 @@
                                 <p class="mb-1">Jumlah Pengguna</p>
                                 <h4 class="mb-0">{{ $countUser }}</h4>
                             </div>
-                            <div class="ms-auto widget-icon bg-primary text-white">
+                            <div class="ms-auto widget-icon bg-info text-white">
                                 <i class="bi bi-people-fill"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             {{-- Jumlah Pengajuan --}}
             <div class="col">
@@ -94,7 +73,7 @@
                                 <p class="mb-1">Jumlah Jadwal Aktif</p>
                                 <h4 class="mb-0">{{ $countActive }}</h4>
                             </div>
-                            <div class="ms-auto widget-icon bg-success text-white">
+                            <div class="ms-auto widget-icon bg-primary text-white">
                                 <i class="bi bi-list-check"></i>
                             </div>
                         </div>
@@ -200,7 +179,15 @@
                                         <td>{{ dateFormat($pending->requested_at) }}</td>
 
                                         <td>
-                                            <span class="badge bg-warning text-dark">Pending</span>
+                                            @if ($pending->status == 'active')
+                                                <span class="badge bg-primary text-white">Disetujui</span>
+                                            @elseif ($pending->status == 'decline')
+                                                <span class="badge bg-danger text-white">Ditolak</span>
+                                            @elseif ($pending->status == 'pending')
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            @elseif ($pending->status == 'finish')
+                                                <span class="badge bg-success text-white">Selesai</span>
+                                            @endif
                                         </td>
 
                                         <td>

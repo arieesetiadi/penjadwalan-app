@@ -31,6 +31,11 @@ class DashboardController extends Controller
                 return view('dashboard.administrator', $data);
 
             case 2:
+                $data['countPending'] = count(Schedule::getPending());
+                $data['countActive'] = count(Schedule::getActive());
+                $data['pendingSchedules'] = Schedule::getPending();
+                $data['activeSchedules'] = Schedule::getActive();
+
                 // Redirect ke dashboard Petugas
                 return view('dashboard.petugas', $data);
 

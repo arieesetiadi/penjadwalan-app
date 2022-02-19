@@ -83,7 +83,7 @@
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
                                     <input name="contentFile" class="form-control" type="file" id="contentFile"
-                                        accept=".doc,.docx,.txt">
+                                        accept=".pdf">
                                 </div>
                             </div>
                         </div>

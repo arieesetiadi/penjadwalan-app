@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BroadcastNotes;
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NoteController extends Controller
 {
@@ -11,7 +13,6 @@ class NoteController extends Controller
     {
         $contentImageName = null;
         $contentFileName = null;
-
         if ($request->hasFile('contentImage')) {
             // Buat nama gambar
             $content = $request->file('contentImage');
@@ -31,9 +32,14 @@ class NoteController extends Controller
         }
 
         Note::upload($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
+
+        $this->broadcast($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
+
+        return redirect()->to('/')->with('status', 'Berhasil menambah notulen rapat');
     }
 
-    public function broadcast()
+    public function broadcast($note, $imageName, $fileName)
     {
+        Mail::send(new BroadcastNotes($note, $imageName, $fileName));
     }
 }

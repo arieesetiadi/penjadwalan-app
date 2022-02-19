@@ -276,6 +276,6 @@ class Schedule extends Model
     // Relasi dengan Note
     public function note()
     {
-        return $this->hasOne(Note::class, 'id', 'schedule_id');
+        return $this->hasOne(Note::class, 'schedule_id', 'id');
     }
 }

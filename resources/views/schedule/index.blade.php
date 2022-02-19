@@ -141,12 +141,14 @@
                                     </td>
 
                                     <td>
-                                        @if ($schedule->status == 'pending')
-                                            <span class="w-100 badge bg-warning text-dark">Pending</span>
-                                        @elseif ($schedule->status == 'active')
-                                            <span class="w-100 badge bg-primary text-white">Active</span>
+                                        @if ($schedule->status == 'active')
+                                            <span class="badge bg-primary text-white">Disetujui</span>
+                                        @elseif ($schedule->status == 'decline')
+                                            <span class="badge bg-danger text-white">Ditolak</span>
+                                        @elseif ($schedule->status == 'pending')
+                                            <span class="badge bg-warning text-dark">Pending</span>
                                         @elseif ($schedule->status == 'finish')
-                                            <span class="w-100 badge bg-success text-white">Finish</span>
+                                            <span class="badge bg-success text-white">Selesai</span>
                                         @endif
                                     </td>
 

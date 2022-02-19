@@ -435,14 +435,69 @@
                                     </td>
 
                                     <td>
-                                        <a href="#">Detail</a>
+                                        @if ($finish->note)
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Detail Notulen">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-schedule-delete-{{ $finish->id }}">
+                                                        Detail
+                                                    </a>
+                                                </div>
+                                                <div class="modal fade"
+                                                    id="modal-schedule-delete-{{ $finish->id }}" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Detail notulen
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <span class="text-dark d-block">Judul :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $finish->note->title }}</span>
+
+                                                                @if ($finish->note->content_text)
+                                                                    <span class="text-dark d-block">Isi Notulen
+                                                                        :</span>
+                                                                    <p class="mb-3 d-block text-wrap text-justify">
+                                                                        {{ $finish->note->content_text }}</p>
+                                                                @endif
+
+                                                                @if ($finish->note->content_image)
+                                                                    <span class="text-dark d-block">Gambar / Foto
+                                                                        :</span>
+                                                                    <img width="100%"
+                                                                        src="{{ asset('uploaded/images') . '/' . $finish->note->content_image }}"
+                                                                        alt="Gambar Notulen" class="mb-3">
+                                                                @endif
+
+                                                                @if ($finish->note->content_file)
+                                                                    <span class="text-dark d-block">File : </span>
+                                                                    <a target="_blank"
+                                                                        href="{{ asset('uploaded/files/') . '/' . $finish->note->content_file }}"
+                                                                        class="btn btn-light"><i
+                                                                            class="bi bi-download"></i> Download
+                                                                        File</a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
 
                                     <td>
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Upload Notulen">
-                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                title="{{ $finish->note ? '' : 'Upload Notulen' }}">
+                                                <button {{ $finish->note ? 'disabled' : '' }} type="button"
+                                                    class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
                                                 </button>
