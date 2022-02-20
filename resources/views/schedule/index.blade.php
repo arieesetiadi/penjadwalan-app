@@ -33,20 +33,6 @@
                         Tambah
                     </a>
                 </div>
-                @if (count($schedules) > 1)
-                    <div>
-                        <button class="btn btn-sm" title="Export Excell" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom">
-                            <i class="bi bi-file-earmark-spreadsheet"></i>
-                            Excell
-                        </button>
-                        <button class="btn btn-sm" title="Export PDF" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom">
-                            <i class="bi bi-file-earmark-pdf"></i>
-                            PDF
-                        </button>
-                    </div>
-                @endif
                 <div class="ms-auto position-relative">
                 </div>
             </div>

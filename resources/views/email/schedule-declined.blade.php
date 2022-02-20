@@ -54,6 +54,9 @@
                 <td>{{ $officer['phone'] }}</td>
             </tr>
         </table>
+        <hr>
+        <p>Alasan Penolakan :</p>
+        <p>{{ $declineMessage }}</p>
     </div>
 </body>
 

@@ -14,21 +14,23 @@ class ScheduleDeclined extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
+     * Create a new declineMessage instance.
      *
      * @return void
      */
     public $schedule;
     public $officer;
+    public $declineMessage;
 
-    public function __construct($scheduleId, $officerId)
+    public function __construct($scheduleId, $officerId, $declineMessage)
     {
         $this->schedule = Schedule::getById($scheduleId)[0];
         $this->officer = User::getById($officerId);
+        $this->declineMessage = $declineMessage;
     }
 
     /**
-     * Build the message.
+     * Build the declineMessage.
      *
      * @return $this
      */
@@ -36,7 +38,8 @@ class ScheduleDeclined extends Mailable
     {
         $data = [
             'schedule' => $this->schedule,
-            'officer' => $this->officer
+            'officer' => $this->officer,
+            'declineMessage' => $this->declineMessage
         ];
 
         $borrower = $this->schedule->borrower;

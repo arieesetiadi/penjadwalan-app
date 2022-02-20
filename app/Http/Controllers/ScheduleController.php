@@ -11,6 +11,8 @@ use App\Models\Note;
 use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
@@ -121,11 +123,11 @@ class ScheduleController extends Controller
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
     }
 
-    public function scheduleDecline($id)
+    public function scheduleDecline(HttpRequest $request)
     {
-        Mail::send(new ScheduleDeclined($id, auth()->user()->id));
+        Mail::send(new ScheduleDeclined($request->id, auth()->user()->id, $request->declineMessage));
 
-        return redirect()->to('/')->with('status', 'Pengajuan jadwal ' . Schedule::setDecline($id) . ' telah ditolak');
+        return redirect()->to('/')->with('status', 'Pengajuan jadwal ' . Schedule::setDecline($request->id) . ' telah ditolak');
     }
 
     public function changeMonth($current, $counter)

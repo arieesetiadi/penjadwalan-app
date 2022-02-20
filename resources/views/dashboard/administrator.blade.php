@@ -237,8 +237,10 @@
                                                     id="modal-schedule-decline-{{ $pending->id }}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
-                                                        <form action="{{ route('schedule.decline', $pending->id) }}"
-                                                            method="GET">
+                                                        <form action="{{ route('schedule.decline') }}" method="POST">
+                                                            @csrf
+                                                            <input name="id" type="hidden"
+                                                                value="{{ $pending->id }}">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">
@@ -246,8 +248,13 @@
                                                                     </h5>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    Tekan OK untuk menolak pengajuan jadwal
-                                                                    <strong>{{ $pending->description }}</strong>.
+                                                                    <p>
+                                                                        Tuliskan pesan untuk peminjam !
+                                                                    </p>
+                                                                    <textarea class="form-control mb-3"
+                                                                        name="declineMessage" id="declineMessage"
+                                                                        rows="6" placeholder="Alasan penolakan jadwal"
+                                                                        required></textarea>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-light border"

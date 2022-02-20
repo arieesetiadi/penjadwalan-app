@@ -37,7 +37,7 @@ Route::middleware('rolecheck:3')->group(
 Route::middleware('rolecheck:1,2')->group(
     function () {
         Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses'])->name('schedule.approve');
-        Route::get('/schedule/decline/{id}', [ScheduleController::class, 'scheduleDecline'])->name('schedule.decline');
+        Route::post('/schedule/decline', [ScheduleController::class, 'scheduleDecline'])->name('schedule.decline');
     }
 );
 
