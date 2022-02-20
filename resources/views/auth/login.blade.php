@@ -36,7 +36,7 @@
                                         <img width="150px" src="{{ asset('images/icons/kominfo-dps-shadow.png') }}"
                                             alt="">
                                     </center>
-                                    <h4 class="card-title text-center mt-4">DINAS KOMINFO KOTA DENPASAR</h4>
+                                    <h4 class="card-title text-center mt-4">DINAS KOMINFO DENPASAR</h4>
                                     <form class="form-body" action="{{ route('login-process') }}" method="POST">
                                         @csrf
                                         @if (session('status'))
@@ -58,9 +58,7 @@
                                                     </div>
                                                     <input name="username" type="text"
                                                         class="form-control ps-5 
-                                                        @error('username')
-                                                            border-danger
-                                                        @enderror"
+                                                        @error('username') border-danger @enderror"
                                                         id="username" placeholder="Username" autofocus>
                                                 </div>
                                                 @error('username')
@@ -79,9 +77,7 @@
                                                     </div>
                                                     <input name="password" type="password"
                                                         class="form-control ps-5
-                                                        @error('password')
-                                                            border-danger
-                                                        @enderror"
+                                                        @error('password') border-danger @enderror"
                                                         id="password" placeholder="Password">
                                                 </div>
                                                 @error('password')

@@ -33,20 +33,6 @@
                         Tambah
                     </a>
                 </div>
-                @if (count($users) > 1)
-                    <div>
-                        <button class="btn btn-sm" title="Export Excell" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom">
-                            <i class="bi bi-file-earmark-spreadsheet"></i>
-                            Excell
-                        </button>
-                        <button class="btn btn-sm" title="Export PDF" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom">
-                            <i class="bi bi-file-earmark-pdf"></i>
-                            PDF
-                        </button>
-                    </div>
-                @endif
                 <div class="ms-auto position-relative">
                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
                             class="bi bi-search"></i></div>
@@ -63,7 +49,7 @@
                                 <th>#</th>
                                 <th></th>
                                 <th>Nama</th>
-                                <th>Username</th>
+                                {{-- <th>Username</th> --}}
                                 <th>Email</th>
                                 <th>Telepon</th>
                                 <th>Jenis Kelamin</th>
@@ -86,7 +72,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{ $user->username }}</td>
+                                    {{-- <td>{{ $user->username }}</td> --}}
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->gender }}</td>
