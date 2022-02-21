@@ -99,7 +99,7 @@ class UserController extends Controller
         $data['roles'] = Role::all();
         $data['divisions'] = Division::all();
         $data['user'] = User::getById(auth()->user()->id);
-        $data['title'] = $data['user']->name;
+        $data['title'] = 'Profile';
 
         return view('user.profile', $data);
     }

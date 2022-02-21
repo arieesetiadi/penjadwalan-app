@@ -5,7 +5,7 @@
 
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">PROFILE</div>
+        <div class="breadcrumb-title pe-3">PENGGUNA</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -230,9 +230,9 @@
                                         <span class="input-group-text">
                                             <i class="bi bi-briefcase"></i>
                                         </span>
-                                        <select name="role" id="role"
+                                        <select disabled name="role" id="role"
                                             class="form-select 
-                                    @error('role') is-invalid @enderror"
+                                        @error('role') is-invalid @enderror"
                                             aria-label="User Roles">
                                             <option selected hidden value="">Pilih jenis pengguna</option>
                                             @foreach ($roles as $role)
