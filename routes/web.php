@@ -23,8 +23,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // ================= Resource Route ==================== 
 
 // Users
+Route::middleware('rolecheck:1,2,3')->group(function () {
+    Route::patch('/profile/edit', [UserController::class, 'profileEdit'])->name('profile.edit');
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+});
+
 Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
-Route::resource('user', UserController::class);
+Route::resource('user', UserController::class)->middleware('rolecheck:1');
 
 // Schedules
 Route::middleware('rolecheck:3')->group(

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Division;
 use App\Models\Role;
@@ -14,7 +15,6 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('rolecheck:1');
     }
 
     public function index()
@@ -92,5 +92,23 @@ class UserController extends Controller
 
         // Redirect ke halaman kelola users
         return view('user.index', $data);
+    }
+
+    public function profile()
+    {
+        $data['roles'] = Role::all();
+        $data['divisions'] = Division::all();
+        $data['user'] = User::getById(auth()->user()->id);
+        $data['title'] = $data['user']->name;
+
+        return view('user.profile', $data);
+    }
+
+    public function profileEdit(UpdateProfileRequest $request)
+    {
+        // Update data user
+        User::updateById($request->all(), auth()->user()->id);
+
+        return back()->with('status', 'Berhasil mengubah profile pengguna.');
     }
 }

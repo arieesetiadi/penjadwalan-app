@@ -36,9 +36,7 @@
                                     </span>
                                     <input name="username" id="username" type="text"
                                         class="form-control 
-                                    @error('username')
-                                        is-invalid
-                                    @enderror"
+                                    @error('username') is-invalid @enderror"
                                         placeholder="Username" aria-label="Username"
                                         value="{{ old('username', $user->username) }}">
                                 </div>
@@ -60,9 +58,7 @@
                                     </span>
                                     <input name="name" id="name" type="text"
                                         class="form-control 
-                                    @error('name')
-                                        is-invalid
-                                    @enderror"
+                                    @error('name') is-invalid @enderror"
                                         placeholder="Nama" aria-label="name" value="{{ old('name', $user->name) }}">
                                 </div>
                                 @error('name')
@@ -83,9 +79,7 @@
                                     </span>
                                     <input name="email" id="email" type="email"
                                         class="form-control
-                                    @error('email')
-                                        is-invalid
-                                    @enderror"
+                                    @error('email') is-invalid @enderror"
                                         placeholder="Email" aria-label="email"
                                         value="{{ old('email', $user->email) }}">
                                 </div>
@@ -107,9 +101,7 @@
                                     </span>
                                     <input name="phone" id="phone" type="number"
                                         class="form-control 
-                                    @error('phone')
-                                        is-invalid
-                                    @enderror"
+                                    @error('phone') is-invalid @enderror"
                                         placeholder="Nomor Telepon" aria-label="phone"
                                         value="{{ old('phone', $user->phone) }}">
                                 </div>
@@ -132,9 +124,7 @@
                                     </span>
                                     <select name="division" id="division"
                                         class="form-select 
-                                    @error('division')
-                                        is-invalid
-                                    @enderror"
+                                    @error('division') is-invalid @enderror"
                                         aria-label="Divisi">
                                         <option selected hidden value="">Pilih divisi</option>
                                         @foreach ($divisions as $division)
@@ -169,9 +159,7 @@
                                     </span>
                                     <input name="password" id="password" type="password"
                                         class="form-control 
-                                    @error('password')
-                                        is-invalid
-                                    @enderror"
+                                    @error('password') is-invalid @enderror"
                                         placeholder="Password" aria-label="password" value="{{ old('password') }}">
                                     <div class="border d-flex align-items-center justify-content-center px-3">
                                         <a id="toggle-password" class="link-dark" href="#">
@@ -197,9 +185,7 @@
                                     </span>
                                     <select name="role" id="role"
                                         class="form-select 
-                                    @error('role')
-                                        is-invalid
-                                    @enderror"
+                                    @error('role') is-invalid @enderror"
                                         aria-label="User Roles">
                                         <option selected hidden value="">Pilih jenis pengguna</option>
                                         @foreach ($roles as $role)
@@ -227,7 +213,6 @@
                             {{-- Gender --}}
                             <div>
                                 <label class="mb-3 d-block" for="password">Jenis Kelamin :</label>
-
                                 @foreach (['Pria', 'Wanita'] as $gender)
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"

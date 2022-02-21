@@ -19,6 +19,7 @@
 <script src="{{ asset('js/user-search.js') }}"></script>
 <script src="{{ asset('js/countdown-timer.js') }}"></script>
 <script src="{{ asset('js/schedule.js') }}"></script>
+<script src="{{ asset('js/profile.js') }}"></script>
 
 </body>
 
