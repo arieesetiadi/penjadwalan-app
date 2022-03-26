@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NoteController;
 
+
 // Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -35,10 +36,14 @@ Route::resource('user', UserController::class)->middleware('rolecheck:1');
 Route::middleware('rolecheck:3')->group(
     function () {
         Route::get('/request', [ScheduleController::class, 'request'])->name('request');
-        Route::post('/request', [ScheduleController::class, 'requestProcess'])->name('request-process');
+        Route::post('/request', [ScheduleController::class, 'requestProcess'])->name('request.process');
+        Route::get('/request/edit/{id}', [ScheduleController::class, 'requestEdit'])->name('request.edit');
+        Route::patch('/request/update/{id}', [ScheduleController::class, 'requestUpdate'])->name('request.update');
+        Route::delete('/schedule/cancel/{id}', [ScheduleController::class, 'scheduleCancel'])->name('schedule.cancel');
     }
 );
 
+// Hanya Admin & Petugas yang bisa approve/decline pengajuan
 Route::middleware('rolecheck:1,2')->group(
     function () {
         Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses'])->name('schedule.approve');

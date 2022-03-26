@@ -14,13 +14,13 @@ class ScheduleRequested extends Mailable
 
     public $request;
     public $borrower;
-    public $officers;
+    public $officer;
 
-    public function __construct($request, $borrowerId)
+    public function __construct($request, $borrowerId, $officer)
     {
         $this->request = $request;
         $this->borrower = User::getById($borrowerId);
-        $this->officers = User::getOfficers();
+        $this->officer = $officer;
     }
 
     public function build()
@@ -31,8 +31,7 @@ class ScheduleRequested extends Mailable
         ];
 
         return $this
-            ->from($this->borrower->only('email', 'name'))
-            ->bcc($this->officers)
+            ->to($this->officer)
             ->subject('Pengajuan Jadwal')
             ->view('email.schedule-requested', $data);
     }

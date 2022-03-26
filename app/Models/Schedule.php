@@ -87,7 +87,7 @@ class Schedule extends Model
             ::where('user_borrower_id', $id)
             ->where('status', 'pending')
             ->orWhere('status', 'decline')
-            ->orderBy('start', 'asc')
+            ->orderBy('id', 'desc')
             ->get();
     }
 
@@ -127,7 +127,7 @@ class Schedule extends Model
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {
-            $data[] = self::getActiveByDate($date);
+            $data[] = self::getByDate($date);
         }
 
         return $data;
@@ -140,7 +140,6 @@ class Schedule extends Model
         $schedule->update([
             'status' => 'active',
             'approved_at' => now()->format('Y-m-d H:i:s'),
-            'user_officer_id' => auth()->user()->id
         ]);
 
         return $schedule->description;
@@ -171,10 +170,9 @@ class Schedule extends Model
     // Fungsi untuk cek ketersediaan jadwal
     public static function check($date, $start, $end)
     {
-        $activeSchedules = self::getActiveByDate($date);
+        $activeSchedules = self::getByDate($date);
         $start = Carbon::make($start)->toTimeString();
         $end = Carbon::make($end)->toTimeString();
-        return [$start, $end];
         $rules = null;
 
         foreach ($activeSchedules as $active) {
@@ -212,7 +210,6 @@ class Schedule extends Model
                 'end' => $data['end'],
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
-                'user_officer_id' => auth()->user()->id,
                 'status' => 'active',
                 'requested_at' => now()->format('Y-m-d H:i:s.u0'),
                 'approved_at' => now()->format('Y-m-d H:i:s.u0'),
@@ -229,9 +226,22 @@ class Schedule extends Model
                 'end' => $data['end'],
                 'description' => $data['description'],
                 'user_borrower_id' => auth()->user()->id,
-                'user_officer_id' => 0,
                 'status' => 'pending',
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
+            ]);
+    }
+
+    public static function updateRequest($data, $id)
+    {
+        self
+            ::where('id', $id)
+            ->update([
+                'date' => Carbon::make($data['date'])->format('Y-m-d'),
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'status' => 'pending',
+                'description' => $data['description'],
+                'updated_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
 
@@ -265,12 +275,6 @@ class Schedule extends Model
     public function borrower()
     {
         return $this->belongsTo(User::class, 'user_borrower_id', 'id');
-    }
-
-    // Relasi dengan User - Petugas
-    public function officer()
-    {
-        return $this->belongsTo(User::class, 'user_officer_id', 'id');
     }
 
     // Relasi dengan Note

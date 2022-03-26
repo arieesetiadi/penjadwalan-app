@@ -64,12 +64,12 @@
     </div>
 
     {{-- Active --}}
-    @if (count($activeSchedules) > 0)
-        <div class="card">
-            <div class="card-header">
-                <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
-            </div>
-            <div class="card-body">
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
+        </div>
+        <div class="card-body">
+            @if (count($activeSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
                         <thead>
@@ -79,10 +79,7 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Status</td>
-                                <td>Diajukan pada</td>
                                 <td>Disetujui pada</td>
-                                <td>Disetujui oleh</td>
                                 <td>Countdown</td>
                                 <td>Aksi</td>
                             </tr>
@@ -96,88 +93,7 @@
                                     <td>{{ timeFormat($active->end) }}</td>
                                     <td>{{ $active->description }}</td>
 
-                                    <td>
-                                        @if ($active->status == 'active')
-                                            <span class="badge bg-primary text-white">Disetujui</span>
-                                        @elseif ($active->status == 'decline')
-                                            <span class="badge bg-danger text-white">Ditolak</span>
-                                        @elseif ($active->status == 'pending')
-                                            <span class="badge bg-warning text-dark">Pending</span>
-                                        @elseif ($active->status == 'finish')
-                                            <span class="badge bg-success text-white">Selesai</span>
-                                        @endif
-                                    </td>
-
-                                    <td>{{ dateFormat($active->requested_at) }}</td>
-
                                     <td>{{ !is_null($active->approved_at) ? dateFormat($active->approved_at) : '-' }}
-                                    </td>
-
-                                    <td>
-                                        @if ($active->user_officer_id)
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $active->officer->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Petugas">
-                                                    <a href="#" class="" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-officer-{{ $active->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-officer-{{ $active->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Petugas
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($active->officer->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->name }}</span>
-
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->division->name }}</span>
-
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->email }}</span>
-
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->phone }}</span>
-
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->gender }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @else
-                                            -
-                                        @endif
                                     </td>
 
                                     <td>
@@ -194,16 +110,16 @@
 
                                     <td>
                                         <div class="table-actions d-flex align-items-center gap-3">
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
-                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
+                                                <a href="#" class="" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $active->id }}">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
+                                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                                </a>
                                             </div>
                                             <div class="modal fade" id="modal-schedule-delete-{{ $active->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form action="{{ route('schedule.destroy', $active->id) }}"
+                                                    <form action="{{ route('schedule.cancel', $active->id) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
@@ -235,17 +151,19 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            @else
+                <h6 class="text-center">-</h6>
+            @endif
         </div>
-    @endif
+    </div>
 
-    {{-- Pending --}}
-    @if (count($pendingSchedules) > 0)
-        <div class="card">
-            <div class="card-header">
-                <h6 class="text-center text-dark mt-2">Jadwal Pending</h6>
-            </div>
-            <div class="card-body">
+    {{-- Pengajuan --}}
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center text-dark mt-2">Daftar Pengajuan</h6>
+        </div>
+        <div class="card-body">
+            @if (count($pendingSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
                         <thead>
@@ -270,26 +188,51 @@
                                     <td>{{ $pending->description }}</td>
 
                                     <td>
+
                                         @if ($pending->status == 'active')
-                                            <span class="badge bg-primary text-white">Disetujui</span>
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Disetujui">
+                                                <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                                            </span>
                                         @elseif ($pending->status == 'decline')
-                                            <span class="badge bg-danger text-white">Ditolak</span>
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Ditolak">
+                                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                            </span>
                                         @elseif ($pending->status == 'pending')
-                                            <span class="badge bg-warning text-dark">Pending</span>
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Pending">
+                                                <i class="bi bi-clock-fill text-warning"></i>
+                                            </span>
                                         @elseif ($pending->status == 'finish')
-                                            <span class="badge bg-success text-white">Selesai</span>
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Selesai">
+                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                            </span>
                                         @endif
                                     </td>
 
                                     <td>{{ dateFormat($pending->requested_at) }}</td>
 
-                                    <td>
+                                    {{-- Aksi --}}
+                                    <td class="d-flex justify-content-right">
+                                        @if ($pending->status == 'decline')
+                                            <a href="{{ route('request.edit', $pending->id) }}"
+                                                class="d-inline-block" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Ajukan Kembali">
+                                                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                                            </a>
+                                        @else
+                                            <i class="bi bi-arrow-up-circle-fill text-white"></i>
+                                        @endif
+
                                         <div class="table-actions d-flex align-items-center gap-3">
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
-                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
+                                                <a href="#" type="button" class="d-inline-block mx-3"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $pending->id }}">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
+                                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                                </a>
                                             </div>
                                             <div class="modal fade" id="modal-schedule-delete-{{ $pending->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -326,17 +269,19 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            @else
+                <h6 class="text-center">-</h6>
+            @endif
         </div>
-    @endif
+    </div>
 
     {{-- Finish --}}
-    @if (count($finishSchedules) > 0)
-        <div class="card">
-            <div class="card-header">
-                <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
-            </div>
-            <div class="card-body">
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
+        </div>
+        <div class="card-body">
+            @if (count($finishSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
                         <thead>
@@ -515,9 +460,11 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            @else
+                <h6 class="text-center">-</h6>
+            @endif
         </div>
-    @endif
+    </div>
 </main>
 <!--End Page Main-->
 

@@ -46,7 +46,7 @@ class User extends Authenticatable
     public static function getOfficers()
     {
         return self
-            ::where('role_id', 2)
+            ::where('role_id', '<=', 2)
             ->get();
     }
 

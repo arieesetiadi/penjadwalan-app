@@ -11,8 +11,7 @@ use App\Models\Note;
 use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
@@ -85,10 +84,6 @@ class ScheduleController extends Controller
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
 
-        if (auth()->user()->role_id == 3) {
-            return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
-        }
-
         return redirect()->route('schedule.index')->with('status', 'Jadwal telah dihapus');
     }
 
@@ -111,7 +106,11 @@ class ScheduleController extends Controller
         Schedule::insertRequest($request->all());
 
         // Kirim notifikasi ke petugas & administrator
-        Mail::send(new ScheduleRequested($request->all(), auth()->user()->id));
+        $officers = User::getOfficers();
+
+        foreach ($officers as $officer) {
+            Mail::send(new ScheduleRequested($request->all(), auth()->user()->id, $officer));
+        }
 
         return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
@@ -123,7 +122,7 @@ class ScheduleController extends Controller
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
     }
 
-    public function scheduleDecline(HttpRequest $request)
+    public function scheduleDecline(Request $request)
     {
         Mail::send(new ScheduleDeclined($request->id, auth()->user()->id, $request->declineMessage));
 
@@ -139,5 +138,42 @@ class ScheduleController extends Controller
 
         // Redirect ke halaman request
         return redirect()->route($route)->with('currentMonth', $current->toDateString());
+    }
+
+    public function requestEdit($id)
+    {
+        $data = getCalendarData();
+        $data['title'] = 'Jadwal';
+        $data['schedule'] = Schedule::getById($id)[0];
+
+        return view('schedule.request-edit', $data);
+    }
+
+    public function requestUpdate($id, Request $request)
+    {
+        // Redirect back, jika jadwal tidak dapat digunakan
+        if (!Schedule::check($request->date, $request->start, $request->end)) {
+            return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
+        }
+
+        // Kirim notifikasi ke petugas & administrator
+        $officers = User::getOfficers();
+
+        foreach ($officers as $officer) {
+            Mail::send(new ScheduleRequested($request->all(), auth()->user()->id, $officer));
+        }
+
+        // Insert data pengajuan
+        Schedule::updateRequest($request->all(), $id);
+
+        return redirect()->route('dashboard')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
+    }
+
+    public function scheduleCancel($id)
+    {
+        Schedule::deleteById($id);
+        Note::deleteByScheduleId($id);
+
+        return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
     }
 }

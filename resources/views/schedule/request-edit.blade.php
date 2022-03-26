@@ -14,7 +14,7 @@
                             <ol class="breadcrumb mb-0 p-0">
                                 <li class="breadcrumb-item"><i class="bx bx-home-alt"></i>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Jadwal</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $title ??= 'Title' }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -36,8 +36,9 @@
                         Form Pengajuan
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('request.process') }}" method="POST">
+                        <form action="{{ route('request.update', $schedule->id) }}" method="POST">
                             @csrf
+                            @method('PATCH')
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -50,8 +51,8 @@
                                                 </span>
                                                 <input name="date" id="date" type="date"
                                                     class="form-control
-                                            @error('date') is-invalid @enderror"
-                                                    aria-label="date" value="{{ old('date') }}">
+                                                @error('date') is-invalid @enderror"
+                                                    aria-label="date" value="{{ old('date', $schedule->date) }}">
                                             </div>
                                             @error('date')
                                                 <span class="text-danger position-absolute d-block">
@@ -74,7 +75,8 @@
                                                         <input name="start" id="start" type="time"
                                                             class="form-control 
                                                     @error('start') is-invalid @enderror"
-                                                            aria-label="start" value="{{ old('start') }}">
+                                                            aria-label="start"
+                                                            value="{{ old('start', $schedule->start) }}">
                                                     </div>
                                                     @error('start')
                                                         <span class="text-danger position-absolute d-block">
@@ -96,7 +98,7 @@
                                                         <input name="end" id="end" type="time"
                                                             class="form-control 
                                                     @error('end') is-invalid @enderror"
-                                                            aria-label="end" value="{{ old('end') }}">
+                                                            aria-label="end" value="{{ old('end', $schedule->end) }}">
                                                     </div>
                                                     @error('end')
                                                         <span class="text-danger position-absolute d-block">
@@ -116,12 +118,11 @@
                                                 <span class="input-group-text">
                                                     <i class="bi bi-chat-square-text"></i>
                                                 </span>
-                                                <textarea rows="3" name="description" id="description"
-                                                    type="description"
+                                                <textarea rows="3" name="description" id="description" type="description"
                                                     class="form-control
                                             @error('description') is-invalid @enderror"
                                                     placeholder="Description"
-                                                    aria-label="description">{{ old('description') }}</textarea>
+                                                    aria-label="description">{{ old('description', $schedule->description) }}</textarea>
                                             </div>
                                             @error('description')
                                                 <span class="text-danger position-absolute d-block">
@@ -135,7 +136,7 @@
                                 </div>
                                 <div class="row ">
                                     <div class="col-12 d-flex justify-content-center">
-                                        <button class="btn btn-primary my-3 mt-3 px-5">Simpan</button>
+                                        <button class="btn btn-primary my-3 mt-3 px-5">Ajukan Kembali</button>
                                     </div>
                                 </div>
                             </div>
@@ -145,6 +146,7 @@
             </section>
         </div>
         <div class="col-8">
+            {{-- Kalender --}}
             @include('components.calendar')
         </div>
     </div>

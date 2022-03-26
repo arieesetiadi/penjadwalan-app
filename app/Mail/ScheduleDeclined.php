@@ -45,7 +45,6 @@ class ScheduleDeclined extends Mailable
         $borrower = $this->schedule->borrower;
 
         return $this
-            ->from($this->officer)
             ->to($borrower)
             ->subject('Pengajuan Jadwal Ditolak')
             ->view('email.schedule-declined', $data);

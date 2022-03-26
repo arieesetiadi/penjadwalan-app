@@ -61,8 +61,7 @@
                                     <span class="input-group-text">
                                         <i class="bi bi-chat-square-text"></i>
                                     </span>
-                                    <textarea rows="6" name="contentText" id="contentText" type="text"
-                                        class="form-control" placeholder="Isi notulen"
+                                    <textarea rows="6" name="contentText" id="contentText" type="text" class="form-control" placeholder="Isi notulen"
                                         aria-label="contentText"></textarea>
                                 </div>
                             </div>
@@ -83,7 +82,7 @@
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
                                     <input name="contentFile" class="form-control" type="file" id="contentFile"
-                                        accept=".pdf">
+                                        accept=".pdf,.doc,.docx,.pptx,.xlsx,.txt">
                                 </div>
                             </div>
                         </div>

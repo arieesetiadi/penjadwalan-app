@@ -82,6 +82,118 @@
             </div>
         </div>
 
+        {{-- Daftar jadwal aktif --}}
+        <div class="card">
+            <div class="card-header">
+                <h6 class="text-center text-dark mt-2">Daftar Jadwal Aktif</h6>
+            </div>
+            <div class="card-body">
+                @if (count($activeSchedules) > 0)
+                    <div id="users-table-wrapper" class="table-responsive" style="max-height: 200px">
+                        <table id="users-table" class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Tanggal Rapat</td>
+                                    <td>Mulai</td>
+                                    <td>Selesai</td>
+                                    <td>Keterangan</td>
+                                    <td>Peminjam</td>
+                                    <td>Disetujui pada</td>
+                                    <td>Countdown</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($activeSchedules as $i => $active)
+                                    <tr>
+                                        <td>{{ $i + 1 }}</td>
+                                        <td>{{ dateFormat($active->date) }}</td>
+                                        <td>{{ timeFormat($active->start) }}</td>
+                                        <td>{{ timeFormat($active->end) }}</td>
+                                        <td>{{ $active->description }}</td>
+
+                                        <td>
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <span>{{ $active->borrower->name }}</span>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Detail Peminjam">
+                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-borrower-{{ $active->id }}">
+                                                        <i class="bi bi-info-square-fill"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="modal fade" id="modal-borrower-{{ $active->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Detail Peminjam
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>
+                                                                    @if ($active->borrower->gender == 'Pria')
+                                                                        <img src="{{ asset('images/avatars/man.png') }}"
+                                                                            alt="" class="rounded-circle" width="100"
+                                                                            height="100" class="my-3 d-block">
+                                                                    @else
+                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                            alt="" class="rounded-circle" width="100"
+                                                                            height="100" class="my-3 d-block">
+                                                                    @endif
+                                                                </center>
+                                                                <span class="text-dark d-block">Nama
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $active->borrower->name }}</span>
+
+                                                                <span class="text-dark d-block">Divisi
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $active->borrower->division->name }}</span>
+
+                                                                <span class="text-dark d-block">Email
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $active->borrower->email }}</span>
+
+                                                                <span class="text-dark d-block">Telepon
+                                                                    :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $active->borrower->phone }}</span>
+
+                                                                <span class="text-dark d-block">Jenis
+                                                                    Kelamin :</span>
+                                                                <span
+                                                                    class="mb-3 d-block">{{ $active->borrower->gender }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>{{ dateFormat($active->approved_at) }}</td>
+
+                                        <td>
+                                            <strong>
+                                                <span class="countdown"
+                                                    data-then="{{ $active->date . ' ' . $active->start }}"></span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <h6 class="text-center">-</h6>
+                @endif
+            </div>
+        </div>
+
         {{-- Daftar pengajuan --}}
         <div class="card">
             <div class="card-header">
@@ -100,7 +212,6 @@
                                     <td>Keterangan</td>
                                     <td>Peminjam</td>
                                     <td>Diajukan pada</td>
-                                    <td>Status</td>
                                     <td>Aksi</td>
                                 </tr>
                             </thead>
@@ -113,12 +224,13 @@
                                         <td>{{ timeFormat($pending->end) }}</td>
                                         <td>{{ $pending->description }}</td>
 
+                                        {{-- Peminjam --}}
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
                                                 <span>{{ $pending->borrower->name }}</span>
                                                 <div data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     title="Detail Peminjam">
-                                                    <a href="#" class="" data-bs-toggle="modal"
+                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
                                                         data-bs-target="#modal-borrower-{{ $pending->id }}">
                                                         <i class="bi bi-info-square-fill"></i>
                                                     </a>
@@ -179,24 +291,14 @@
                                         <td>{{ dateFormat($pending->requested_at) }}</td>
 
                                         <td>
-                                            @if ($pending->status == 'active')
-                                                <span class="badge bg-primary text-white">Disetujui</span>
-                                            @elseif ($pending->status == 'decline')
-                                                <span class="badge bg-danger text-white">Ditolak</span>
-                                            @elseif ($pending->status == 'pending')
-                                                <span class="badge bg-warning text-dark">Pending</span>
-                                            @elseif ($pending->status == 'finish')
-                                                <span class="badge bg-success text-white">Selesai</span>
-                                            @endif
-                                        </td>
-
-                                        <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
                                                 {{-- Setuju --}}
                                                 <div>
                                                     <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-approve-{{ $pending->id }}">
-                                                        <i class="bi bi-check2"></i> Setujui
+                                                        data-bs-target="#modal-schedule-approve-{{ $pending->id }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Setujui">
+                                                        <i class="bi bi-hand-thumbs-up-fill text-dark"></i>
                                                     </a>
                                                 </div>
                                                 <div class="modal fade"
@@ -229,8 +331,10 @@
                                                 {{-- Tolak --}}
                                                 <div>
                                                     <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-decline-{{ $pending->id }}">
-                                                        <i class="bi bi-x-lg"></i> Tolak
+                                                        data-bs-target="#modal-schedule-decline-{{ $pending->id }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Tolak">
+                                                        <i class="bi bi-x-circle-fill text-danger"></i>
                                                     </a>
                                                 </div>
                                                 <div class="modal fade"
@@ -251,9 +355,8 @@
                                                                     <p>
                                                                         Tuliskan pesan untuk peminjam !
                                                                     </p>
-                                                                    <textarea class="form-control mb-3"
-                                                                        name="declineMessage" id="declineMessage"
-                                                                        rows="6" placeholder="Alasan penolakan jadwal"
+                                                                    <textarea class="form-control mb-3" name="declineMessage" id="declineMessage" rows="6"
+                                                                        placeholder="Alasan penolakan jadwal"
                                                                         required></textarea>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -279,183 +382,6 @@
             </div>
         </div>
 
-        {{-- Daftar jadwal aktif --}}
-        <div class="card">
-            <div class="card-header">
-                <h6 class="text-center text-dark mt-2">Daftar Jadwal Aktif</h6>
-            </div>
-            <div class="card-body">
-                @if (count($activeSchedules) > 0)
-                    <div id="users-table-wrapper" class="table-responsive" style="max-height: 200px">
-                        <table id="users-table" class="table align-middle">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tanggal Rapat</td>
-                                    <td>Mulai</td>
-                                    <td>Selesai</td>
-                                    <td>Keterangan</td>
-                                    <td>Peminjam</td>
-                                    <td>Diajukan pada</td>
-                                    <td>Disetujui pada</td>
-                                    <td>Disetujui oleh</td>
-                                    <td>Countdown</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($activeSchedules as $i => $active)
-                                    <tr>
-                                        <td>{{ $i + 1 }}</td>
-                                        <td>{{ dateFormat($active->date) }}</td>
-                                        <td>{{ timeFormat($active->start) }}</td>
-                                        <td>{{ timeFormat($active->end) }}</td>
-                                        <td>{{ $active->description }}</td>
-
-                                        <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $active->borrower->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Peminjam">
-                                                    <a href="#" class="" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-borrower-{{ $active->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-borrower-{{ $active->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Peminjam
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($active->borrower->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->name }}</span>
-
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->division->name }}</span>
-
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->email }}</span>
-
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->phone }}</span>
-
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->gender }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td>{{ dateFormat($active->requested_at) }}</td>
-                                        <td>{{ dateFormat($active->approved_at) }}</td>
-
-                                        <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $active->officer->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Petugas">
-                                                    <a href="#" class="" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-officer-{{ $active->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-officer-{{ $active->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Petugas
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($active->officer->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->name }}</span>
-
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->division->name }}</span>
-
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->email }}</span>
-
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->phone }}</span>
-
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->officer->gender }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <strong>
-                                                <span class="countdown"
-                                                    data-then="{{ $active->date . ' ' . $active->start }}"></span>
-                                            </strong>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @else
-                    <h6 class="text-center">-</h6>
-                @endif
-            </div>
-        </div>
     </div>
 </main>
 <!--End Page Main-->

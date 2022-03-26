@@ -42,7 +42,6 @@ class ScheduleApproved extends Mailable
         $borrower = $this->schedule->borrower;
 
         return $this
-            ->from($this->officer)
             ->to($borrower)
             ->subject('Jadwal Telah Disetujui')
             ->view('email.schedule-approved', $data);
