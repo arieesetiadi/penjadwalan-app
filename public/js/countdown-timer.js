@@ -1,5 +1,6 @@
 $(function () {
     let countdowns = Array.from($("span.countdown"));
+    let diff = 0;
 
     setInterval(() => {
         countdowns.forEach((countdown, i) => {
@@ -25,6 +26,7 @@ $(function () {
 
             if (diff <= 0) {
                 strCountdown = "Sedang berjalan";
+                $("a.on-schedule-finish").removeClass("d-none");
             }
 
             $(countdown).text(strCountdown);

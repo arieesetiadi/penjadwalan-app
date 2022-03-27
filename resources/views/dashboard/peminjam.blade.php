@@ -93,9 +93,11 @@
                                     <td>{{ timeFormat($active->end) }}</td>
                                     <td>{{ $active->description }}</td>
 
+                                    {{-- Disetujui pada --}}
                                     <td>{{ !is_null($active->approved_at) ? dateFormat($active->approved_at) : '-' }}
                                     </td>
 
+                                    {{-- Countdown --}}
                                     <td>
                                         @if (!is_null($active->approved_at))
                                             <strong>
@@ -108,14 +110,27 @@
                                         @endif
                                     </td>
 
+                                    {{-- Aksi --}}
                                     <td>
                                         <div class="table-actions d-flex align-items-center gap-3">
+                                            {{-- Selesaikan rapat --}}
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Selesaikan Rapat">
+                                                <a href="#" class="on-schedule-finish d-none" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-schedule-finish-{{ $active->id }}">
+                                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                                </a>
+                                            </div>
+
+                                            {{-- Batal rapat --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
                                                 <a href="#" class="" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $active->id }}">
                                                     <i class="bi bi-x-circle-fill text-danger"></i>
                                                 </a>
                                             </div>
+
+                                            {{-- Modal Batalkan rapat --}}
                                             <div class="modal fade" id="modal-schedule-delete-{{ $active->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -133,6 +148,35 @@
                                                                 Jadwal rapat
                                                                 <strong>{{ $active->description }}</strong> akan
                                                                 dibatalkan.
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light border"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">OK</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            {{-- Modal Selesaikan rapat --}}
+                                            <div class="modal fade" id="modal-schedule-finish-{{ $active->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form action="{{ route('schedule.finish', $active->id) }}"
+                                                        method="GET">
+                                                        <input name="id" type="hidden" value="{{ $active->id }}">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Selesaikan Rapat
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>
+                                                                    Tekan OK untuk menyelesaikan rapat
+                                                                </p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light border"
@@ -309,74 +353,8 @@
 
                                     <td>{{ dateFormat($finish->requested_at) }}</td>
 
+                                    {{-- Disetujui Pada --}}
                                     <td>{{ !is_null($finish->approved_at) ? dateFormat($finish->approved_at) : '-' }}
-                                    </td>
-
-                                    <td>
-                                        @if ($finish->user_officer_id)
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $finish->officer->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Petugas">
-                                                    <a href="#" class="" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-officer-{{ $finish->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-officer-{{ $finish->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Petugas
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($finish->officer->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->officer->name }}</span>
-
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->officer->division->name }}</span>
-
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->officer->email }}</span>
-
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->officer->phone }}</span>
-
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->officer->gender }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @else
-                                            -
-                                        @endif
                                     </td>
 
                                     <td>

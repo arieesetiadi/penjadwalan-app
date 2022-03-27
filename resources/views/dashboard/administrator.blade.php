@@ -112,6 +112,7 @@
                                         <td>{{ timeFormat($active->end) }}</td>
                                         <td>{{ $active->description }}</td>
 
+                                        {{-- Nama Peminjam --}}
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
                                                 <span>{{ $active->borrower->name }}</span>
@@ -175,8 +176,10 @@
                                             </div>
                                         </td>
 
+                                        {{-- Disetujui pada --}}
                                         <td>{{ dateFormat($active->approved_at) }}</td>
 
+                                        {{-- Countdown --}}
                                         <td>
                                             <strong>
                                                 <span class="countdown"

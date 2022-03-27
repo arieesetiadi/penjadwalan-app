@@ -176,4 +176,9 @@ class ScheduleController extends Controller
 
         return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
     }
+
+    public function scheduleFinish($id)
+    {
+        return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setFinish($id) . ' telah diselesaikan');
+    }
 }

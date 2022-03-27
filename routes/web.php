@@ -40,6 +40,7 @@ Route::middleware('rolecheck:3')->group(
         Route::get('/request/edit/{id}', [ScheduleController::class, 'requestEdit'])->name('request.edit');
         Route::patch('/request/update/{id}', [ScheduleController::class, 'requestUpdate'])->name('request.update');
         Route::delete('/schedule/cancel/{id}', [ScheduleController::class, 'scheduleCancel'])->name('schedule.cancel');
+        Route::get('/schedule/finish/{id}', [ScheduleController::class, 'scheduleFinish'])->name('schedule.finish');
     }
 );
 
