@@ -60,68 +60,72 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $i => $user)
-                                <tr>
-                                    <td>{{ $i + 1 }}</td>
-                                    <td>
-                                        @if ($user->gender == 'Pria')
-                                            <img src="{{ asset('images/avatars/man.png') }}" alt=""
-                                                class="rounded-circle" width="35" height="35">
-                                        @else
-                                            <img src="{{ asset('images/avatars/woman.png') }}" alt=""
-                                                class="rounded-circle" width="35" height="35">
-                                        @endif
-                                    </td>
-                                    <td>{{ $user->name }}</td>
-                                    {{-- <td>{{ $user->username }}</td> --}}
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->gender }}</td>
-                                    <td>
-                                        {{ $user->division->name }}
-                                    </td>
-                                    <td>{{ $user->role->name }}</td>
-                                    <td>
-                                        <div class="table-actions d-flex align-items-center gap-3">
-                                            <a href="{{ route('user.edit', $user->id) }}" class="text-dark"
-                                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
-                                                <i class="bi bi-pen"></i>
-                                            </a>
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
-                                                <button type="button" class="btn" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-user-delete-{{ $user->id }}">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="modal fade" id="modal-user-delete-{{ $user->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <form action="{{ route('user.destroy', $user->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Konfirmasi
-                                                                </h5>
+                                @if ($user->id != auth()->user()->id)
+                                    <tr>
+                                        <td>{{ $i + 1 }}</td>
+                                        <td>
+                                            @if ($user->gender == 'Pria')
+                                                <img src="{{ asset('images/avatars/man.png') }}" alt=""
+                                                    class="rounded-circle" width="35" height="35">
+                                            @else
+                                                <img src="{{ asset('images/avatars/woman.png') }}" alt=""
+                                                    class="rounded-circle" width="35" height="35">
+                                            @endif
+                                        </td>
+                                        <td>{{ $user->name }}</td>
+                                        {{-- <td>{{ $user->username }}</td> --}}
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->gender }}</td>
+                                        <td>
+                                            {{ $user->division->name }}
+                                        </td>
+                                        <td>{{ $user->role->name }}</td>
+                                        <td>
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <a href="{{ route('user.edit', $user->id) }}" class="text-dark"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
+                                                    <i class="bi bi-pen"></i>
+                                                </a>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
+                                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-user-delete-{{ $user->id }}">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal fade" id="modal-user-delete-{{ $user->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form action="{{ route('user.destroy', $user->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Konfirmasi
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Data <strong>{{ $user->name }}</strong> akan
+                                                                    dihapus
+                                                                    dari sistem.
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light border"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">OK</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                Data <strong>{{ $user->name }}</strong> akan dihapus
-                                                                dari sistem.
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light border"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">OK</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     @else

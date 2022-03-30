@@ -271,6 +271,7 @@
                                         @endif
 
                                         <div class="table-actions d-flex align-items-center gap-3">
+                                            {{-- Batalkan pengajuan --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
                                                 <a href="#" type="button" class="d-inline-block mx-3"
                                                     data-bs-toggle="modal"
@@ -278,10 +279,12 @@
                                                     <i class="bi bi-x-circle-fill text-danger"></i>
                                                 </a>
                                             </div>
+
+                                            {{-- Modal batal pengajuan --}}
                                             <div class="modal fade" id="modal-schedule-delete-{{ $pending->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form action="{{ route('schedule.destroy', $pending->id) }}"
+                                                    <form action="{{ route('schedule.cancel', $pending->id) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')

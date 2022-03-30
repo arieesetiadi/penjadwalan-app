@@ -185,7 +185,7 @@
                                                 <span class="countdown"
                                                     data-then="{{ $active->date . ' ' . $active->start }}"></span>
                                             </strong>
-                                        </td>
+                                    </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -384,7 +384,6 @@
                 @endif
             </div>
         </div>
-
     </div>
 </main>
 <!--End Page Main-->
