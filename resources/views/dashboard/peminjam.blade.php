@@ -112,11 +112,37 @@
                                                         </h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                        {{-- 1.  Peminjam
-                                                            2.  Diajukan Pada
-                                                            3.  Disetujui Pada
-                                                            4.  Dibuat Pada
-                                                            5. Diubah Pada --}}
+                                                        <table class="table table-sm table-borderless">
+                                                            {{-- Diajukan Pada --}}
+                                                            @if ($active->requested_at)
+                                                                <tr>
+                                                                    <td>Diajukan pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($active->requested_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Disetujui Pada --}}
+                                                            @if ($active->approved_at)
+                                                                <tr>
+                                                                    <td>Disetujui pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($active->approved_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Dibuat Pada --}}
+                                                            @if ($active->created_at)
+                                                                <tr>
+                                                                    <td>Dibuat pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($active->created_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        </table>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light border"
@@ -281,8 +307,17 @@
                                                         </h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                        {{-- 1.  Peminjam
-                                                            2.  Diajukan Pada --}}
+                                                        <table class="table table-sm table-borderless">
+                                                            {{-- Diajukan Pada --}}
+                                                            @if ($pending->requested_at)
+                                                                <tr>
+                                                                    <td>Diajukan pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($pending->requested_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        </table>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light border"
@@ -341,8 +376,9 @@
                                             </div>
 
                                             {{-- Modal batal pengajuan --}}
-                                            <div class="modal fade" id="modal-schedule-delete-{{ $pending->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade"
+                                                id="modal-schedule-delete-{{ $pending->id }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <form action="{{ route('schedule.cancel', $pending->id) }}"
                                                         method="post">
@@ -432,11 +468,47 @@
                                                         </h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                        {{-- 1.  Peminjam
-                                                            2.  Diajukan Pada
-                                                            3.  Disetujui Pada
-                                                            4.  Dibuat Pada
-                                                            5. Diubah Pada --}}
+                                                        <table class="table table-sm table-borderless">
+                                                            {{-- Diajukan Pada --}}
+                                                            @if ($finish->requested_at)
+                                                                <tr>
+                                                                    <td>Diajukan pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($finish->requested_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Disetujui Pada --}}
+                                                            @if ($finish->approved_at)
+                                                                <tr>
+                                                                    <td>Disetujui pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($finish->approved_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Dibuat Pada --}}
+                                                            @if ($finish->created_at)
+                                                                <tr>
+                                                                    <td>Dibuat pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($finish->created_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Notulen Diunggah Pada --}}
+                                                            @if ($finish->note)
+                                                                <tr>
+                                                                    <td>Notulen diunggah pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($finish->note->created_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        </table>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light border"
@@ -448,7 +520,64 @@
                                     </td>
 
                                     {{-- Notulen --}}
-                                    <td>-</td>
+                                    <td>
+                                        @if ($finish->note)
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Tampilkan Notulen">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-note-show-{{ $finish->id }}">
+                                                        Tampil
+                                                    </a>
+                                                </div>
+
+                                                <div class="modal fade" id="modal-note-show-{{ $finish->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title d-block" id="exampleModalLabel">
+                                                                    Notulen {{ $finish->description }}
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <span>Diunggah pada :
+                                                                    {{ dateTimeFormat($finish->note->created_at) }}</span>
+                                                                <hr>
+
+                                                                {{-- Content Text --}}
+                                                                @if ($finish->note->content_text)
+                                                                    <p class="text-wrap">
+                                                                        {{ $finish->note->content_text }}</p>
+                                                                @endif
+
+                                                                {{-- Content Image --}}
+                                                                @if ($finish->note->content_image)
+                                                                    <hr>
+                                                                    <img width="100%"
+                                                                        src="{{ asset('uploaded/images/' . $finish->note->content_image) }}"
+                                                                        alt="Content Image" class="rounded">
+                                                                @endif
+
+                                                                {{-- Content File --}}
+                                                                @if ($finish->note->content_file)
+                                                                    <hr>
+                                                                    <a target="_blank"
+                                                                        href="{{ asset('uploaded/files/' . $finish->note->content_file) }}">
+                                                                        <i class="bi bi-download"></i> Download
+                                                                        Lampiran
+                                                                    </a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
 
                                     {{-- Aksi --}}
                                     <td>
@@ -457,11 +586,12 @@
                                                 title="{{ $finish->note ? '' : 'Upload Notulen' }}">
                                                 <button {{ $finish->note ? 'disabled' : '' }} type="button"
                                                     class="btn" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-schedule-delete-{{ $finish->id }}">
+                                                    data-bs-target="#modal-note-upload-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
                                                 </button>
                                             </div>
-                                            <div class="modal fade" id="modal-schedule-delete-{{ $finish->id }}"
+
+                                            <div class="modal fade" id="modal-note-upload-{{ $finish->id }}"
                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     @include('components.notulen-form')

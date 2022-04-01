@@ -10,6 +10,14 @@ function dateFormat($date)
     return Carbon::make($date)->isoFormat('dddd, D MMMM Y');
 }
 
+function dateTimeFormat($datetime)
+{
+    $date = Carbon::make($datetime)->isoFormat('dddd, D MMMM Y');
+    $time = Carbon::make($datetime)->format('h:i A');
+
+    return $date . ' - ' . $time;
+}
+
 function timeFormat($time)
 {
     return Carbon::make($time)->format('h:i A');

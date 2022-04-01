@@ -20,6 +20,7 @@ class DashboardController extends Controller
 
         // Cek role dari user yang sedang login
         switch (auth()->user()->role_id) {
+                // Dashboard Admin
             case 1:
                 $data['countUser'] = User::count();
                 $data['countPending'] = count(Schedule::getPending());
@@ -30,6 +31,7 @@ class DashboardController extends Controller
                 // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
 
+                // Dashboard Petugas
             case 2:
                 $data['countPending'] = count(Schedule::getPending());
                 $data['countActive'] = count(Schedule::getActive());
@@ -39,6 +41,7 @@ class DashboardController extends Controller
                 // Redirect ke dashboard Petugas
                 return view('dashboard.petugas', $data);
 
+                // Dashboard Peminjam
             default:
                 $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
                 $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
