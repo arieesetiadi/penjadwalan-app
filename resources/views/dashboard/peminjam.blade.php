@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    {{-- Active --}}
+    {{-- Jadwal Aktif --}}
     <div class="card">
         <div class="card-header">
             <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
@@ -94,7 +94,38 @@
                                     <td>{{ $active->description }}</td>
 
                                     {{-- Detail --}}
-                                    <td><a href="#">Detail</a></td>
+                                    <td>
+                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Tampilkan Detail Jadwal" class="d-inline">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#modal-detail-active-{{ $active->id }}">Detail</a>
+                                        </div>
+
+                                        {{-- Modal Detail Jadwal Aktif --}}
+                                        <div class="modal fade" id="modal-detail-active-{{ $active->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            Detail Jadwal <strong>{{ $active->description }}</strong>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{-- 1.  Peminjam
+                                                            2.  Diajukan Pada
+                                                            3.  Disetujui Pada
+                                                            4.  Dibuat Pada
+                                                            5. Diubah Pada --}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light border"
+                                                            data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
 
                                     {{-- Countdown --}}
                                     <td>
@@ -231,7 +262,36 @@
                                     <td>{{ $pending->description }}</td>
 
                                     {{-- Detail --}}
-                                    <td><a href="#">Detail</a></td>
+                                    <td>
+                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Tampilkan Detail Pengajuan" class="d-inline">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#modal-detail-pending-{{ $pending->id }}">Detail</a>
+                                        </div>
+
+                                        {{-- Modal Detail Jadwal Aktif --}}
+                                        <div class="modal fade" id="modal-detail-pending-{{ $pending->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            Detail Pengajuan
+                                                            <strong>{{ $pending->description }}</strong>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{-- 1.  Peminjam
+                                                            2.  Diajukan Pada --}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light border"
+                                                            data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
 
                                     {{-- Status --}}
                                     <td>
@@ -322,7 +382,7 @@
         </div>
     </div>
 
-    {{-- Finish --}}
+    {{-- Riwayat --}}
     <div class="card">
         <div class="card-header">
             <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
@@ -338,9 +398,7 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Diajukan pada</td>
-                                <td>Disetujui pada</td>
-                                <td>Disetujui oleh</td>
+                                <td>Informasi</td>
                                 <td>Notulen</td>
                                 <td>Aksi</td>
                             </tr>
@@ -354,70 +412,45 @@
                                     <td>{{ timeFormat($finish->end) }}</td>
                                     <td>{{ $finish->description }}</td>
 
-                                    <td>{{ dateFormat($finish->requested_at) }}</td>
-
-                                    {{-- Disetujui Pada --}}
-                                    <td>{{ !is_null($finish->approved_at) ? dateFormat($finish->approved_at) : '-' }}
-                                    </td>
-
+                                    {{-- Detail --}}
                                     <td>
-                                        @if ($finish->note)
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Notulen">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-delete-{{ $finish->id }}">
-                                                        Detail
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade"
-                                                    id="modal-schedule-delete-{{ $finish->id }}" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail notulen
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <span class="text-dark d-block">Judul :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $finish->note->title }}</span>
+                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Tampilkan Detail Riwayat" class="d-inline">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#modal-detail-finish-{{ $finish->id }}">Detail</a>
+                                        </div>
 
-                                                                @if ($finish->note->content_text)
-                                                                    <span class="text-dark d-block">Isi Notulen
-                                                                        :</span>
-                                                                    <p class="mb-3 d-block text-wrap text-justify">
-                                                                        {{ $finish->note->content_text }}</p>
-                                                                @endif
-
-                                                                @if ($finish->note->content_image)
-                                                                    <span class="text-dark d-block">Gambar / Foto
-                                                                        :</span>
-                                                                    <img width="100%"
-                                                                        src="{{ asset('uploaded/images') . '/' . $finish->note->content_image }}"
-                                                                        alt="Gambar Notulen" class="mb-3">
-                                                                @endif
-
-                                                                @if ($finish->note->content_file)
-                                                                    <span class="text-dark d-block">File : </span>
-                                                                    <a target="_blank"
-                                                                        href="{{ asset('uploaded/files/') . '/' . $finish->note->content_file }}"
-                                                                        class="btn btn-light"><i
-                                                                            class="bi bi-download"></i> Download
-                                                                        File</a>
-                                                                @endif
-                                                            </div>
-                                                        </div>
+                                        {{-- Modal Detail Jadwal Aktif --}}
+                                        <div class="modal fade" id="modal-detail-finish-{{ $finish->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            Detail Riwayat
+                                                            <strong>{{ $finish->description }}</strong>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{-- 1.  Peminjam
+                                                            2.  Diajukan Pada
+                                                            3.  Disetujui Pada
+                                                            4.  Dibuat Pada
+                                                            5. Diubah Pada --}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light border"
+                                                            data-bs-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @else
-                                            -
-                                        @endif
+                                        </div>
                                     </td>
 
+                                    {{-- Notulen --}}
+                                    <td>-</td>
+
+                                    {{-- Aksi --}}
                                     <td>
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
