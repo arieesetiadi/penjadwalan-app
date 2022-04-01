@@ -79,7 +79,7 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Disetujui pada</td>
+                                <td>Informasi</td>
                                 <td>Countdown</td>
                                 <td>Aksi</td>
                             </tr>
@@ -93,9 +93,8 @@
                                     <td>{{ timeFormat($active->end) }}</td>
                                     <td>{{ $active->description }}</td>
 
-                                    {{-- Disetujui pada --}}
-                                    <td>{{ !is_null($active->approved_at) ? dateFormat($active->approved_at) : '-' }}
-                                    </td>
+                                    {{-- Detail --}}
+                                    <td><a href="#">Detail</a></td>
 
                                     {{-- Countdown --}}
                                     <td>
@@ -204,7 +203,7 @@
     {{-- Pengajuan --}}
     <div class="card">
         <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Daftar Pengajuan</h6>
+            <h6 class="text-center text-dark mt-2">Pengajuan</h6>
         </div>
         <div class="card-body">
             @if (count($pendingSchedules) > 0)
@@ -217,8 +216,8 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
+                                <td>Informasi</td>
                                 <td>Status</td>
-                                <td>Diajukan pada</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -231,8 +230,11 @@
                                     <td>{{ timeFormat($pending->end) }}</td>
                                     <td>{{ $pending->description }}</td>
 
-                                    <td>
+                                    {{-- Detail --}}
+                                    <td><a href="#">Detail</a></td>
 
+                                    {{-- Status --}}
+                                    <td>
                                         @if ($pending->status == 'active')
                                             <span class="" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" title="Disetujui">
@@ -255,8 +257,6 @@
                                             </span>
                                         @endif
                                     </td>
-
-                                    <td>{{ dateFormat($pending->requested_at) }}</td>
 
                                     {{-- Aksi --}}
                                     <td class="d-flex justify-content-right">

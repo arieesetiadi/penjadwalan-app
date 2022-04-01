@@ -97,6 +97,7 @@ class ScheduleController extends Controller
 
     public function requestProcess(StoreScheduleRequest $request)
     {
+        // dd(Schedule::check($request->date, $request->start, $request->end));
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->date, $request->start, $request->end)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());

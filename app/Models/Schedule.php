@@ -173,7 +173,7 @@ class Schedule extends Model
         $activeSchedules = self::getByDate($date);
         $start = Carbon::make($start)->toTimeString();
         $end = Carbon::make($end)->toTimeString();
-        $rules = null;
+        $rules = true;
 
         foreach ($activeSchedules as $active) {
             if ($start < $active->start) {
@@ -199,6 +199,8 @@ class Schedule extends Model
                 return true;
             }
         }
+
+        return true;
     }
 
     public static function insert($data)
