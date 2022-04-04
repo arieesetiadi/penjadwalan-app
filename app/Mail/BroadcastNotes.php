@@ -38,18 +38,23 @@ class BroadcastNotes extends Mailable
     public function build()
     {
         $data = [
-            'note' => $this->note,
-            'imageName' => $this->imageName,
-            'fileName' => $this->fileName
+            'note' => $this->note
         ];
 
         $mail =  $this
-            ->from(User::getById(auth()->user()->id))
             ->bcc($this->users)
             ->subject('Broadcast Notulen')
-            ->attach(public_path('uploaded\images\\') . '1645107352_screenshot (3).png')
-            ->attach(public_path('uploaded\files\\') . '1645107352_bukti follow af.pdf')
             ->view('email.broadcast-notes', $data);
+
+        // Kirim gambar jika ada
+        if ($this->imageName) {
+            $mail = $mail->attach(public_path('uploaded\images\\') . $this->imageName);
+        }
+
+        // Kirim file jika ada
+        if ($this->fileName) {
+            $mail = $mail->attach(public_path('uploaded\files\\') . $this->fileName);
+        }
 
         return $mail;
     }

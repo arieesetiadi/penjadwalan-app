@@ -40,6 +40,7 @@
                             </a>
                         </li>
                     </ul>
+
                     {{-- Input title --}}
                     <div class="mb-4">
                         <label class="mb-2" for="title">Judul :</label>
@@ -68,17 +69,25 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="primary-pills-profile-{{ $finish->id }}" role="tabpanel">
-                            {{-- Isi Notulen --}}
+                            {{-- Gambar Notulen --}}
                             <div class="">
-                                <label class="mb-2" for="contentImage">Foto / Gambar :</label>
+                                <label class="mb-2" for="image-{{ $finish->id }}">Foto / Gambar :</label>
                                 <div class="input-group">
-                                    <input name="contentImage" class="form-control" type="file" id="contentImage"
-                                        accept="image/*">
+                                    <input name="contentImage" class="form-control" type="file"
+                                        id="image-{{ $finish->id }}" accept="image/*"
+                                        onchange="loadImage({{ $finish->id }})">
+                                </div>
+                                {{-- Preview --}}
+                                <div class="row">
+                                    <div class="col-12 mt-3">
+                                        <img id="image-preview-{{ $finish->id }}" src="" alt=""
+                                            class="w-100 rounded">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="primary-pills-contact-{{ $finish->id }}" role="tabpanel">
-                            {{-- Isi Notulen --}}
+                            {{-- File Notulen --}}
                             <div class="">
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
