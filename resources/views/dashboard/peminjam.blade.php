@@ -68,7 +68,7 @@
         <div class="card-header">
             <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($activeSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
@@ -262,7 +262,7 @@
         <div class="card-header">
             <h6 class="text-center text-dark mt-2">Pengajuan</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($pendingSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">
@@ -423,7 +423,7 @@
         <div class="card-header">
             <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($finishSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
                     <table id="users-table" class="table align-middle">

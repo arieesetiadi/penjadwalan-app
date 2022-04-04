@@ -98,8 +98,7 @@
                                     <td>Mulai</td>
                                     <td>Selesai</td>
                                     <td>Keterangan</td>
-                                    <td>Peminjam</td>
-                                    <td>Disetujui pada</td>
+                                    <td>Informasi</td>
                                     <td>Countdown</td>
                                 </tr>
                             </thead>
@@ -112,72 +111,95 @@
                                         <td>{{ timeFormat($active->end) }}</td>
                                         <td>{{ $active->description }}</td>
 
-                                        {{-- Nama Peminjam --}}
+                                        {{-- Detail --}}
                                         <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $active->borrower->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Peminjam">
-                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-borrower-{{ $active->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-borrower-{{ $active->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Peminjam
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($active->borrower->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->name }}</span>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Tampilkan Detail Jadwal Aktif" class="d-inline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-detail-active-{{ $active->id }}">Detail</a>
+                                            </div>
 
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->division->name }}</span>
+                                            {{-- Modal Detail Pengajuan --}}
+                                            <div class="modal fade" id="modal-detail-active-{{ $active->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Detail Jadwal
+                                                                <strong>{{ $active->description }}</strong>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-sm table-borderless">
+                                                                {{-- Peminjam --}}
+                                                                <tr>
+                                                                    <td>Peminjam</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="col-2 offset-1">
+                                                                                @if ($active->borrower->gender == 'Pria')
+                                                                                    <img src="{{ asset('images/avatars/man.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @else
+                                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                <span
+                                                                                    class="d-block">{{ $active->borrower->name }}
+                                                                                </span>
+                                                                                <span
+                                                                                    class="d-block">{{ $active->borrower->division->name }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
 
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->email }}</span>
+                                                                {{-- Diajukan Pada --}}
+                                                                @if ($active->requested_at)
+                                                                    <tr>
+                                                                        <td>Diajukan pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($active->requested_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
 
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->phone }}</span>
+                                                                {{-- Disetujui Pada --}}
+                                                                @if ($active->approved_at)
+                                                                    <tr>
+                                                                        <td>Disetujui pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($active->approved_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
 
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $active->borrower->gender }}</span>
-                                                            </div>
+                                                                {{-- Dibuat Pada --}}
+                                                                @if ($active->created_at)
+                                                                    <tr>
+                                                                        <td>Dibuat pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($active->created_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light border"
+                                                                data-bs-dismiss="modal">Tutup</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-
-                                        {{-- Disetujui pada --}}
-                                        <td>{{ dateFormat($active->approved_at) }}</td>
 
                                         {{-- Countdown --}}
                                         <td>
@@ -185,7 +207,7 @@
                                                 <span class="countdown"
                                                     data-then="{{ $active->date . ' ' . $active->start }}"></span>
                                             </strong>
-                                    </td>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -213,8 +235,7 @@
                                     <td>Mulai</td>
                                     <td>Selesai</td>
                                     <td>Keterangan</td>
-                                    <td>Peminjam</td>
-                                    <td>Diajukan pada</td>
+                                    <td>Informasi</td>
                                     <td>Aksi</td>
                                 </tr>
                             </thead>
@@ -227,71 +248,95 @@
                                         <td>{{ timeFormat($pending->end) }}</td>
                                         <td>{{ $pending->description }}</td>
 
-                                        {{-- Peminjam --}}
+                                        {{-- Detail --}}
                                         <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $pending->borrower->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Peminjam">
-                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-borrower-{{ $pending->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-borrower-{{ $pending->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Peminjam
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($pending->borrower->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $pending->borrower->name }}</span>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Tampilkan Detail Pengajuan" class="d-inline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-detail-pending-{{ $pending->id }}">Detail</a>
+                                            </div>
 
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $pending->borrower->division->name }}</span>
+                                            {{-- Modal Detail Pengajuan --}}
+                                            <div class="modal fade" id="modal-detail-pending-{{ $pending->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Detail Pengajuan
+                                                                <strong>{{ $pending->description }}</strong>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-sm table-borderless">
+                                                                {{-- Peminjam --}}
+                                                                <tr>
+                                                                    <td>Peminjam</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="col-2 offset-1">
+                                                                                @if ($pending->borrower->gender == 'Pria')
+                                                                                    <img src="{{ asset('images/avatars/man.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @else
+                                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                <span
+                                                                                    class="d-block">{{ $pending->borrower->name }}
+                                                                                </span>
+                                                                                <span
+                                                                                    class="d-block">{{ $pending->borrower->division->name }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
 
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $pending->borrower->email }}</span>
+                                                                {{-- Diajukan Pada --}}
+                                                                @if ($pending->requested_at)
+                                                                    <tr>
+                                                                        <td>Diajukan pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($pending->requested_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
 
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $pending->borrower->phone }}</span>
+                                                                {{-- Disetujui Pada --}}
+                                                                @if ($pending->approved_at)
+                                                                    <tr>
+                                                                        <td>Disetujui pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($pending->approved_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
 
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $pending->borrower->gender }}</span>
-                                                            </div>
+                                                                {{-- Dibuat Pada --}}
+                                                                @if ($pending->created_at)
+                                                                    <tr>
+                                                                        <td>Dibuat pada</td>
+                                                                        <td>:</td>
+                                                                        <td>{{ dateTimeFormat($pending->created_at) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light border"
+                                                                data-bs-dismiss="modal">Tutup</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-
-                                        <td>{{ dateFormat($pending->requested_at) }}</td>
 
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">

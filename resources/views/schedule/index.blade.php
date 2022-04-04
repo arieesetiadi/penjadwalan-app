@@ -46,11 +46,8 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Peminjam</td>
                                 <td>Status</td>
-                                <td>Diajukan pada</td>
-                                <td>Disetujui pada</td>
-                                <td>Disetujui oleh</td>
+                                <td>Informasi</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -63,156 +60,125 @@
                                     <td>{{ timeFormat($schedule->end) }}</td>
                                     <td>{{ $schedule->description }}</td>
 
-                                    {{-- Peminjam --}}
+                                    {{-- Status --}}
                                     <td>
-                                        <div class="table-actions d-flex align-items-center gap-3">
-                                            <span>{{ $schedule->borrower->name }}</span>
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Detail Peminjam">
-                                                <a href="#" class="" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-borrower-{{ $schedule->id }}">
-                                                    <i class="bi bi-info-square-fill"></i>
-                                                </a>
-                                            </div>
-                                            <div class="modal fade" id="modal-borrower-{{ $schedule->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                                Detail Peminjam
-                                                            </h5>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <center>
-                                                                @if ($schedule->borrower->gender == 'Pria')
-                                                                    <img src="{{ asset('images/avatars/man.png') }}"
-                                                                        alt="" class="rounded-circle" width="100"
-                                                                        height="100" class="my-3 d-block">
-                                                                @else
-                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                        alt="" class="rounded-circle" width="100"
-                                                                        height="100" class="my-3 d-block">
-                                                                @endif
-                                                            </center>
-                                                            <span class="text-dark d-block">Nama
-                                                                :</span>
-                                                            <span
-                                                                class="mb-3 d-block">{{ $schedule->borrower->name }}</span>
+                                        @if ($schedule->status == 'active')
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Disetujui">
+                                                <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                                            </span>
+                                        @elseif ($schedule->status == 'decline')
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Ditolak">
+                                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                            </span>
+                                        @elseif ($schedule->status == 'pending')
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Pending">
+                                                <i class="bi bi-clock-fill text-warning"></i>
+                                            </span>
+                                        @elseif ($schedule->status == 'finish')
+                                            <span class="" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Selesai">
+                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                            </span>
+                                        @endif
+                                    </td>
 
-                                                            <span class="text-dark d-block">Divisi
-                                                                :</span>
-                                                            <span
-                                                                class="mb-3 d-block">{{ $schedule->borrower->division->name }}</span>
+                                    {{-- Detail --}}
+                                    <td>
+                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Tampilkan Detail Jadwal" class="d-inline">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#modal-detail-{{ $schedule->id }}">Detail</a>
+                                        </div>
 
-                                                            <span class="text-dark d-block">Email
-                                                                :</span>
-                                                            <span
-                                                                class="mb-3 d-block">{{ $schedule->borrower->email }}</span>
+                                        {{-- Modal Detail Pengajuan --}}
+                                        <div class="modal fade" id="modal-detail-{{ $schedule->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            Detail Jadwal
+                                                            <strong>{{ $schedule->description }}</strong>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-sm table-borderless">
+                                                            {{-- Peminjam --}}
+                                                            @if ($schedule->borrower)
+                                                                <tr>
+                                                                    <td>Peminjam</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="col-2 offset-1">
+                                                                                @if ($schedule->borrower->gender == 'Pria')
+                                                                                    <img src="{{ asset('images/avatars/man.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @else
+                                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                <span
+                                                                                    class="d-block">{{ $schedule->borrower->name }}
+                                                                                </span>
+                                                                                <span
+                                                                                    class="d-block">{{ $schedule->borrower->division->name }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
 
-                                                            <span class="text-dark d-block">Telepon
-                                                                :</span>
-                                                            <span
-                                                                class="mb-3 d-block">{{ $schedule->borrower->phone }}</span>
+                                                            {{-- Diajukan Pada --}}
+                                                            @if ($schedule->requested_at)
+                                                                <tr>
+                                                                    <td>Diajukan pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($schedule->requested_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
 
-                                                            <span class="text-dark d-block">Jenis
-                                                                Kelamin :</span>
-                                                            <span
-                                                                class="mb-3 d-block">{{ $schedule->borrower->gender }}</span>
-                                                        </div>
+                                                            {{-- Disetujui Pada --}}
+                                                            @if ($schedule->approved_at)
+                                                                <tr>
+                                                                    <td>Disetujui pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($schedule->approved_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
+                                                            {{-- Dibuat Pada --}}
+                                                            @if ($schedule->created_at)
+                                                                <tr>
+                                                                    <td>Dibuat pada</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ dateTimeFormat($schedule->created_at) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light border"
+                                                            data-bs-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
 
+                                    {{-- Aksi --}}
                                     <td>
-                                        @if ($schedule->status == 'active')
-                                            <span class="badge bg-primary text-white">Disetujui</span>
-                                        @elseif ($schedule->status == 'decline')
-                                            <span class="badge bg-danger text-white">Ditolak</span>
-                                        @elseif ($schedule->status == 'pending')
-                                            <span class="badge bg-warning text-dark">Pending</span>
-                                        @elseif ($schedule->status == 'finish')
-                                            <span class="badge bg-success text-white">Selesai</span>
-                                        @endif
-                                    </td>
-
-                                    <td>{{ $schedule->requested_at != null ? dateFormat($schedule->requested_at) : '-' }}
-                                    </td>
-                                    <td>{{ $schedule->approved_at != null ? dateFormat($schedule->approved_at) : '-' }}
-                                    </td>
-
-                                    {{-- Petugas --}}
-                                    @if ($schedule->user_officer_id > 0)
-                                        <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <span>{{ $schedule->officer->name }}</span>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="Detail Petugas">
-                                                    <a href="#" class="" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-officer-{{ $schedule->id }}">
-                                                        <i class="bi bi-info-square-fill"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="modal-officer-{{ $schedule->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Detail Petugas
-                                                                </h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <center>
-                                                                    @if ($schedule->officer->gender == 'Pria')
-                                                                        <img src="{{ asset('images/avatars/man.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @else
-                                                                        <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                            alt="" class="rounded-circle" width="100"
-                                                                            height="100" class="my-3 d-block">
-                                                                    @endif
-                                                                </center>
-                                                                <span class="text-dark d-block">Nama
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $schedule->officer->name }}</span>
-
-                                                                <span class="text-dark d-block">Divisi
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $schedule->officer->division->name }}</span>
-
-                                                                <span class="text-dark d-block">Email
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $schedule->officer->email }}</span>
-
-                                                                <span class="text-dark d-block">Telepon
-                                                                    :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $schedule->officer->phone }}</span>
-
-                                                                <span class="text-dark d-block">Jenis
-                                                                    Kelamin :</span>
-                                                                <span
-                                                                    class="mb-3 d-block">{{ $schedule->officer->gender }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    @else
-                                        <td>-</td>
-                                    @endif
-
-                                    <td>
-                                        {{-- Aksi --}}
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             <a href="{{ route('schedule.edit', $schedule->id) }}"
                                                 class="text-dark" data-bs-toggle="tooltip"
