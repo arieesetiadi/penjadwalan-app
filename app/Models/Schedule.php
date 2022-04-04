@@ -127,7 +127,21 @@ class Schedule extends Model
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {
-            $data[] = self::getByDate($date);
+            $schedules = self
+                ::whereDate('date', $date)
+                ->get();
+
+            // Cek ketersediaan data
+            if (count($schedules) > 0) {
+                // Ambil data jika tanggal jadwal >= hari ini
+                if ($schedules[0]->date >= now()->format('Y-m-d')) {
+                    $data[] = $schedules;
+                } else {
+                    $data[] = [];
+                }
+            } else {
+                $data[] = [];
+            }
         }
 
         return $data;

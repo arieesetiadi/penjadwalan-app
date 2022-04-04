@@ -69,6 +69,7 @@
                                                                 <td>Mulai</td>
                                                                 <td>Selesai</td>
                                                                 <td>Keterangan</td>
+                                                                <td>Status</td>
                                                                 <td>Peminjam</td>
                                                             </tr>
 
@@ -82,6 +83,44 @@
                                                                     </td>
                                                                     <td>{{ timeFormat($data->end) }}</td>
                                                                     <td>{{ $data->description }}</td>
+
+                                                                    {{-- Status --}}
+                                                                    <td>
+                                                                        @if ($data->status == 'active')
+                                                                            <span class=""
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Disetujui">
+                                                                                <i
+                                                                                    class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                                                                            </span>
+                                                                        @elseif ($data->status == 'decline')
+                                                                            <span class=""
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Ditolak">
+                                                                                <i
+                                                                                    class="bi bi-x-circle-fill text-danger"></i>
+                                                                            </span>
+                                                                        @elseif ($data->status == 'pending')
+                                                                            <span class=""
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Pending">
+                                                                                <i
+                                                                                    class="bi bi-clock-fill text-warning"></i>
+                                                                            </span>
+                                                                        @elseif ($data->status == 'finish')
+                                                                            <span class=""
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Selesai">
+                                                                                <i
+                                                                                    class="bi bi-check-circle-fill text-success"></i>
+                                                                            </span>
+                                                                        @endif
+                                                                    </td>
+
                                                                     <td>{{ $data->borrower->name }}</td>
                                                                 </tr>
                                                             @endforeach

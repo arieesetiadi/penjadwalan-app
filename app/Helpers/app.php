@@ -47,7 +47,7 @@ function getCalendarData()
     $data['daysName'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
     $data['datesOfMonth'] = makePeriod($current);
     $data['offset'] = getOffset($data['daysName'], $current->firstOfMonth());
-    $data['activeSchedules'] = Schedule::getActive();
+    // $data['activeSchedules'] = Schedule::getActive();
     $data['current'] = $current;
 
     // Ambil seluruh data perhari di bulan ini
@@ -59,15 +59,4 @@ function getCalendarData()
 function str($content)
 {
     return Str::of($content);
-}
-
-function makeTable()
-{
-    return "<table>
-        <tr>
-            <td>
-                <h1>Tabel Baru</h1>
-            </td>
-        </tr>
-    </table>";
 }

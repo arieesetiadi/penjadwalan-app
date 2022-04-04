@@ -116,8 +116,7 @@
                                                 <span class="input-group-text">
                                                     <i class="bi bi-chat-square-text"></i>
                                                 </span>
-                                                <textarea rows="3" name="description" id="description"
-                                                    type="description"
+                                                <textarea rows="3" name="description" id="description" type="description"
                                                     class="form-control
                                             @error('description') is-invalid @enderror"
                                                     placeholder="Description"
