@@ -38,6 +38,9 @@
     <!-- Main Quill library -->
     <script src="//cdn.quilljs.com/1.0.0/quill.js"></script>
 
+    {{-- Custom CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
     <title>{{ $title ??= 'Title' }} | Kominfo Denpasar</title>
 </head>
 

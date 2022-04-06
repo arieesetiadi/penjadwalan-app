@@ -8,7 +8,11 @@
         <div class="row">
             <div class="col">
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <div class="breadcrumb-title pe-3">JADWAL</div>
+                    <a href="{{ route('schedule.index') }}" class="d-inline-block" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="Kembali">
+                        <i class="bi bi-chevron-left text-dark"></i>
+                    </a>
+                    <div class="breadcrumb-title mx-2 pe-3">JADWAL</div>
                     <div class="ps-3">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 p-0">
@@ -50,9 +54,7 @@
                                                 </span>
                                                 <input name="date" id="date" type="date"
                                                     class="form-control
-                                            @error('date')
-                                                is-invalid
-                                            @enderror"
+                                            @error('date') is-invalid @enderror"
                                                     aria-label="date" value="{{ old('date') }}">
                                             </div>
                                             @error('date')
@@ -75,9 +77,7 @@
                                                         </span>
                                                         <input name="start" id="start" type="time"
                                                             class="form-control 
-                                                    @error('start')
-                                                        is-invalid
-                                                    @enderror"
+                                                    @error('start') is-invalid @enderror"
                                                             aria-label="start" value="{{ old('start') }}">
                                                     </div>
                                                     @error('start')
@@ -99,9 +99,7 @@
                                                         </span>
                                                         <input name="end" id="end" type="time"
                                                             class="form-control 
-                                                    @error('end')
-                                                        is-invalid
-                                                    @enderror"
+                                                    @error('end') is-invalid @enderror"
                                                             aria-label="end" value="{{ old('end') }}">
                                                     </div>
                                                     @error('end')
@@ -122,12 +120,9 @@
                                                 <span class="input-group-text">
                                                     <i class="bi bi-chat-square-text"></i>
                                                 </span>
-                                                <textarea rows="3" name="description" id="description"
-                                                    type="description"
+                                                <textarea rows="3" name="description" id="description" type="description"
                                                     class="form-control
-                                            @error('description')
-                                                is-invalid
-                                            @enderror"
+                                            @error('description') is-invalid @enderror"
                                                     placeholder="Description"
                                                     aria-label="description">{{ old('description') }}</textarea>
                                             </div>
@@ -149,9 +144,7 @@
                                                 </span>
                                                 <select name="user" id="user"
                                                     class="form-select 
-                                                    @error('user')
-                                                        is-invalid
-                                                    @enderror"
+                                                    @error('user') is-invalid @enderror"
                                                     aria-label="Divisi" required>
                                                     <option selected hidden value="">Nama peminjam</option>
                                                     @foreach ($users as $user)

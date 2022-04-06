@@ -79,9 +79,9 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Informasi</td>
-                                <td>Countdown</td>
-                                <td>Aksi</td>
+                                <td class="cell-head-center">Informasi</td>
+                                <td class="cell-head-center">Countdown</td>
+                                <td class="cell-head-center">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,11 +95,13 @@
 
                                     {{-- Detail --}}
                                     <td>
-                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Tampilkan Detail Jadwal" class="d-inline">
-                                            <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#modal-detail-active-{{ $active->id }}">Detail</a>
-                                        </div>
+                                        <center>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Tampilkan Detail Jadwal" class="d-inline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-detail-active-{{ $active->id }}">Detail</a>
+                                            </div>
+                                        </center>
 
                                         {{-- Modal Detail Jadwal Aktif --}}
                                         <div class="modal fade" id="modal-detail-active-{{ $active->id }}"
@@ -155,24 +157,26 @@
 
                                     {{-- Countdown --}}
                                     <td>
-                                        @if (!is_null($active->approved_at))
-                                            <strong>
-                                                <span class="countdown"
-                                                    data-then="{{ $active->date . ' ' . $active->start }}"
-                                                    data-schedule-id="{{ $active->id }}"></span>
-                                            </strong>
-                                        @else
-                                            -
-                                        @endif
+                                        <center>
+                                            @if (!is_null($active->approved_at))
+                                                <strong>
+                                                    <span class="countdown"
+                                                        data-then="{{ $active->date . ' ' . $active->start }}"
+                                                        data-schedule-id="{{ $active->id }}"></span>
+                                                </strong>
+                                            @else
+                                                -
+                                            @endif
+                                        </center>
                                     </td>
 
                                     {{-- Aksi --}}
-                                    <td>
+                                    <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             {{-- Selesaikan rapat --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Selesaikan Rapat">
-                                                <a href="#" class="on-schedule-finish d-none" data-bs-toggle="modal"
+                                                title="Selesaikan Rapat" class="on-schedule-finish d-none">
+                                                <a href="#" class="d-inline-block" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-finish-{{ $active->id }}">
                                                     <i class="bi bi-check-circle-fill text-success"></i>
                                                 </a>
@@ -180,7 +184,7 @@
 
                                             {{-- Batal rapat --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
-                                                <a href="#" class="" data-bs-toggle="modal"
+                                                <a href="#" class="d-inline-block" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $active->id }}">
                                                     <i class="bi bi-x-circle-fill text-danger"></i>
                                                 </a>
@@ -273,9 +277,9 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Informasi</td>
-                                <td>Status</td>
-                                <td>Aksi</td>
+                                <td class="cell-head-center">Informasi</td>
+                                <td class="cell-head-center">Status</td>
+                                <td class="cell-head-center">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -288,12 +292,14 @@
                                     <td>{{ $pending->description }}</td>
 
                                     {{-- Detail --}}
-                                    <td>
-                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Tampilkan Detail Pengajuan" class="d-inline">
-                                            <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#modal-detail-pending-{{ $pending->id }}">Detail</a>
-                                        </div>
+                                    <td class="cell-center">
+                                        <center>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Tampilkan Detail Pengajuan" class="d-inline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-detail-pending-{{ $pending->id }}">Detail</a>
+                                            </div>
+                                        </center>
 
                                         {{-- Modal Detail Jadwal Aktif --}}
                                         <div class="modal fade" id="modal-detail-pending-{{ $pending->id }}"
@@ -330,46 +336,44 @@
 
                                     {{-- Status --}}
                                     <td>
-                                        @if ($pending->status == 'active')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Disetujui">
-                                                <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
-                                            </span>
-                                        @elseif ($pending->status == 'decline')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Ditolak">
-                                                <i class="bi bi-x-circle-fill text-danger"></i>
-                                            </span>
-                                        @elseif ($pending->status == 'pending')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Pending">
-                                                <i class="bi bi-clock-fill text-warning"></i>
-                                            </span>
-                                        @elseif ($pending->status == 'finish')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Selesai">
-                                                <i class="bi bi-check-circle-fill text-success"></i>
-                                            </span>
-                                        @endif
+                                        <center>
+                                            @if ($pending->status == 'active')
+                                                <span class="" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Disetujui">
+                                                    <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                                                </span>
+                                            @elseif ($pending->status == 'decline')
+                                                <span class="" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Ditolak">
+                                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                                </span>
+                                            @elseif ($pending->status == 'pending')
+                                                <span class="" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Pending">
+                                                    <i class="bi bi-clock-fill text-warning"></i>
+                                                </span>
+                                            @elseif ($pending->status == 'finish')
+                                                <span class="" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Selesai">
+                                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                                </span>
+                                            @endif
+                                        </center>
                                     </td>
 
                                     {{-- Aksi --}}
-                                    <td class="d-flex justify-content-right">
-                                        @if ($pending->status == 'decline')
-                                            <a href="{{ route('request.edit', $pending->id) }}"
-                                                class="d-inline-block" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Ajukan Kembali">
-                                                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
-                                            </a>
-                                        @else
-                                            <i class="bi bi-arrow-up-circle-fill text-white"></i>
-                                        @endif
-
+                                    <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
+                                            @if ($pending->status == 'decline')
+                                                <a href="{{ route('request.edit', $pending->id) }}"
+                                                    class="d-inline-block" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Ajukan Kembali">
+                                                    <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                                                </a>
+                                            @endif
                                             {{-- Batalkan pengajuan --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
-                                                <a href="#" type="button" class="d-inline-block mx-3"
-                                                    data-bs-toggle="modal"
+                                                <a href="#" type="button" class="d-inline-block" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $pending->id }}">
                                                     <i class="bi bi-x-circle-fill text-danger"></i>
                                                 </a>

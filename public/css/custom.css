@@ -1,0 +1,8 @@
+.cell-head-center{
+    text-align: center;
+}
+
+.cell-center{
+    display: flex;
+    justify-content: center;
+}

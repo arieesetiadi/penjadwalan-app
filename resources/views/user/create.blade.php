@@ -5,7 +5,11 @@
 <main class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
-        <div class="breadcrumb-title pe-3">PENGGUNA</div>
+        <a href="{{ route('user.index') }}" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Kembali">
+            <i class="bi bi-chevron-left text-dark"></i>
+        </a>
+        <div class="breadcrumb-title mx-2 pe-3">PENGGUNA</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
