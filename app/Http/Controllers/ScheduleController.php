@@ -87,6 +87,7 @@ class ScheduleController extends Controller
         return redirect()->route('schedule.index')->with('status', 'Jadwal telah dihapus');
     }
 
+    // Halaman pengajuan
     public function request()
     {
         $data = getCalendarData();
@@ -95,6 +96,7 @@ class ScheduleController extends Controller
         return view('schedule.request', $data);
     }
 
+    // Proses pengajuan
     public function requestProcess(StoreScheduleRequest $request)
     {
         // dd(Schedule::check($request->date, $request->start, $request->end));
@@ -116,6 +118,7 @@ class ScheduleController extends Controller
         return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 
+    // Persetujuan jadwal
     public function scheduleProses($id)
     {
         Mail::send(new ScheduleApproved($id, auth()->user()->id));
@@ -123,6 +126,7 @@ class ScheduleController extends Controller
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
     }
 
+    // Penolakan jadwal
     public function scheduleDecline(Request $request)
     {
         Mail::send(new ScheduleDeclined($request->id, auth()->user()->id, $request->declineMessage));

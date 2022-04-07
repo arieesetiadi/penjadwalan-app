@@ -129,6 +129,10 @@ class Schedule extends Model
         foreach ($dates as $date) {
             $schedules = self
                 ::whereDate('date', $date)
+                ->where([
+                    ['status', '!=', 'decline'],
+                    ['status', '!=', 'finish']
+                ])
                 ->get();
 
             // Cek ketersediaan data
