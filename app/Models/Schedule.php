@@ -36,10 +36,16 @@ class Schedule extends Model
         $date = now()->format('Y-m-d');
         $then = Carbon::make(now()->format('H:i'))->addMinute($diff)->format('H:i:s');
 
+
         return self
             ::whereDate('date', $date)
             ->where('start', $then)
             ->get('id');
+        // ::where([
+        //     ['date', $date],
+        //     ['start', $then],
+        // ])
+        // ->get('id');
     }
 
     public static function getAlmostFinish()
@@ -124,6 +130,15 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getByDateExcept($date, $id)
+    {
+        return self
+            ::whereDate('date', $date)
+            ->where('id', '!=', $id)
+            ->orderBy('start', 'asc')
+            ->get();
+    }
+
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {
@@ -186,9 +201,16 @@ class Schedule extends Model
     }
 
     // Fungsi untuk cek ketersediaan jadwal
-    public static function check($date, $start, $end)
+    public static function check($date, $start, $end, $id = null)
     {
-        $activeSchedules = self::getByDate($date);
+        $activeSchedules = null;
+
+        if (!is_null($id)) {
+            $activeSchedules = self::getByDateExcept($date, $id);
+        } else {
+            $activeSchedules = self::getByDate($date);
+        }
+
         $start = Carbon::make($start)->toTimeString();
         $end = Carbon::make($end)->toTimeString();
         $rules = true;

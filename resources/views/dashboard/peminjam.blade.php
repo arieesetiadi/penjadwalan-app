@@ -175,7 +175,8 @@
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             {{-- Selesaikan rapat --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Selesaikan Rapat" class="on-schedule-finish d-none">
+                                                title="Selesaikan Rapat"
+                                                class="on-schedule-finish-{{ $active->id }} d-none">
                                                 <a href="#" class="d-inline-block" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-finish-{{ $active->id }}">
                                                     <i class="bi bi-check-circle-fill text-success"></i>

@@ -4,7 +4,7 @@ $(function () {
 
     setInterval(() => {
         countdowns.forEach((countdown, i) => {
-            console.log($(countdown).data("schedule-id"));
+            let scheduleId = $(countdown).data("schedule-id");
             i = ++i % 4;
             let now = new Date().getTime();
             let then = new Date($(countdown).data("then")).getTime();
@@ -26,7 +26,7 @@ $(function () {
 
             if (diff <= 0) {
                 strCountdown = "Sedang berjalan";
-                $("a.on-schedule-finish").removeClass("d-none");
+                $(".on-schedule-finish-" + scheduleId).removeClass("d-none");
             }
 
             $(countdown).text(strCountdown);

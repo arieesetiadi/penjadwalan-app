@@ -1,11 +1,13 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\NoteController;
 
 
 // Route halaman dashboard
@@ -58,3 +60,7 @@ Route::resource('schedule', ScheduleController::class)->middleware('rolecheck:1,
 // Notes
 Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
 Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->name('note.broadcast');
+
+// Demo H-10m
+Route::get('/demo', [ScheduleController::class, 'demo']);
+Route::get('/demo2', [ScheduleController::class, 'demo2']);

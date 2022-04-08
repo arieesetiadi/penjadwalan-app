@@ -157,7 +157,7 @@ class ScheduleController extends Controller
     public function requestUpdate($id, Request $request)
     {
         // Redirect back, jika jadwal tidak dapat digunakan
-        if (!Schedule::check($request->date, $request->start, $request->end)) {
+        if (!Schedule::check($request->date, $request->start, $request->end, $id)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 
@@ -185,5 +185,35 @@ class ScheduleController extends Controller
     public function scheduleFinish($id)
     {
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setFinish($id) . ' telah diselesaikan');
+    }
+
+    public function demo()
+    {
+        $newStart = now()->addMinute(11)->format('H:i');
+        $newEnd = now()->addMinute(15)->format('H:i');
+
+        Schedule
+            ::where('status', 'active')
+            ->update([
+                'start' => $newStart,
+                'end' => $newEnd
+            ]);
+
+        return redirect('/');
+    }
+
+    public function demo2()
+    {
+        $newStart = now()->format('H:i');
+        $newEnd = now()->addMinute(5)->format('H:i');
+
+        Schedule
+            ::where('status', 'active')
+            ->update([
+                'start' => $newStart,
+                'end' => $newEnd
+            ]);
+
+        return redirect('/');
     }
 }

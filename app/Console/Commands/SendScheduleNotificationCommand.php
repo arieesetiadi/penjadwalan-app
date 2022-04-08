@@ -42,6 +42,7 @@ class SendScheduleNotificationCommand extends Command
     {
         // 1. Cari jadwal yang akan segera dimulai - Model
         $schedules = Schedule::getAlmostStarted(10);
+        // $schedules = Schedule::all();
 
         if (count($schedules) > 0) {
             foreach ($schedules as $schedule) {
