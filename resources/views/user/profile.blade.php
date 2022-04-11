@@ -224,38 +224,7 @@
                                 </div>
 
                                 {{-- Role --}}
-                                <div class="mb-4">
-                                    <label class="mb-2" for="role">Jenis Pengguna :</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-briefcase"></i>
-                                        </span>
-                                        <select disabled name="role" id="role"
-                                            class="form-select 
-                                        @error('role') is-invalid @enderror"
-                                            aria-label="User Roles">
-                                            <option selected hidden value="">Pilih jenis pengguna</option>
-                                            @foreach ($roles as $role)
-                                                @if (old('role') && old('role') == $role->id)
-                                                    <option selected value="{{ $role->id }}">{{ $role->name }}
-                                                    </option>
-                                                @elseif ($role->id == $user->role_id)
-                                                    <option selected value="{{ $role->id }}">{{ $role->name }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('role')
-                                        <span class="text-danger position-absolute d-block">
-                                            <small>
-                                                {{ $message }}
-                                            </small>
-                                        </span>
-                                    @enderror
-                                </div>
+                                <input type="hidden" name="role" value="{{ $user->role_id }}">
 
                                 {{-- Gender --}}
                                 <div>

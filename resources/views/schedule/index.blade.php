@@ -27,7 +27,7 @@
             <div class="d-flex align-items-center justify-content-end">
                 {{-- schedule buttons --}}
                 <div>
-                    <a href="{{ route('schedule.create') }}" class="btn btn-sm" title="Tambah Pengguna"
+                    <a href="{{ route('schedule.create') }}" class="btn btn-sm" title="Tambah Jadwal"
                         data-bs-toggle="tooltip" data-bs-placement="bottom">
                         <i class="bi bi-plus-lg"></i>
                         Tambah

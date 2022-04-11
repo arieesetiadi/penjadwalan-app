@@ -30,7 +30,6 @@ class UpdateProfileRequest extends FormRequest
             'password' => 'max:255',
             'phone' => 'required|numeric',
             'gender' => 'required',
-            'role' => 'required',
             'division' => 'required'
         ];
     }
@@ -44,7 +43,6 @@ class UpdateProfileRequest extends FormRequest
             'password' => 'Password',
             'phone' => 'Nomor Telepon',
             'gender' => 'Jenis Kelamin',
-            'role' => 'Jenis Pengguna',
             'division' => 'Divisi',
         ];
     }
