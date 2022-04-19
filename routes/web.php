@@ -64,3 +64,4 @@ Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->na
 // Demo H-10m
 Route::get('/demo', [ScheduleController::class, 'demo']);
 Route::get('/demo2', [ScheduleController::class, 'demo2']);
+Route::get('/demo3', [ScheduleController::class, 'demo3']);

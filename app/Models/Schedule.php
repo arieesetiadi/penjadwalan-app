@@ -253,8 +253,6 @@ class Schedule extends Model
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
                 'status' => 'active',
-                'requested_at' => now()->format('Y-m-d H:i:s.u0'),
-                'approved_at' => now()->format('Y-m-d H:i:s.u0'),
                 'created_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
