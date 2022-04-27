@@ -46,7 +46,7 @@
 
 <body>
     <!--start wrapper-->
-    <div class="wrapper toggled">
+    <div class="wrapper">
         <!--start top header-->
         <header class="top-header">
             <nav class="navbar navbar-expand gap-3">

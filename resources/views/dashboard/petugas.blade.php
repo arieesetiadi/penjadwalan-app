@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="">
-                            <p class="mb-1">Jumlah Pengajuan</p>
+                            <p class="mb-1">Jadwal Pending</p>
                             <h4 class="mb-0">{{ $countPending }}</h4>
                         </div>
                         <div class="ms-auto widget-icon bg-warning text-white">
@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="">
-                            <p class="mb-1">Jumlah Jadwal Aktif</p>
+                            <p class="mb-1">Jadwal Aktif</p>
                             <h4 class="mb-0">{{ $countActive }}</h4>
                         </div>
                         <div class="ms-auto widget-icon bg-primary text-white">
@@ -68,7 +68,7 @@
     {{-- Daftar jadwal aktif --}}
     <div class="card">
         <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Daftar Jadwal Aktif</h6>
+            <h6 class="text-center text-dark mt-2">Jadwal Aktif</h6>
         </div>
         <div class="card-body">
             @if (count($activeSchedules) > 0)
@@ -205,7 +205,7 @@
     {{-- Daftar pengajuan --}}
     <div class="card">
         <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Daftar Pengajuan Jadwal</h6>
+            <h6 class="text-center text-dark mt-2">Jadwal Pending</h6>
         </div>
         <div class="card-body">
             @if (count($pendingSchedules) > 0)

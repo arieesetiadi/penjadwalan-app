@@ -265,7 +265,7 @@
     {{-- Pengajuan --}}
     <div class="card">
         <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Pengajuan</h6>
+            <h6 class="text-center text-dark mt-2">Jadwal Pending</h6>
         </div>
         <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($pendingSchedules) > 0)
@@ -365,13 +365,18 @@
                                     {{-- Aksi --}}
                                     <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
-                                            @if ($pending->status == 'decline')
+                                            {{-- @if ($pending->status == 'decline')
                                                 <a href="{{ route('request.edit', $pending->id) }}"
                                                     class="d-inline-block" data-bs-toggle="tooltip"
                                                     data-bs-placement="bottom" title="Ajukan Kembali">
                                                     <i class="bi bi-arrow-up-circle-fill text-dark"></i>
                                                 </a>
-                                            @endif
+                                            @endif --}}
+                                            <a href="{{ route('request.edit', $pending->id) }}"
+                                                class="d-inline-block" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Ajukan Kembali">
+                                                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                                            </a>
                                             {{-- Batalkan pengajuan --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
                                                 <a href="#" type="button" class="d-inline-block" data-bs-toggle="modal"
@@ -426,7 +431,7 @@
     {{-- Riwayat --}}
     <div class="card">
         <div class="card-header">
-            <h6 class="text-center text-dark mt-2">Riwayat Jadwal</h6>
+            <h6 class="text-center text-dark mt-2">Riwayat</h6>
         </div>
         <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($finishSchedules) > 0)
