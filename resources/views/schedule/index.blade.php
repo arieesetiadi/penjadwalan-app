@@ -46,9 +46,9 @@
                                 <td>Mulai</td>
                                 <td>Selesai</td>
                                 <td>Keterangan</td>
-                                <td>Status</td>
-                                <td>Informasi</td>
-                                <td>Aksi</td>
+                                <td class="cell-head-center">Status</td>
+                                <td class="cell-head-center">Informasi</td>
+                                <td class="cell-head-center">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
                                     <td>{{ $schedule->description }}</td>
 
                                     {{-- Status --}}
-                                    <td>
+                                    <td class="cell-head-center">
                                         @if ($schedule->status == 'active')
                                             <span class="" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" title="Disetujui">
@@ -86,7 +86,7 @@
                                     </td>
 
                                     {{-- Detail --}}
-                                    <td>
+                                    <td class="cell-head-center">
                                         <div data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Tampilkan Detail Jadwal" class="d-inline">
                                             <a href="#" data-bs-toggle="modal"
@@ -178,13 +178,20 @@
                                     </td>
 
                                     {{-- Aksi --}}
-                                    <td>
+                                    <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
-                                            <a href="{{ route('schedule.edit', $schedule->id) }}"
+                                            <form action="{{ route('schedule.edit', $schedule->id) }}" method="GET">
+                                                <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Ubah"
+                                                    {{ $schedule->status == 'finish' ? 'disabled' : '' }}>
+                                                    <i class="bi bi-pen"></i>
+                                                </button>
+                                            </form>
+                                            {{-- <a href="{{ route('schedule.edit', $schedule->id) }}"
                                                 class="text-dark" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>
-                                            </a>
+                                            </a> --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $schedule->id }}">

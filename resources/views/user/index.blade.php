@@ -55,7 +55,7 @@
                                 <th>Jenis Kelamin</th>
                                 <th>Divisi</th>
                                 <th>Tipe</th>
-                                <th>Aksi</th>
+                                <th class="cell-head-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,14 +81,17 @@
                                             {{ $user->division->name }}
                                         </td>
                                         <td>{{ $user->role->name }}</td>
-                                        <td>
-                                            <div class="table-actions d-flex align-items-center gap-3">
-                                                <a href="{{ route('user.edit', $user->id) }}" class="text-dark"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah">
+
+                                        {{-- Aksi --}}
+                                        <td class="d-flex justify-content-center">
+                                            <div class="table-actions d-flex align-items-center">
+                                                <a href="{{ route('user.edit', $user->id) }}"
+                                                    class="btn btn-sm text-dark" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Ubah">
                                                     <i class="bi bi-pen"></i>
                                                 </a>
                                                 <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
-                                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#modal-user-delete-{{ $user->id }}">
                                                         <i class="bi bi-trash-fill"></i>
                                                     </button>
