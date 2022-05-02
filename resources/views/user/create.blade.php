@@ -103,7 +103,7 @@
                                     <span class="input-group-text">
                                         <i class="bi bi-phone"></i>
                                     </span>
-                                    <input name="phone" id="phone" type="number"
+                                    <input name="phone" id="phone" type="text"
                                         class="form-control 
                                     @error('phone') is-invalid @enderror"
                                         placeholder="Nomor Telepon" aria-label="phone" value="{{ old('phone') }}">

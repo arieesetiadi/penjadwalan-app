@@ -86,12 +86,14 @@
                                     </td>
 
                                     {{-- Detail --}}
-                                    <td class="cell-head-center">
-                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Tampilkan Detail Jadwal" class="d-inline">
-                                            <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#modal-detail-{{ $schedule->id }}">Detail</a>
-                                        </div>
+                                    <td>
+                                        <center>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Tampilkan Detail Jadwal" class="d-inline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-detail-{{ $schedule->id }}">Detail</a>
+                                            </div>
+                                        </center>
 
                                         {{-- Modal Detail Pengajuan --}}
                                         <div class="modal fade" id="modal-detail-{{ $schedule->id }}"

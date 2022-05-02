@@ -595,7 +595,7 @@
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 title="{{ $finish->note ? '' : 'Upload Notulen' }}">
                                                 <button {{ $finish->note ? 'disabled' : '' }} type="button"
-                                                    class="btn" data-bs-toggle="modal"
+                                                    class="btn btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#modal-note-upload-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
                                                 </button>
