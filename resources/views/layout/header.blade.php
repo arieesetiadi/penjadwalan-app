@@ -132,12 +132,13 @@
         <!--start sidebar -->
         <aside class="semi-dark sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
-                <div>
+                <a href="/">
                     <img src="{{ asset('images/icons/kominfo-dps.png') }}" class="logo-icon" alt="logo icon">
-                </div>
-                <div>
+                </a>
+                <a href="/">
                     <h5 class="logo-text">KOMINFO</h5>
-                </div>
+                </a>
+
                 <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
                 </div>
             </div>
