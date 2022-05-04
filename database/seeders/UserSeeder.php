@@ -16,10 +16,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            ['admin', 'Administrator', 'ariesetiadi.sm@gmail.com', 'admin', '082146335727', 'Pria', 1, 4],
-            ['petugas', 'Petugas', 'tuarimb29@gmail.com', 'petugas', '089671800585', 'Wanita', 2, 5],
-            ['peminjam', 'Peminjam', 'tuarimb11@gmail.com', 'peminjam', '089671800585', 'Pria', 3, 6],
+            ['admin', 'Putu Arie Suastra', 'ariesetiadi.sm@gmail.com', 'admin', '082146335727', 'Pria', 1, 4],
+            ['petugas', 'Made Suastra', 'ariesetiadi.wr@gmail.com', 'petugas', '089671800585', 'Wanita', 2, 5],
+            ['peminjam', 'Nyoman Setiadi', 'ariesetiadi.bn@gmail.com', 'peminjam', '089671800585', 'Pria', 3, 6],
         ];
+
+        User::truncate();
 
         foreach ($users as $user) {
             User::create([

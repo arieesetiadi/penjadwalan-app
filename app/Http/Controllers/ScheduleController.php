@@ -12,6 +12,7 @@ use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
@@ -188,6 +189,15 @@ class ScheduleController extends Controller
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setFinish($id) . ' telah diselesaikan');
     }
 
+    public function reset()
+    {
+        Schedule::truncate();
+        Note::truncate();
+        Artisan::call('db:seed --class=UserSeeder');
+
+        return redirect('/');
+    }
+
     // H - 10m
     public function demo()
     {
@@ -197,6 +207,7 @@ class ScheduleController extends Controller
         Schedule
             ::where('status', 'active')
             ->update([
+                'date' => now()->format('Y-m-d'),
                 'start' => $newStart,
                 'end' => $newEnd
             ]);

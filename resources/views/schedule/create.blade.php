@@ -78,7 +78,7 @@
                                                         <input name="start" id="start" type="time"
                                                             class="form-control 
                                                     @error('start') is-invalid @enderror"
-                                                            aria-label="start" value="{{ old('start') }}">
+                                                            aria-label="start" value="{{ old('start', '00:00') }}">
                                                     </div>
                                                     @error('start')
                                                         <span class="text-danger position-absolute d-block">
@@ -100,7 +100,7 @@
                                                         <input name="end" id="end" type="time"
                                                             class="form-control 
                                                     @error('end') is-invalid @enderror"
-                                                            aria-label="end" value="{{ old('end') }}">
+                                                            aria-label="end" value="{{ old('end', '00:00') }}">
                                                     </div>
                                                     @error('end')
                                                         <span class="text-danger position-absolute d-block">

@@ -36,7 +36,7 @@
                         <div class="col-7 mb-3">
                             {{-- Tombol date --}}
                             <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                class="btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d') ? 'btn-primary' : 'btn-outline-secondary' }} w-100 position-relative">
+                                class="date-button btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d')? 'date-button-active btn-primary': 'btn-outline-secondary' }} w-100 position-relative">
                                 <span class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                 <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"
                                     data-bs-toggle="modal" data-bs-target="#modal-data-in-date-{{ $i }}">

@@ -61,7 +61,8 @@ Route::resource('schedule', ScheduleController::class)->middleware('rolecheck:1,
 Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
 Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->name('note.broadcast');
 
-// Demo H-10m
+// Demo
+Route::get('/reset', [ScheduleController::class, 'reset']);
 Route::get('/demo', [ScheduleController::class, 'demo']);
 Route::get('/demo2', [ScheduleController::class, 'demo2']);
 Route::get('/demo3', [ScheduleController::class, 'demo3']);
