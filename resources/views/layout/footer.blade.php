@@ -19,7 +19,7 @@
 <script src="{{ asset('js/user-search.js') }}"></script>
 <script src="{{ asset('js/countdown-timer.js') }}"></script>
 <script src="{{ asset('js/schedule.js') }}"></script>
-<script src="{{ asset('js/profile.js') }}"></script>
+<script src="{{ asset('js/toggler.js') }}"></script>
 <script src="{{ asset('js/note-image-preview.js') }}"></script>
 
 </body>

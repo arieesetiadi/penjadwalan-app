@@ -165,6 +165,7 @@
             <ul class="metismenu" id="menu">
                 {{-- <li class="mm-active"></li> --}}
 
+                {{-- Dashboard --}}
                 <li>
                     <a href="/" class="" aria-expanded="true">
                         <div class="parent-icon"><i class="bi bi-house-fill"></i>
@@ -172,9 +173,10 @@
                         <div class="menu-title">Dashboard</div>
                     </a>
                 </li>
+                <hr>
+                {{-- <li class="menu-label">Pengelolaan</li> --}}
 
-                <li class="menu-label">Penjadwalan</li>
-
+                {{-- Pengajuan --}}
                 {{-- Hanya diakses oleh Peminjam --}}
                 @if (auth()->user()->role_id == 3)
                     <li>
@@ -186,6 +188,7 @@
                     </li>
                 @endif
 
+                {{-- Kelola Jadwal --}}
                 {{-- Bisa diakses oleh Admin dan Petugas --}}
                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                     <li>
@@ -197,14 +200,22 @@
                     </li>
                 @endif
 
+                {{-- Kelola Pengguna & Kelola Ruangan --}}
                 {{-- Hanya diakses oleh Administrator --}}
                 @if (auth()->user()->role_id == 1)
-                    <li class="menu-label">Pengguna</li>
                     <li>
                         <a href="{{ route('user.index') }}">
                             <div class="parent-icon"><i class="bi bi-people-fill"></i>
                             </div>
                             <div class="menu-title">Kelola Pengguna</div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('room.index') }}">
+                            <div class="parent-icon"><i class="bi bi-door-closed"></i>
+                            </div>
+                            <div class="menu-title">Kelola Ruangan</div>
                         </a>
                     </li>
                 @endif

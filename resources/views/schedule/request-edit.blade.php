@@ -132,6 +132,43 @@
                                                 </span>
                                             @enderror
                                         </div>
+
+                                        {{-- Ruangan --}}
+                                        <div class="mb-4">
+                                            <label class="mb-2" for="room">Pilih Ruangan :</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                                <select name="room" id="room"
+                                                    class="form-select 
+                                                    @error('room') is-invalid @enderror">
+                                                    <option selected hidden value="">Pilih ruangan</option>
+                                                    @foreach ($rooms as $room)
+                                                        @if (old('room') && old('room') == $room->id)
+                                                            <option selected value="{{ $room->id }}">
+                                                                {{ $room->name }}
+                                                            </option>
+                                                        @elseif ($room->id == $schedule->room_id)
+                                                            <option selected value="{{ $room->id }}">
+                                                                {{ $room->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $room->id }}">
+                                                                {{ $room->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @error('room')
+                                                <span class="text-danger position-absolute d-block">
+                                                    <small>
+                                                        {{ $message }}
+                                                    </small>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row ">

@@ -20,7 +20,7 @@ class CreateSchedulesTable extends Migration
             $table->time('end');
             $table->string('description');
             $table->foreignId('user_borrower_id');
-            $table->foreignId('user_officer_id')->nullable();
+            $table->foreignId('room_id');
             $table->string('status');
             $table->dateTime('requested_at');
             $table->dateTime('approved_at')->nullable();

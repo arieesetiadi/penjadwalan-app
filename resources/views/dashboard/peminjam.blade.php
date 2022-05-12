@@ -75,6 +75,7 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -88,6 +89,7 @@
                             @foreach ($activeSchedules as $i => $active)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $active->room->name }}</td>
                                     <td>{{ dateFormat($active->date) }}</td>
                                     <td>{{ timeFormat($active->start) }}</td>
                                     <td>{{ timeFormat($active->end) }}</td>
@@ -274,6 +276,7 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -287,6 +290,7 @@
                             @foreach ($pendingSchedules as $i => $pending)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $pending->room->name }}</td>
                                     <td>{{ dateFormat($pending->date) }}</td>
                                     <td>{{ timeFormat($pending->start) }}</td>
                                     <td>{{ timeFormat($pending->end) }}</td>
@@ -440,6 +444,7 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -453,6 +458,7 @@
                             @foreach ($finishSchedules as $i => $finish)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $finish->room->name }}</td>
                                     <td>{{ dateFormat($finish->date) }}</td>
                                     <td>{{ timeFormat($finish->start) }}</td>
                                     <td>{{ timeFormat($finish->end) }}</td>

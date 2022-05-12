@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Notification\Email;
-use App\Http\Requests\StoreScheduleRequest;
+use Carbon\Carbon;
+use App\Models\Note;
+use App\Models\Room;
+use App\Models\User;
+use App\Models\Schedule;
+use Illuminate\Http\Request;
 use App\Mail\ScheduleApproved;
 use App\Mail\ScheduleDeclined;
 use App\Mail\ScheduleRequested;
-use App\Models\Note;
-use App\Models\Schedule;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use App\Helpers\Notification\Email;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Requests\StoreScheduleRequest;
 
 class ScheduleController extends Controller
 {
@@ -42,7 +43,7 @@ class ScheduleController extends Controller
     public function store(StoreScheduleRequest $request)
     {
         // Redirect back, jika jadwal tidak dapat digunakan
-        if (!Schedule::check($request->date, $request->start, $request->end)) {
+        if (!Schedule::check($request->room, $request->date, $request->start, $request->end)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 
@@ -71,7 +72,7 @@ class ScheduleController extends Controller
     {
         // dd($request->all());
         // Redirect back, jika jadwal tidak dapat digunakan
-        if (!Schedule::check($request->date, $request->start, $request->end, $id)) {
+        if (!Schedule::check($request->room, $request->date, $request->start, $request->end, $id)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 
@@ -94,6 +95,7 @@ class ScheduleController extends Controller
     {
         $data = getCalendarData();
         $data['title'] = 'Pengajuan Jadwal';
+        $data['rooms'] = Room::all();
 
         return view('schedule.request', $data);
     }
@@ -101,9 +103,9 @@ class ScheduleController extends Controller
     // Proses pengajuan
     public function requestProcess(StoreScheduleRequest $request)
     {
-        // dd(Schedule::check($request->date, $request->start, $request->end));
+        // dd(Schedule::check($request->room, $request->date, $request->start, $request->end));
         // Redirect back, jika jadwal tidak dapat digunakan
-        if (!Schedule::check($request->date, $request->start, $request->end)) {
+        if (!Schedule::check($request->room, $request->date, $request->start, $request->end)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 
@@ -123,6 +125,13 @@ class ScheduleController extends Controller
     // Persetujuan jadwal
     public function scheduleProses($id)
     {
+        $schedule = Schedule::getById($id)[0];
+
+        // Redirect back, jika jadwal tidak dapat digunakan
+        if (!Schedule::check($schedule->room_id, $schedule->date, $schedule->start, $schedule->end)) {
+            return back()->with('warning', 'Jadwal telah digunakan.');
+        }
+
         Mail::send(new ScheduleApproved($id, auth()->user()->id));
 
         return redirect()->to('/')->with('status', 'Jadwal ' . Schedule::setActive($id) . ' telah disetujui');
@@ -152,6 +161,7 @@ class ScheduleController extends Controller
         $data = getCalendarData();
         $data['title'] = 'Jadwal';
         $data['schedule'] = Schedule::getById($id)[0];
+        $data['rooms'] = Room::all();
 
         return view('schedule.request-edit', $data);
     }
@@ -159,7 +169,7 @@ class ScheduleController extends Controller
     public function requestUpdate($id, Request $request)
     {
         // Redirect back, jika jadwal tidak dapat digunakan
-        if (!Schedule::check($request->date, $request->start, $request->end, $id)) {
+        if (!Schedule::check($request->room, $request->date, $request->start, $request->end, $id)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 

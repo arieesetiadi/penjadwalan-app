@@ -130,15 +130,6 @@ class Schedule extends Model
             ->get();
     }
 
-    public static function getByDateExcept($date, $id)
-    {
-        return self
-            ::whereDate('date', $date)
-            ->where('id', '!=', $id)
-            ->orderBy('start', 'asc')
-            ->get();
-    }
-
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {
@@ -201,14 +192,27 @@ class Schedule extends Model
     }
 
     // Fungsi untuk cek ketersediaan jadwal
-    public static function check($date, $start, $end, $id = null)
+    public static function check($room_id, $date, $start, $end, $id = null)
     {
         $activeSchedules = null;
 
         if (!is_null($id)) {
-            $activeSchedules = self::getByDateExcept($date, $id);
+            // Ambil jadwal kecuali id yang diterima
+            $activeSchedules = self
+                ::whereDate('date', $date)
+                ->where('room_id', $room_id)
+                ->where('status', 'active')
+                ->where('id', '!=', $id)
+                ->orderBy('start', 'asc')
+                ->get();
         } else {
-            $activeSchedules = self::getByDate($date);
+            $activeSchedules =
+                self
+                ::whereDate('date', $date)
+                ->where('status', 'active')
+                ->where('room_id', $room_id)
+                ->orderBy('start', 'asc')
+                ->get();
         }
 
         $start = Carbon::make($start)->toTimeString();
@@ -266,6 +270,7 @@ class Schedule extends Model
                 'end' => $data['end'],
                 'description' => $data['description'],
                 'user_borrower_id' => auth()->user()->id,
+                'room_id' => $data['room'],
                 'status' => 'pending',
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
@@ -321,5 +326,11 @@ class Schedule extends Model
     public function note()
     {
         return $this->hasOne(Note::class, 'schedule_id', 'id');
+    }
+
+    // Relasi dengan Room
+    public function room()
+    {
+        return $this->hasOne(Room::class, 'id', 'room_id');
     }
 }

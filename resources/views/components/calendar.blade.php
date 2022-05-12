@@ -36,7 +36,7 @@
                         <div class="col-7 mb-3">
                             {{-- Tombol date --}}
                             <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                class="date-button btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d')? 'date-button-active btn-primary': 'btn-outline-secondary' }} w-100 position-relative">
+                                class="date-button btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d') ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative">
                                 <span class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                 <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"
                                     data-bs-toggle="modal" data-bs-target="#modal-data-in-date-{{ $i }}">
@@ -65,18 +65,21 @@
                                                         <table id="schedule-table" class="table align-middle">
                                                             <tr>
                                                                 <td>#</td>
-                                                                <td>Tanggal Rapat</td>
+                                                                <td>Ruangan</td>
+                                                                <td>Peminjam</td>
+                                                                <td>Tanggal</td>
                                                                 <td>Mulai</td>
                                                                 <td>Selesai</td>
                                                                 <td>Keterangan</td>
                                                                 <td>Status</td>
-                                                                <td>Peminjam</td>
                                                             </tr>
 
                                                             {{-- Content --}}
                                                             @foreach ($dataInMonth[$i] as $i => $data)
                                                                 <tr>
                                                                     <td>{{ $i + 1 }}</td>
+                                                                    <td>{{ $data->room->name }}</td>
+                                                                    <td>{{ $data->borrower->name }}</td>
                                                                     <td>{{ dateFormat($data->date) }}
                                                                     </td>
                                                                     <td>{{ timeFormat($data->start) }}
@@ -120,8 +123,6 @@
                                                                             </span>
                                                                         @endif
                                                                     </td>
-
-                                                                    <td>{{ $data->borrower->name }}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </table>

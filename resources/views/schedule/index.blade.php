@@ -42,6 +42,8 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
+                                <td>Nama Peminjam</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -55,6 +57,8 @@
                             @foreach ($schedules as $i => $schedule)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $schedule->room->name }}</td>
+                                    <td>{{ $schedule->borrower->name }}</td>
                                     <td>{{ dateFormat($schedule->date) }}</td>
                                     <td>{{ timeFormat($schedule->start) }}</td>
                                     <td>{{ timeFormat($schedule->end) }}</td>
@@ -95,7 +99,7 @@
                                             </div>
                                         </center>
 
-                                        {{-- Modal Detail Pengajuan --}}
+                                        {{-- Modal Detail Jadwal --}}
                                         <div class="modal fade" id="modal-detail-{{ $schedule->id }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
@@ -110,7 +114,7 @@
                                                         <table class="table table-sm table-borderless">
                                                             {{-- Peminjam --}}
                                                             @if ($schedule->borrower)
-                                                                <tr>
+                                                                {{-- <tr>
                                                                     <td>Peminjam</td>
                                                                     <td>:</td>
                                                                     <td>
@@ -136,7 +140,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                </tr>
+                                                                </tr> --}}
                                                             @endif
 
                                                             {{-- Diajukan Pada --}}
@@ -194,10 +198,12 @@
                                                 data-bs-placement="bottom" title="Ubah">
                                                 <i class="bi bi-pen"></i>
                                             </a> --}}
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
+                                            <div>
                                                 <button type="button" class="btn" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-schedule-delete-{{ $schedule->id }}">
-                                                    <i class="bi bi-trash-fill"></i>
+                                                    data-bs-target="#modal-schedule-delete-{{ $schedule->id }}"
+                                                    {{ $schedule->status == 'finish' ? 'disabled' : '' }}>
+                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus"
+                                                        class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>
                                             <div class="modal fade"

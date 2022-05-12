@@ -27,7 +27,8 @@ class StoreScheduleRequest extends FormRequest
             'date' => 'required',
             'start' => 'required',
             'end' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'room' => 'required'
         ];
     }
 
@@ -37,7 +38,8 @@ class StoreScheduleRequest extends FormRequest
             'date' => 'Tanggal',
             'start' => 'Waktu Mulai',
             'end' => 'Waktu Selesai',
-            'description' => 'Keterangan'
+            'description' => 'Keterangan',
+            'room' => 'Ruangan'
         ];
     }
 

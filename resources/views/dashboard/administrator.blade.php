@@ -94,6 +94,8 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
+                                    <td>Ruangan</td>
+                                    <td>Peminjam</td>
                                     <td>Tanggal Rapat</td>
                                     <td>Mulai</td>
                                     <td>Selesai</td>
@@ -106,6 +108,8 @@
                                 @foreach ($activeSchedules as $i => $active)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
+                                        <td>{{ $active->room->name }}</td>
+                                        <td>{{ $active->borrower->name }}</td>
                                         <td>{{ dateFormat($active->date) }}</td>
                                         <td>{{ timeFormat($active->start) }}</td>
                                         <td>{{ timeFormat($active->end) }}</td>
@@ -133,7 +137,7 @@
                                                         <div class="modal-body">
                                                             <table class="table table-sm table-borderless">
                                                                 {{-- Peminjam --}}
-                                                                <tr>
+                                                                {{-- <tr>
                                                                     <td>Peminjam</td>
                                                                     <td>:</td>
                                                                     <td>
@@ -159,7 +163,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                </tr>
+                                                                </tr> --}}
 
                                                                 {{-- Diajukan Pada --}}
                                                                 @if ($active->requested_at)
@@ -231,6 +235,8 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
+                                    <td>Ruangan</td>
+                                    <td>Peminjam</td>
                                     <td>Tanggal Rapat</td>
                                     <td>Mulai</td>
                                     <td>Selesai</td>
@@ -243,6 +249,8 @@
                                 @foreach ($pendingSchedules as $i => $pending)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
+                                        <td>{{ $pending->room->name }}</td>
+                                        <td>{{ $pending->borrower->name }}</td>
                                         <td>{{ dateFormat($pending->date) }}</td>
                                         <td>{{ timeFormat($pending->start) }}</td>
                                         <td>{{ timeFormat($pending->end) }}</td>
@@ -270,7 +278,7 @@
                                                         <div class="modal-body">
                                                             <table class="table table-sm table-borderless">
                                                                 {{-- Peminjam --}}
-                                                                <tr>
+                                                                {{-- <tr>
                                                                     <td>Peminjam</td>
                                                                     <td>:</td>
                                                                     <td>
@@ -296,7 +304,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                </tr>
+                                                                </tr> --}}
 
                                                                 {{-- Diajukan Pada --}}
                                                                 @if ($pending->requested_at)

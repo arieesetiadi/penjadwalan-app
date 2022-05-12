@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\RoomController;
 
 // Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -29,6 +29,14 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('rolecheck:1,2,3')->group(function () {
     Route::patch('/profile/edit', [UserController::class, 'profileEdit'])->name('profile.edit');
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+});
+
+// Rooms
+Route::middleware('rolecheck:1')->group(function () {
+    Route::get('/room', [RoomController::class, 'index'])->name('room.index');
+    Route::post('/room/store', [RoomController::class, 'store'])->name('room.store');
+    Route::put('/room/update', [RoomController::class, 'update'])->name('room.update');
+    Route::delete('/room/destroy/{id}', [RoomController::class, 'destroy'])->name('room.destroy');
 });
 
 Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
