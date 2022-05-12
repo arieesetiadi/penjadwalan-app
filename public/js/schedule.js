@@ -1,8 +1,8 @@
 $(function () {
     // Ubah warna tombol ketika diklik
     $(".date-button").on("click", function () {
-        $(".date-button").removeClass("btn-secondary");
-        $(this).addClass("btn-secondary");
+        $(".date-button").removeClass("btn-secondary text-white");
+        $(this).addClass("btn-secondary text-white");
         $(".date-button-active");
     });
 });

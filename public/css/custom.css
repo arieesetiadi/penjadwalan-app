@@ -6,3 +6,11 @@
     display: flex;
     justify-content: center;
 }
+
+.text-silver{
+    color: rgb(174, 174, 174);
+}
+
+.text-brown{
+    color: rgb(181, 132, 77);
+}

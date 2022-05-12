@@ -20,6 +20,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     {{-- ajax header --}}
     <meta id="csrf-token" content="{{ csrf_token() }}">
 
@@ -54,11 +59,11 @@
                     <i class="bi bi-list"></i>
                 </div>
                 {{-- <form class="searchbar">
-            <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i class="bi bi-search"></i></div>
-            <input class="form-control" type="text" placeholder="Type here to search">
-            <div class="position-absolute top-50 translate-middle-y search-close-icon"><i class="bi bi-x-lg"></i>
-            </div>
-        </form> --}}
+                    <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i class="bi bi-search"></i></div>
+                    <input class="form-control" type="text" placeholder="Type here to search">
+                    <div class="position-absolute top-50 translate-middle-y search-close-icon"><i class="bi bi-x-lg"></i>
+                    </div>
+                </form> --}}
                 <div class="top-navbar-right ms-auto">
                     <ul class="navbar-nav align-items-center">
                         <li class="nav-item search-toggle-icon">
@@ -72,6 +77,19 @@
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="user-setting d-flex align-items-center">
+                                    <div class="d-inline-block mx-3">
+                                        <span class="d-block font-weight-lighter">{{ auth()->user()->name }}</span>
+                                        <small class="d-block text-secondary" style="margin-top: -5px">
+                                            @if (auth()->user()->role_id == 1)
+                                                <i class="fa-solid fa-crown text-warning"></i>
+                                            @elseif (auth()->user()->role_id == 2)
+                                                <i class="fa-solid fa-crown text-silver"></i>
+                                            @elseif (auth()->user()->role_id == 3)
+                                                <i class="fa-solid fa-crown text-brown"></i>
+                                            @endif
+                                            {{ auth()->user()->role->name }}
+                                        </small>
+                                    </div>
                                     @if (auth()->user()->gender == 'Pria')
                                         <img src="{{ asset('images/avatars/man.png') }}" alt=""
                                             class="rounded-circle" width="35" height="35">
@@ -82,8 +100,8 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <div class="d-flex align-items-center">
+                                {{-- <li>
+                                <div class="d-flex align-items-center">
                                         @if (auth()->user()->gender == 'Pria')
                                             <img src="{{ asset('images/avatars/man.png') }}" alt=""
                                                 class="rounded-circle" width="54" height="54">
@@ -97,10 +115,11 @@
                                                 class="mb-0 dropdown-user-designation text-secondary">{{ auth()->user()->role->name }}</small>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
+                                </li> --}}
+
+                                {{-- <li>
                                     <hr class="dropdown-divider">
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.profile') }}">
                                         <div class="d-flex align-items-center">
