@@ -36,7 +36,7 @@
                         <div class="col-7 mb-3">
                             {{-- Tombol date --}}
                             <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                class="date-button btn shadow-sm {{ $dateOfMonth->format('Y-m-d') == now()->format('Y-m-d') ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative">
+                                class="date-button btn shadow-sm {{ isToday($dateOfMonth) ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative {{ isPass($dateOfMonth) ? 'disabled' : '' }}">
                                 <span class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                 <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"
                                     data-bs-toggle="modal" data-bs-target="#modal-data-in-date-{{ $i }}">
@@ -89,39 +89,7 @@
 
                                                                     {{-- Status --}}
                                                                     <td>
-                                                                        @if ($data->status == 'active')
-                                                                            <span class=""
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Disetujui">
-                                                                                <i
-                                                                                    class="bi bi-hand-thumbs-up-fill text-primary"></i>
-                                                                            </span>
-                                                                        @elseif ($data->status == 'decline')
-                                                                            <span class=""
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Ditolak">
-                                                                                <i
-                                                                                    class="bi bi-x-circle-fill text-danger"></i>
-                                                                            </span>
-                                                                        @elseif ($data->status == 'pending')
-                                                                            <span class=""
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Pending">
-                                                                                <i
-                                                                                    class="bi bi-clock-fill text-warning"></i>
-                                                                            </span>
-                                                                        @elseif ($data->status == 'finish')
-                                                                            <span class=""
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Selesai">
-                                                                                <i
-                                                                                    class="bi bi-check-circle-fill text-success"></i>
-                                                                            </span>
-                                                                        @endif
+                                                                        {!! makeStatus($data->status) !!}
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

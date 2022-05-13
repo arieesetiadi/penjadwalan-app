@@ -66,27 +66,7 @@
 
                                     {{-- Status --}}
                                     <td class="cell-head-center">
-                                        @if ($schedule->status == 'active')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Disetujui">
-                                                <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
-                                            </span>
-                                        @elseif ($schedule->status == 'decline')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Ditolak">
-                                                <i class="bi bi-x-circle-fill text-danger"></i>
-                                            </span>
-                                        @elseif ($schedule->status == 'pending')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Pending">
-                                                <i class="bi bi-clock-fill text-warning"></i>
-                                            </span>
-                                        @elseif ($schedule->status == 'finish')
-                                            <span class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title="Selesai">
-                                                <i class="bi bi-check-circle-fill text-success"></i>
-                                            </span>
-                                        @endif
+                                        {!! makeStatus($schedule->status) !!}
                                     </td>
 
                                     {{-- Detail --}}

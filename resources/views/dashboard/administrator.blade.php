@@ -163,7 +163,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                </tr> --}}
+                                                            </tr> --}}
 
                                                                 {{-- Diajukan Pada --}}
                                                                 @if ($active->requested_at)

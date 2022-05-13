@@ -41,6 +41,32 @@ function makePeriod($date)
     return CarbonPeriod::create($firstDate, $lastDate);
 }
 
+function makeStatus($status)
+{
+    switch ($status) {
+        case 1:
+            return '<span class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pending">
+                        <i class="bi bi-clock-fill text-warning"></i>
+                    </span>';
+            break;
+        case 2:
+            return '<span class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Disetujui">
+                        <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                    </span>';
+            break;
+        case 3:
+            return '<span class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ditolak">
+                        <i class="bi bi-x-circle-fill text-danger"></i>
+                    </span>';
+            break;
+        case 4:
+            return '<span class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Selesai">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                    </span>';
+            break;
+    }
+}
+
 function getCalendarData()
 {
     $current = session('currentMonth') ? Carbon::make(session('currentMonth')) : now();
@@ -59,4 +85,14 @@ function getCalendarData()
 function str($content)
 {
     return Str::of($content);
+}
+
+function isToday($date)
+{
+    return $date->format('Y-m-d') == now()->format('Y-m-d');
+}
+
+function isPass($date)
+{
+    return $date->format('Y-m-d') < now()->format('Y-m-d');
 }

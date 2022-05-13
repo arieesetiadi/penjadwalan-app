@@ -35,6 +35,7 @@ class ScheduleController extends Controller
     {
         $data = getCalendarData();
         $data['title'] = 'Tambah Jadwal';
+        $data['rooms'] = Room::all();
         $data['users'] = User::getBorrower();
 
         return view('schedule.create', $data);
@@ -63,6 +64,7 @@ class ScheduleController extends Controller
         $data = getCalendarData();
         $data['title'] = 'Ubah Jadwal';
         $data['users'] = User::getBorrower();
+        $data['rooms'] = Room::all();
         $data['schedule'] = Schedule::getById($id)[0];
 
         return view('schedule.edit', $data);
@@ -215,7 +217,7 @@ class ScheduleController extends Controller
         $newEnd = now()->addMinute(15)->format('H:i');
 
         Schedule
-            ::where('status', 'active')
+            ::where('status', 2)
             ->update([
                 'date' => now()->format('Y-m-d'),
                 'start' => $newStart,
@@ -232,7 +234,7 @@ class ScheduleController extends Controller
         $newEnd = now()->addMinute(5)->format('H:i');
 
         Schedule
-            ::where('status', 'active')
+            ::where('status', 2)
             ->update([
                 'start' => $newStart,
                 'end' => $newEnd
@@ -245,9 +247,9 @@ class ScheduleController extends Controller
     public function demo3()
     {
         Schedule
-            ::where('status', 'active')
+            ::where('status', 2)
             ->update([
-                'status' => 'finish'
+                'status' => 4
             ]);
 
         return redirect('/');

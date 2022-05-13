@@ -44,14 +44,15 @@
                                         {{-- Date --}}
                                         <div class="mb-4">
                                             <label class="mb-2" for="date">Tanggal :</label>
-                                            <div class="input-group">
+                                            <div class="input-group mb-1">
                                                 <span class="input-group-text">
                                                     <i class="bi bi-calendar"></i>
                                                 </span>
                                                 <input name="date" id="date" type="date"
                                                     class="form-control
                                             @error('date') is-invalid @enderror"
-                                                    aria-label="date" value="{{ old('date') }}">
+                                                    aria-label="date" value="{{ old('date') }}"
+                                                    onchange="validateDate()">
                                             </div>
                                             @error('date')
                                                 <span class="text-danger position-absolute d-block">
@@ -60,12 +61,17 @@
                                                     </small>
                                                 </span>
                                             @enderror
+                                            <span id="msg-date-invalid" class="text-danger d-none mt-1">
+                                                <small>
+                                                    Tanggal yang dipilih tidak valid.
+                                                </small>
+                                            </span>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row mb-4">
                                             <div class="col-6">
                                                 {{-- Start --}}
-                                                <div class="mb-4">
+                                                <div>
                                                     <label class="mb-2" for="start">Waktu Mulai :</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text">
@@ -74,7 +80,8 @@
                                                         <input name="start" id="start" type="time"
                                                             class="form-control 
                                                     @error('start') is-invalid @enderror"
-                                                            aria-label="start" value="{{ old('start', '00:00') }}">
+                                                            aria-label="start" value="{{ old('start') }}"
+                                                            onchange="validateHour()">
                                                     </div>
                                                     @error('start')
                                                         <span class="text-danger position-absolute d-block">
@@ -87,7 +94,7 @@
                                             </div>
                                             <div class="col-6">
                                                 {{-- End --}}
-                                                <div class="mb-4">
+                                                <div>
                                                     <label class="mb-2" for="end">Waktu Selesai :</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text">
@@ -96,7 +103,8 @@
                                                         <input name="end" id="end" type="time"
                                                             class="form-control 
                                                     @error('end') is-invalid @enderror"
-                                                            aria-label="end" value="{{ old('end', '00:00') }}">
+                                                            aria-label="end" value="{{ old('end') }}"
+                                                            onchange="validateHour()">
                                                     </div>
                                                     @error('end')
                                                         <span class="text-danger position-absolute d-block">
@@ -107,6 +115,11 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <span id="msg-time-invalid" class="text-danger d-none mt-1">
+                                                <small>
+                                                    Waktu yang dipilih tidak valid.
+                                                </small>
+                                            </span>
                                         </div>
 
                                         {{-- Description --}}
@@ -167,7 +180,8 @@
                                 </div>
                                 <div class="row ">
                                     <div class="col-12 d-flex justify-content-center">
-                                        <button class="btn btn-primary my-3 mt-3 px-5">Simpan</button>
+                                        <button id="btn-request-submit"
+                                            class="btn btn-primary my-3 mt-3 px-5">Simpan</button>
                                     </div>
                                 </div>
                             </div>

@@ -77,6 +77,8 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
+                                <td>Peminjam</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -89,6 +91,8 @@
                             @foreach ($activeSchedules as $i => $active)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $active->room->name }}</td>
+                                    <td>{{ $active->borrower->name }}</td>
                                     <td>{{ dateFormat($active->date) }}</td>
                                     <td>{{ timeFormat($active->start) }}</td>
                                     <td>{{ timeFormat($active->end) }}</td>
@@ -116,33 +120,33 @@
                                                     <div class="modal-body">
                                                         <table class="table table-sm table-borderless">
                                                             {{-- Peminjam --}}
-                                                            <tr>
-                                                                <td>Peminjam</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    <div class="row">
-                                                                        <div class="col-2 offset-1">
-                                                                            @if ($active->borrower->gender == 'Pria')
-                                                                                <img src="{{ asset('images/avatars/man.png') }}"
-                                                                                    alt="" width="50%">
-                                                                                </p>
-                                                                            @else
-                                                                                <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                                    alt="" width="50%">
-                                                                                </p>
-                                                                            @endif
+                                                            {{-- <tr>
+                                                                    <td>Peminjam</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="col-2 offset-1">
+                                                                                @if ($active->borrower->gender == 'Pria')
+                                                                                    <img src="{{ asset('images/avatars/man.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @else
+                                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                <span
+                                                                                    class="d-block">{{ $active->borrower->name }}
+                                                                                </span>
+                                                                                <span
+                                                                                    class="d-block">{{ $active->borrower->division->name }}
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-9">
-                                                                            <span
-                                                                                class="d-block">{{ $active->borrower->name }}
-                                                                            </span>
-                                                                            <span
-                                                                                class="d-block">{{ $active->borrower->division->name }}
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                                    </td>
+                                                            </tr> --}}
 
                                                             {{-- Diajukan Pada --}}
                                                             @if ($active->requested_at)
@@ -214,6 +218,8 @@
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Ruangan</td>
+                                <td>Peminjam</td>
                                 <td>Tanggal Rapat</td>
                                 <td>Mulai</td>
                                 <td>Selesai</td>
@@ -226,6 +232,8 @@
                             @foreach ($pendingSchedules as $i => $pending)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $pending->room->name }}</td>
+                                    <td>{{ $pending->borrower->name }}</td>
                                     <td>{{ dateFormat($pending->date) }}</td>
                                     <td>{{ timeFormat($pending->start) }}</td>
                                     <td>{{ timeFormat($pending->end) }}</td>
@@ -253,33 +261,33 @@
                                                     <div class="modal-body">
                                                         <table class="table table-sm table-borderless">
                                                             {{-- Peminjam --}}
-                                                            <tr>
-                                                                <td>Peminjam</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    <div class="row">
-                                                                        <div class="col-2 offset-1">
-                                                                            @if ($pending->borrower->gender == 'Pria')
-                                                                                <img src="{{ asset('images/avatars/man.png') }}"
-                                                                                    alt="" width="50%">
-                                                                                </p>
-                                                                            @else
-                                                                                <img src="{{ asset('images/avatars/woman.png') }}"
-                                                                                    alt="" width="50%">
-                                                                                </p>
-                                                                            @endif
+                                                            {{-- <tr>
+                                                                    <td>Peminjam</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="col-2 offset-1">
+                                                                                @if ($pending->borrower->gender == 'Pria')
+                                                                                    <img src="{{ asset('images/avatars/man.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @else
+                                                                                    <img src="{{ asset('images/avatars/woman.png') }}"
+                                                                                        alt="" width="50%">
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                <span
+                                                                                    class="d-block">{{ $pending->borrower->name }}
+                                                                                </span>
+                                                                                <span
+                                                                                    class="d-block">{{ $pending->borrower->division->name }}
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-9">
-                                                                            <span
-                                                                                class="d-block">{{ $pending->borrower->name }}
-                                                                            </span>
-                                                                            <span
-                                                                                class="d-block">{{ $pending->borrower->division->name }}
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                                    </td>
+                                                                </tr> --}}
 
                                                             {{-- Diajukan Pada --}}
                                                             @if ($pending->requested_at)

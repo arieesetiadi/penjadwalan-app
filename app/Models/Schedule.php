@@ -12,6 +12,11 @@ class Schedule extends Model
 
     protected $guarded = [];
 
+    const STATUS_PENDING = 1;
+    const STATUS_ACTIVE  = 2;
+    const STATUS_DECLINE = 3;
+    const STATUS_FINISH = 4;
+
     public $timestamps = false;
 
     //  =================================================================
@@ -27,7 +32,7 @@ class Schedule extends Model
     {
         return self
             ::whereDate('date', '>=', now()->format('Y-m-d'))
-            ->where('status', 'pending')
+            ->where('status', self::STATUS_PENDING)
             ->get();
     }
 
@@ -63,7 +68,7 @@ class Schedule extends Model
     {
         return self
             ::whereDate('date', '>=', now()->format('Y-m-d'))
-            ->where('status', 'active')
+            ->where('status', self::STATUS_ACTIVE)
             ->get();
     }
 
@@ -73,7 +78,7 @@ class Schedule extends Model
 
         return self
             ::whereDate('date', $date)
-            ->where('status', 'active')
+            ->where('status', self::STATUS_ACTIVE)
             ->orderBy('start', 'asc')
             ->get();
     }
@@ -82,7 +87,7 @@ class Schedule extends Model
     {
         return self
             ::where('user_borrower_id', $id)
-            ->where('status', 'active')
+            ->where('status', self::STATUS_ACTIVE)
             ->orderBy('start', 'asc')
             ->get();
     }
@@ -91,8 +96,8 @@ class Schedule extends Model
     {
         return self
             ::where('user_borrower_id', $id)
-            ->where('status', 'pending')
-            ->orWhere('status', 'decline')
+            ->where('status', self::STATUS_PENDING)
+            ->orWhere('status', self::STATUS_DECLINE)
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -101,7 +106,7 @@ class Schedule extends Model
     {
         return self
             ::where('user_borrower_id', $id)
-            ->where('status', 'finish')
+            ->where('status', self::STATUS_FINISH)
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -136,8 +141,8 @@ class Schedule extends Model
             $schedules = self
                 ::whereDate('date', $date)
                 ->where([
-                    ['status', '!=', 'decline'],
-                    ['status', '!=', 'finish']
+                    ['status', '!=', self::STATUS_DECLINE],
+                    ['status', '!=', self::STATUS_FINISH]
                 ])
                 ->get();
 
@@ -162,7 +167,7 @@ class Schedule extends Model
         $schedule = self::find($id);
 
         $schedule->update([
-            'status' => 'active',
+            'status' => self::STATUS_ACTIVE,
             'approved_at' => now()->format('Y-m-d H:i:s'),
         ]);
 
@@ -174,7 +179,7 @@ class Schedule extends Model
         $schedule = self::find($id);
 
         $schedule->update([
-            'status' => 'decline'
+            'status' => self::STATUS_DECLINE
         ]);
 
         return $schedule->description;
@@ -185,7 +190,7 @@ class Schedule extends Model
         $schedule = self::find($id);
 
         $schedule->update([
-            'status' => 'finish'
+            'status' => self::STATUS_FINISH
         ]);
 
         return $schedule->description;
@@ -201,7 +206,7 @@ class Schedule extends Model
             $activeSchedules = self
                 ::whereDate('date', $date)
                 ->where('room_id', $room_id)
-                ->where('status', 'active')
+                ->where('status', self::STATUS_ACTIVE)
                 ->where('id', '!=', $id)
                 ->orderBy('start', 'asc')
                 ->get();
@@ -209,7 +214,7 @@ class Schedule extends Model
             $activeSchedules =
                 self
                 ::whereDate('date', $date)
-                ->where('status', 'active')
+                ->where('status', self::STATUS_ACTIVE)
                 ->where('room_id', $room_id)
                 ->orderBy('start', 'asc')
                 ->get();
@@ -256,7 +261,7 @@ class Schedule extends Model
                 'end' => $data['end'],
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
-                'status' => 'active',
+                'status' => self::STATUS_ACTIVE,
                 'created_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
@@ -271,7 +276,7 @@ class Schedule extends Model
                 'description' => $data['description'],
                 'user_borrower_id' => auth()->user()->id,
                 'room_id' => $data['room'],
-                'status' => 'pending',
+                'status' => self::STATUS_PENDING,
                 'requested_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }
@@ -284,7 +289,7 @@ class Schedule extends Model
                 'date' => Carbon::make($data['date'])->format('Y-m-d'),
                 'start' => $data['start'],
                 'end' => $data['end'],
-                'status' => 'pending',
+                'status' => self::STATUS_PENDING,
                 'description' => $data['description'],
                 'updated_at' => now()->format('Y-m-d H:i:s.u0')
             ]);

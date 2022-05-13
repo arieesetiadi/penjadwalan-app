@@ -342,27 +342,7 @@
                                     {{-- Status --}}
                                     <td>
                                         <center>
-                                            @if ($pending->status == 'active')
-                                                <span class="" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Disetujui">
-                                                    <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
-                                                </span>
-                                            @elseif ($pending->status == 'decline')
-                                                <span class="" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Ditolak">
-                                                    <i class="bi bi-x-circle-fill text-danger"></i>
-                                                </span>
-                                            @elseif ($pending->status == 'pending')
-                                                <span class="" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Pending">
-                                                    <i class="bi bi-clock-fill text-warning"></i>
-                                                </span>
-                                            @elseif ($pending->status == 'finish')
-                                                <span class="" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Selesai">
-                                                    <i class="bi bi-check-circle-fill text-success"></i>
-                                                </span>
-                                            @endif
+                                            {!! makeStatus($pending->status) !!}
                                         </center>
                                     </td>
 
