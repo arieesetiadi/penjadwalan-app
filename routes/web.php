@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
@@ -18,6 +16,7 @@ Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->nam
 
 // Route validasi login
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login-process');
+Route::get('/activate/request/{id}', [AuthController::class, 'activateRequest'])->name('activate.request');
 
 // Route logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

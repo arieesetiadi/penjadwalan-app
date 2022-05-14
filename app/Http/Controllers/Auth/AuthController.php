@@ -30,6 +30,12 @@ class AuthController extends Controller
             return back()->with('status', 'Username/password yang dimasukan belum valid.');
         }
 
+        if (!auth()->user()->status) {
+            $userId = auth()->user()->id;
+            auth()->logout();
+            return back()->with('inactive', $userId);
+        }
+
         // redirect ke halaman dashboard
         return redirect()->to('/')->with('status', 'Selamat datang, ' . auth()->user()->name);
     }
@@ -42,5 +48,13 @@ class AuthController extends Controller
 
         // kembali ke halaman login
         return redirect()->route('login');
+    }
+
+    public function activateRequest($id)
+    {
+        // Kirim email ke admin untuk aktivasi akun
+
+        // Redirect back kehalaman login
+        return back()->with('success', 'Berhasil mengajukan permohonan, silahkan tunggu tindak lanjut dari administrator.');
     }
 }

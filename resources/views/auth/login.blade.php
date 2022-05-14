@@ -44,6 +44,20 @@
                                                 <small class="text-danger">{{ session('status') }}</small>
                                             </center>
                                         @endif
+                                        @if (session('success'))
+                                            <center>
+                                                <small class="text-success">{{ session('success') }}</small>
+                                            </center>
+                                        @endif
+                                        @if (session('inactive'))
+                                            <center>
+                                                <small class="text-danger">Akun berstatus <strong>nonaktif</strong>.
+                                                    Silahkan hubungi administrator untuk melakukan
+                                                    <a href="{{ route('activate.request', session('inactive')) }}">aktivasi
+                                                        akun.</a>
+                                                </small>
+                                            </center>
+                                        @endif
                                         <div class="login-separater text-center mb-4"> <span>SIGN IN</span>
                                             <hr>
                                         </div>
