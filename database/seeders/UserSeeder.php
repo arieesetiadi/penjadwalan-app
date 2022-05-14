@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            ['admin', 'Putu Arie Suastra', 'ariesetiadi.sm@gmail.com', 'admin', '082146335727', 'Pria', 1, 4],
-            ['petugas', 'Made Suastra', 'ariesetiadi.wr@gmail.com', 'petugas', '089671800585', 'Wanita', 2, 5],
-            ['peminjam', 'Nyoman Setiadi', 'ariesetiadi.bn@gmail.com', 'peminjam', '089671800585', 'Pria', 3, 6],
+            ['admin', 'Putu Arie Suastra', 'ariesetiadi.sm@gmail.com', 'admin', '082146335727', 'Pria', 1, 4, 1],
+            ['petugas', 'Made Suastra', 'ariesetiadi.wr@gmail.com', 'petugas', '089671800585', 'Wanita', 2, 5, 1],
+            ['peminjam', 'Nyoman Setiadi', 'ariesetiadi.bn@gmail.com', 'peminjam', '089671800585', 'Pria', 3, 6, 1],
         ];
 
         User::truncate();
@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
                 'gender' => $user[5],
                 'role_id' => $user[6],
                 'division_id' => $user[7],
+                'status' => $user[8],
                 'created_at' => now()->toDateTimeString(),
             ]);
         }

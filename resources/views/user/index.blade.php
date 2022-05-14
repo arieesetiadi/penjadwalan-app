@@ -52,7 +52,7 @@
                                 {{-- <th>Username</th> --}}
                                 <th>Email</th>
                                 <th>Telepon</th>
-                                <th>Jenis Kelamin</th>
+                                <th>Status</th>
                                 <th>Divisi</th>
                                 <th>Tipe</th>
                                 <th class="cell-head-center">Aksi</th>
@@ -76,7 +76,13 @@
                                         {{-- <td>{{ $user->username }}</td> --}}
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
-                                        <td>{{ $user->gender }}</td>
+                                        <td>
+                                            @if ($user->status)
+                                                <span class="badge bg-success">Aktif</span>
+                                            @else
+                                                <span class="badge bg-danger">Nonaktif</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             {{ $user->division->name }}
                                         </td>
@@ -85,35 +91,129 @@
                                         {{-- Aksi --}}
                                         <td class="d-flex justify-content-center">
                                             <div class="table-actions d-flex align-items-center">
+                                                {{-- Ubah --}}
                                                 <a href="{{ route('user.edit', $user->id) }}"
                                                     class="btn btn-sm text-dark" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Ubah">
+                                                    data-bs-placement="left" title="Ubah">
                                                     <i class="bi bi-pen"></i>
                                                 </a>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus">
-                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-user-delete-{{ $user->id }}">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="modal fade" id="modal-user-delete-{{ $user->id }}"
+
+                                                @if ($user->status)
+                                                    {{-- Tombol disable user --}}
+                                                    <div data-bs-toggle="tooltip" data-bs-placement="left"
+                                                        title="Nonaktifkan Pengguna">
+                                                        <button type="button" class="btn btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-user-disable-{{ $user->id }}">
+                                                            <i class="fa-solid fa-power-off text-danger"></i>
+                                                        </button>
+                                                    </div>
+                                                @else
+                                                    {{-- Tombol Enable user --}}
+                                                    <div data-bs-toggle="tooltip" data-bs-placement="left"
+                                                        title="Aktifkan Pengguna">
+                                                        <button type="button" class="btn btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-user-enable-{{ $user->id }}">
+                                                            <i class="fa-solid fa-power-off text-success"></i>
+                                                        </button>
+                                                    </div>
+                                                @endif
+
+                                                {{-- Modal disable user --}}
+                                                <div class="modal fade" id="modal-user-disable-{{ $user->id }}"
                                                     tabindex="-1" aria-labelledby="exampleModalLabel"
                                                     aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <form action="{{ route('user.destroy', $user->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
+                                                    @php
+                                                        $runnings = getRunningByUserId($user->id);
+                                                    @endphp
+                                                    <div
+                                                        class="modal-dialog {{ count($runnings) > 0 ? 'modal-xl' : '' }}">
+                                                        <form action="{{ route('user.disable', $user->id) }}"
+                                                            method="GET">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">
-                                                                        Konfirmasi
+                                                                        Nonaktifkan Pengguna
                                                                     </h5>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    Data <strong>{{ $user->name }}</strong> akan
-                                                                    dihapus
-                                                                    dari sistem.
+                                                                    @if (count($runnings) > 0)
+                                                                        <p><strong>{{ $user->name }}</strong> masih
+                                                                            memiliki jadwal sebagai berikut :</p>
+
+                                                                        <table id="schedule-table"
+                                                                            class="table align-middle">
+                                                                            <tr>
+                                                                                <td>#</td>
+                                                                                <td>Ruangan</td>
+                                                                                <td>Tanggal</td>
+                                                                                <td>Mulai</td>
+                                                                                <td>Selesai</td>
+                                                                                <td>Keterangan</td>
+                                                                                <td>Status</td>
+                                                                            </tr>
+                                                                            @foreach ($runnings as $i => $running)
+                                                                                <tr>
+                                                                                    <td>{{ $i + 1 }}</td>
+                                                                                    <td>{{ $running->room->name }}
+                                                                                    </td>
+                                                                                    <td>{{ dateFormat($running->date) }}
+                                                                                    </td>
+                                                                                    <td>{{ timeFormat($running->start) }}
+                                                                                    </td>
+                                                                                    <td>{{ timeFormat($running->end) }}
+                                                                                    </td>
+                                                                                    <td>{{ $running->description }}
+                                                                                    </td>
+                                                                                    <td>{!! makeStatus($running->status) !!}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </table>
+
+                                                                        <hr class="text-white">
+
+                                                                        <p class="d-block"><strong>- Note :
+                                                                            </strong>Jadwal diatas akan
+                                                                            dihapus jika pengguna ini dinonaktifkan.
+                                                                            Tekan <strong>OK</strong> untuk melanjutkan.
+                                                                        </p>
+                                                                    @else
+                                                                        <strong>{{ $user->name }}</strong> akan
+                                                                        dinonaktifkan
+                                                                        dari sistem.
+                                                                    @endif
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light border"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                {{-- Modal enable user --}}
+                                                <div class="modal fade" id="modal-user-enable-{{ $user->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form action="{{ route('user.enable', $user->id) }}"
+                                                            method="GET">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Aktifkan Pengguna
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <strong>{{ $user->name }}</strong> akan
+                                                                    diaktifkan. Tekan <strong>OK</strong> untuk
+                                                                    melanjutkan.
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-light border"

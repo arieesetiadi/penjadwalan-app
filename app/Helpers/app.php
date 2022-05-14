@@ -82,6 +82,11 @@ function getCalendarData()
     return $data;
 }
 
+function getRunningByUserId($id)
+{
+    return Schedule::getRunningByUserId($id);
+}
+
 function str($content)
 {
     return Str::of($content);

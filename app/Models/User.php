@@ -98,6 +98,24 @@ class User extends Authenticatable
             ::find($id);
     }
 
+    public static function enable($id)
+    {
+        self
+            ::find($id)
+            ->update([
+                'status' => 1
+            ]);
+    }
+
+    public static function disable($id)
+    {
+        self
+            ::find($id)
+            ->update([
+                'status' => 0
+            ]);
+    }
+
     //  =================================================================
 
     // Relasi dengan model Role

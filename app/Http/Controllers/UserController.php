@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Division;
 use App\Models\Role;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -70,14 +71,32 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        dd($id);
+    }
+
+    public function enable($id)
+    {
+        // Ambil nama user berdasarkan ID
+        $name = User::getById($id)->name;
+
+        // Aktifkan status user
+        User::enable($id);
+
+        return redirect()->route('user.index')->with('status',  $name . ' telah diaktifkan.');
+    }
+
+    public function disable($id)
+    {
         // Ambil user berdasarkan ID
-        $user = User::getById($id);
-        $name = $user->name;
+        $name = User::getById($id)->name;
 
-        // Hapus data user
-        $user->delete();
+        // Hapus jadwal yang ada berdasarkan user id
+        Schedule::deleteRunningByUserId($id);
 
-        return redirect()->route('user.index')->with('status', $name . ' berhasil dihapus dari pengguna.');
+        // Nonaktifkan status user
+        User::disable($id);
+
+        return redirect()->route('user.index')->with('status', $name . ' telah dinonaktifkan dari sistem.');
     }
 
     public function search(Request $request)

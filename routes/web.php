@@ -25,20 +25,23 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ================= Resource Route ==================== 
 
-// Users
-Route::middleware('rolecheck:1,2,3')->group(function () {
-    Route::patch('/profile/edit', [UserController::class, 'profileEdit'])->name('profile.edit');
-    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
-});
-
 // Rooms
 Route::middleware('rolecheck:1')->group(function () {
     Route::get('/room', [RoomController::class, 'index'])->name('room.index');
     Route::post('/room/store', [RoomController::class, 'store'])->name('room.store');
     Route::put('/room/update', [RoomController::class, 'update'])->name('room.update');
     Route::delete('/room/destroy/{id}', [RoomController::class, 'destroy'])->name('room.destroy');
+
+    // Disable & Enable user
+    Route::get('/user/enable/{id}', [UserController::class, 'enable'])->name('user.enable');
+    Route::get('/user/disable/{id}', [UserController::class, 'disable'])->name('user.disable');
 });
 
+// Users
+Route::middleware('rolecheck:1,2,3')->group(function () {
+    Route::patch('/profile/edit', [UserController::class, 'profileEdit'])->name('profile.edit');
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+});
 Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
 Route::resource('user', UserController::class)->middleware('rolecheck:1');
 

@@ -92,6 +92,14 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getRunningByUserId($id)
+    {
+        return self
+            ::where('user_borrower_id', $id)
+            ->where('status', '!=', self::STATUS_FINISH)
+            ->get();
+    }
+
     public static function getPendingByBorrowerId($id)
     {
         return self
@@ -317,6 +325,14 @@ class Schedule extends Model
 
         // Hapus notulen dari schedule
         Note::deleteByScheduleId($id);
+    }
+
+    public static function deleteRunningByUserId($id)
+    {
+        self
+            ::where('user_borrower_id', $id)
+            ->where('status', '!=', self::STATUS_FINISH)
+            ->delete();
     }
 
     //  =================================================================
