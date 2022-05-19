@@ -34,6 +34,11 @@
                     </a>
                 </div>
                 <div class="ms-auto position-relative">
+                    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
+                            class="bi bi-search"></i></div>
+                    <form action="{{ route('schedule.search') }}" method="GET">
+                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari jadwal..">
+                    </form>
                 </div>
             </div>
             <div id="schedules-table-wrapper" class="table-responsive mt-3">

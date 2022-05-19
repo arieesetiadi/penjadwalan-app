@@ -18,14 +18,27 @@ function setDateToForm(date) {
 function validateHour() {
     let start = $("input[name=start]").val();
     let end = $("input[name=end]").val();
+    const now = new Date().toTimeString();
+
+    if (now > start + ":00" || now > end + ":00") {
+        $("#btn-request-submit").addClass("disabled");
+        $("#msg-time-invalid").removeClass("d-none");
+        return;
+    } else {
+        $("#btn-request-submit").removeClass("disabled");
+        $("#msg-time-invalid").addClass("d-none");
+        return;
+    }
 
     if (start != "" && end != "") {
         if (start >= end) {
             $("#btn-request-submit").addClass("disabled");
             $("#msg-time-invalid").removeClass("d-none");
+            return;
         } else {
             $("#btn-request-submit").removeClass("disabled");
             $("#msg-time-invalid").addClass("d-none");
+            return;
         }
     }
 }

@@ -105,6 +105,11 @@ class ScheduleController extends Controller
     // Proses pengajuan
     public function requestProcess(StoreScheduleRequest $request)
     {
+        // Return back jika jam sudah lewat
+        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+            return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
+        }
+
         // dd(Schedule::check($request->room, $request->date, $request->start, $request->end));
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->room, $request->date, $request->start, $request->end)) {
@@ -208,6 +213,20 @@ class ScheduleController extends Controller
         Artisan::call('db:seed --class=UserSeeder');
 
         return redirect('/');
+    }
+
+    public function search(Request $request)
+    {
+        // Redirect ke halaman utama jika tidak ada key
+        if (!$request->key) {
+            return redirect()->route('schedule.index');
+        }
+
+        $data['title'] = 'Kelola Jadwal';
+        $data['schedules'] = Schedule::search($request->key);
+
+        // Redirect ke halaman kelola users
+        return view('schedule.index', $data);
     }
 
     // H - 10m

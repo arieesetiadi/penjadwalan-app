@@ -335,6 +335,14 @@ class Schedule extends Model
             ->delete();
     }
 
+    public static function search($key)
+    {
+        return self
+            ::where('description', 'like', '%' . $key . '%')
+            ->orderByDesc('id')
+            ->get();
+    }
+
     //  =================================================================
 
     // Relasi dengan User - Peminjam

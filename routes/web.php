@@ -59,6 +59,7 @@ Route::middleware('rolecheck:3')->group(
 // Hanya Admin & Petugas yang bisa approve/decline pengajuan
 Route::middleware('rolecheck:1,2')->group(
     function () {
+        Route::get('/schedule/search', [ScheduleController::class, 'search'])->name('schedule.search');
         Route::get('/schedule/approve/{id}', [ScheduleController::class, 'scheduleProses'])->name('schedule.approve');
         Route::post('/schedule/decline', [ScheduleController::class, 'scheduleDecline'])->name('schedule.decline');
     }
