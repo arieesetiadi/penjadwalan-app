@@ -43,6 +43,11 @@ class ScheduleController extends Controller
 
     public function store(StoreScheduleRequest $request)
     {
+        // Return back jika jam sudah lewat
+        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+            return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
+        }
+
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->room, $request->date, $request->start, $request->end)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
@@ -72,7 +77,11 @@ class ScheduleController extends Controller
 
     public function update(StoreScheduleRequest $request, $id)
     {
-        // dd($request->all());
+        // Return back jika jam sudah lewat
+        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+            return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
+        }
+
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->room, $request->date, $request->start, $request->end, $id)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
@@ -175,6 +184,11 @@ class ScheduleController extends Controller
 
     public function requestUpdate($id, Request $request)
     {
+        // Return back jika jam sudah lewat
+        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+            return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
+        }
+
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->room, $request->date, $request->start, $request->end, $id)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
@@ -249,12 +263,14 @@ class ScheduleController extends Controller
     // H
     public function demo2()
     {
+        $nowDate = now()->format('Y-m-d');
         $newStart = now()->format('H:i');
-        $newEnd = now()->addMinute(5)->format('H:i');
+        $newEnd = now()->addMinute(30)->format('H:i');
 
         Schedule
             ::where('status', 2)
             ->update([
+                'date' => $nowDate,
                 'start' => $newStart,
                 'end' => $newEnd
             ]);

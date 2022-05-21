@@ -121,7 +121,8 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <span id="msg-time-invalid" class="text-danger d-none mt-1">
+                                            <span id="msg-time-invalid"
+                                                class="text-danger {{ session('invalidTime') ? 'd-block' : 'd-none' }} mt-1">
                                                 <small>
                                                     Waktu yang dipilih tidak valid.
                                                 </small>

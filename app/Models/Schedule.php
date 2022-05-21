@@ -64,6 +64,16 @@ class Schedule extends Model
             ->get('id');
     }
 
+    public static function getExpired()
+    {
+        // Return expired schedule
+        return self
+            ::where('status', self::STATUS_PENDING)
+            ->where('date', now()->format('Y-m-d'))
+            ->where('start', '<', now()->format('H:i:s'))
+            ->get();
+    }
+
     public static function getActive()
     {
         return self

@@ -22,21 +22,23 @@ class DashboardController extends Controller
         switch (auth()->user()->role_id) {
                 // Dashboard Admin
             case 1:
-                $data['countUser'] = User::count();
-                $data['countPending'] = count(Schedule::getPending());
-                $data['countActive'] = count(Schedule::getActive());
                 $data['pendingSchedules'] = Schedule::getPending();
                 $data['activeSchedules'] = Schedule::getActive();
+
+                $data['countUser'] = User::count();
+                $data['countActive'] = count($data['activeSchedules']);
+                $data['countPending'] = count($data['pendingSchedules']);
 
                 // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
 
                 // Dashboard Petugas
             case 2:
-                $data['countPending'] = count(Schedule::getPending());
-                $data['countActive'] = count(Schedule::getActive());
                 $data['pendingSchedules'] = Schedule::getPending();
                 $data['activeSchedules'] = Schedule::getActive();
+
+                $data['countActive'] = count($data['activeSchedules']);
+                $data['countPending'] = count($data['pendingSchedules']);
 
                 // Redirect ke dashboard Petugas
                 return view('dashboard.petugas', $data);
@@ -46,8 +48,9 @@ class DashboardController extends Controller
                 $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
                 $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
                 $data['finishSchedules'] = Schedule::getFinishByBorrowerId(auth()->user()->id);
-                $data['countPending'] = count($data['pendingSchedules']);
+
                 $data['countActive'] = count($data['activeSchedules']);
+                $data['countPending'] = count($data['pendingSchedules']);
 
                 // Redirect ke dashboard Peminjam
                 return view('dashboard.peminjam', $data);
