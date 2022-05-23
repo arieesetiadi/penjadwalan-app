@@ -15,6 +15,7 @@ use App\Helpers\Notification\Email;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Mail\RequestSuccess;
 
 class ScheduleController extends Controller
 {
@@ -114,12 +115,12 @@ class ScheduleController extends Controller
     // Proses pengajuan
     public function requestProcess(StoreScheduleRequest $request)
     {
+        // dd($request->all());
         // Return back jika jam sudah lewat
         if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
             return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
         }
 
-        // dd(Schedule::check($request->room, $request->date, $request->start, $request->end));
         // Redirect back, jika jadwal tidak dapat digunakan
         if (!Schedule::check($request->room, $request->date, $request->start, $request->end)) {
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
@@ -130,10 +131,12 @@ class ScheduleController extends Controller
 
         // Kirim notifikasi ke petugas & administrator
         $officers = User::getOfficers();
-
         foreach ($officers as $officer) {
             Mail::send(new ScheduleRequested($request->all(), auth()->user()->id, $officer));
         }
+
+        // Kirim notifikasi ke peminjam bahwa telah mengajukan jadwal
+        Mail::send(new RequestSuccess($request->all(), auth()->user()->id));
 
         return redirect()->to('/')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }

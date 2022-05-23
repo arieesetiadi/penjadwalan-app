@@ -84,7 +84,8 @@
                                                         <input name="start" id="start" type="time"
                                                             class="form-control 
                                                     @error('start') is-invalid @enderror"
-                                                            aria-label="start" value="{{ old('start') }}"
+                                                            aria-label="start"
+                                                            value="{{ old('start', now()->format('Y-m-d')) }}"
                                                             onchange="validateHour()">
                                                     </div>
                                                     @error('start')

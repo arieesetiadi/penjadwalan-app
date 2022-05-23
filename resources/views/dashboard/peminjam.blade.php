@@ -515,7 +515,7 @@
                                         </div>
                                     </td>
 
-                                    {{-- Notulen --}}
+                                    {{-- Tampil Notulen --}}
                                     <td>
                                         @if ($finish->note)
                                             <div class="table-actions d-flex align-items-center gap-3">

@@ -13,29 +13,36 @@ $(function () {
 function setDateToForm(date) {
     // Set date to form
     $("input[name=date]").val(date);
+    validateHour();
 }
 
 function validateHour() {
-    let start = $("input[name=start]").val();
-    let end = $("input[name=end]").val();
-    const now = new Date().toTimeString();
+    const format = "Y-MM-D HH:mm:ss";
 
-    if (now > start + ":00" || now > end + ":00") {
-        $("#btn-request-submit").addClass("disabled");
-        $("#msg-time-invalid").removeClass("d-none");
-        return;
-    } else {
-        $("#btn-request-submit").removeClass("disabled");
-        $("#msg-time-invalid").addClass("d-none");
-        return;
-    }
+    const date = $("input[name=date]").val();
+    const start = $("input[name=start]").val();
+    const end = $("input[name=end]").val();
 
+    // Validasi datetime jika jam sudah terisi
     if (start != "" && end != "") {
-        if (start >= end) {
+        const now = moment();
+        const momentStart = moment(date + " " + start);
+        const momentEnd = moment(date + " " + end);
+
+        // Disable tombol jika jam sudah lewat
+        if (momentStart.isBefore(now) || momentEnd.isBefore(now)) {
             $("#btn-request-submit").addClass("disabled");
             $("#msg-time-invalid").removeClass("d-none");
             return;
-        } else {
+        }
+        // Disable jika jam mulai lebih besar dari jam selesai
+        else if (momentStart.isAfter(momentEnd)) {
+            $("#btn-request-submit").addClass("disabled");
+            $("#msg-time-invalid").removeClass("d-none");
+            return;
+        }
+        // Normal, hidupkan tombol
+        else {
             $("#btn-request-submit").removeClass("disabled");
             $("#msg-time-invalid").addClass("d-none");
             return;

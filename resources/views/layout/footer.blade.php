@@ -14,6 +14,8 @@
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('plugins/metismenu/js/metisMenu.min.js') }}"></script>
 <!--app-->
+<script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/password.js') }}"></script>
 <script src="{{ asset('js/user-search.js') }}"></script>

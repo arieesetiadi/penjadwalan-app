@@ -51,7 +51,8 @@
                                                 <input name="date" id="date" type="date"
                                                     class="form-control
                                             @error('date') is-invalid @enderror"
-                                                    aria-label="date" value="{{ old('date') }}"
+                                                    aria-label="date"
+                                                    value="{{ old('date', now()->format('Y-m-d')) }}"
                                                     onchange="validateDate()">
                                             </div>
                                             @error('date')
@@ -115,7 +116,8 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <span id="msg-time-invalid" class="text-danger {{ session('invalidTime') ? 'd-block' : 'd-none' }} mt-1">
+                                            <span id="msg-time-invalid"
+                                                class="text-danger {{ session('invalidTime') ? 'd-block' : 'd-none' }} mt-1">
                                                 <small>
                                                     Waktu yang dipilih tidak valid.
                                                 </small>
