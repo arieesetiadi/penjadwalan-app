@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Division;
 use App\Models\Role;
-use App\Models\Schedule;
 use App\Models\User;
+use App\Models\Division;
+use App\Models\Schedule;
+use App\Mail\UserEnabled;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Mail\UserDisabled;
 
 class UserController extends Controller
 {
@@ -82,10 +85,13 @@ class UserController extends Controller
         // Aktifkan status user
         User::enable($id);
 
+        // Kirim email ke pengguna yang bersangkutan
+        Mail::send(new UserEnabled($id));
+
         return redirect()->route('user.index')->with('status',  $name . ' telah diaktifkan.');
     }
 
-    public function disable($id)
+    public function disable($id, $msg = "Pengguna mendapatkan Pemutusan Hubungan Kerja dari instansi")
     {
         // Ambil user berdasarkan ID
         $name = User::getById($id)->name;
@@ -95,6 +101,9 @@ class UserController extends Controller
 
         // Nonaktifkan status user
         User::disable($id);
+
+        // Kirim email ke pengguna yang bersangkutan
+        Mail::send(new UserDisabled($id, $msg));
 
         return redirect()->route('user.index')->with('status', $name . ' telah dinonaktifkan dari sistem.');
     }

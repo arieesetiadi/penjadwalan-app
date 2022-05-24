@@ -52,7 +52,7 @@
                                         @if (session('inactive'))
                                             <center>
                                                 <small class="text-danger">Akun berstatus <strong>nonaktif</strong>.
-                                                    Silahkan hubungi administrator untuk melakukan
+                                                    Silahkan hubungi pihak administrator untuk melakukan
                                                     <a href="{{ route('activate.request', session('inactive')) }}">aktivasi
                                                         akun.</a>
                                                 </small>

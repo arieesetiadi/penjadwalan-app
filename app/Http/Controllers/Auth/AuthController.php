@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Mail\ActivateUser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -53,6 +55,7 @@ class AuthController extends Controller
     public function activateRequest($id)
     {
         // Kirim email ke admin untuk aktivasi akun
+        Mail::send(new ActivateUser($id));
 
         // Redirect back kehalaman login
         return back()->with('success', 'Berhasil mengajukan permohonan, silahkan tunggu tindak lanjut dari administrator.');

@@ -50,6 +50,13 @@ class User extends Authenticatable
             ->get();
     }
 
+    public static function getAdmins()
+    {
+        return self
+            ::where('role_id', 1)
+            ->get();
+    }
+
     public static function insert($data)
     {
         self
@@ -59,6 +66,7 @@ class User extends Authenticatable
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'phone' => $data['phone'],
+                'status' => 1,
                 'role_id' => $data['role'],
                 'division_id' => $data['division'],
                 'gender' => $data['gender']
