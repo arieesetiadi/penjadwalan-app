@@ -91,7 +91,7 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('status',  $name . ' telah diaktifkan.');
     }
 
-    public function disable($id, $msg = "Pengguna mendapatkan Pemutusan Hubungan Kerja dari instansi")
+    public function disable($id, Request $request)
     {
         // Ambil user berdasarkan ID
         $name = User::getById($id)->name;
@@ -103,7 +103,7 @@ class UserController extends Controller
         User::disable($id);
 
         // Kirim email ke pengguna yang bersangkutan
-        Mail::send(new UserDisabled($id, $msg));
+        Mail::send(new UserDisabled($id, $request->msg));
 
         return redirect()->route('user.index')->with('status', $name . ' telah dinonaktifkan dari sistem.');
     }

@@ -77,11 +77,13 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>
-                                            @if ($user->status)
-                                                <span class="badge bg-success">Aktif</span>
-                                            @else
-                                                <span class="badge bg-danger">Nonaktif</span>
-                                            @endif
+                                            <center>
+                                                @if ($user->status)
+                                                    <span class="badge bg-success w-100">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-danger w-100">Nonaktif</span>
+                                                @endif
+                                            </center>
                                         </td>
                                         <td>
                                             {{ $user->division->name }}
@@ -128,9 +130,11 @@
                                                         $runnings = getRunningByUserId($user->id);
                                                     @endphp
                                                     <div
-                                                        class="modal-dialog {{ count($runnings) > 0 ? 'modal-xl' : '' }}">
+                                                        class="modal-dialog {{ count($runnings) > 0 ? 'modal-xl' : 'modal-lg' }}">
                                                         <form action="{{ route('user.disable', $user->id) }}"
-                                                            method="GET">
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">
@@ -174,15 +178,40 @@
 
                                                                         <hr class="text-white">
 
+                                                                        {{-- Alasan disable user --}}
+                                                                        <div class="form-floating">
+                                                                            <textarea name="msg" class="form-control" placeholder="Alasan
+                                                                                pengguna di-nonaktifkan" id="msg"
+                                                                                style="height: 100px"></textarea>
+                                                                            <label for="msg">Alasan
+                                                                                pengguna di-nonaktifkan</label>
+                                                                        </div>
+
+                                                                        <hr class="text-white">
+
                                                                         <p class="d-block"><strong>- Note :
                                                                             </strong>Jadwal diatas akan
                                                                             dihapus jika pengguna ini dinonaktifkan.
                                                                             Tekan <strong>OK</strong> untuk melanjutkan.
                                                                         </p>
                                                                     @else
-                                                                        <strong>{{ $user->name }}</strong> akan
-                                                                        dinonaktifkan
-                                                                        dari sistem.
+                                                                        {{-- Alasan disable user --}}
+                                                                        <div class="form-floating">
+                                                                            <textarea name="msg" class="form-control" placeholder="Alasan
+                                                                                pengguna di-nonaktifkan" id="msg"
+                                                                                style="height: 100px"></textarea>
+                                                                            <label for="msg">Alasan
+                                                                                pengguna di-nonaktifkan</label>
+                                                                        </div>
+
+                                                                        <hr class="text-white">
+
+                                                                        <p class="d-block">
+                                                                            <strong>{{ $user->name }}</strong> akan
+                                                                            dinonaktifkan
+                                                                            dari sistem. Tekan <strong>OK</strong> untuk
+                                                                            melanjutkan.
+                                                                        </p>
                                                                     @endif
 
                                                                 </div>

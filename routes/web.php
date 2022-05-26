@@ -34,7 +34,7 @@ Route::middleware('rolecheck:1')->group(function () {
 
     // Disable & Enable user
     Route::get('/user/enable/{id}', [UserController::class, 'enable'])->name('user.enable');
-    Route::get('/user/disable/{id}', [UserController::class, 'disable'])->name('user.disable');
+    Route::put('/user/disable/{id}', [UserController::class, 'disable'])->name('user.disable');
 });
 
 // Users
