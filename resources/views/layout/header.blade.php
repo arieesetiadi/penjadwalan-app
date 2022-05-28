@@ -77,9 +77,18 @@
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="user-setting d-flex align-items-center">
-                                    <div class="d-inline-block mx-3">
-                                        <span class="d-block font-weight-lighter">{{ auth()->user()->name }}</span>
-                                        <small class="d-block text-secondary" style="margin-top: -5px">
+                                    @if (auth()->user()->gender == 'Pria')
+                                        <img src="{{ asset('images/avatars/man.png') }}" alt=""
+                                            class="rounded-circle mx-4" width="35" height="35">
+                                    @else
+                                        <img src="{{ asset('images/avatars/woman.png') }}" alt=""
+                                            class="rounded-circle mx-4" width="35" height="35">
+                                    @endif
+                                    <div class="d-inline-block">
+                                        <span style="font-size: 90%"
+                                            class="d-block font-weight-lighter">{{ auth()->user()->name }}</span>
+                                        <span style="font-size: 80%" class="d-block text-secondary"
+                                            style="margin-top: 0">
                                             @if (auth()->user()->role_id == 1)
                                                 <i class="fa-solid fa-crown text-warning"></i>
                                             @elseif (auth()->user()->role_id == 2)
@@ -88,15 +97,8 @@
                                                 <i class="fa-solid fa-crown text-brown"></i>
                                             @endif
                                             {{ auth()->user()->role->name }}
-                                        </small>
+                                        </span>
                                     </div>
-                                    @if (auth()->user()->gender == 'Pria')
-                                        <img src="{{ asset('images/avatars/man.png') }}" alt=""
-                                            class="rounded-circle" width="35" height="35">
-                                    @else
-                                        <img src="{{ asset('images/avatars/woman.png') }}" alt=""
-                                            class="rounded-circle" width="35" height="35">
-                                    @endif
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">

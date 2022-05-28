@@ -159,8 +159,9 @@
                                                 </span>
                                                 <select name="room" id="room"
                                                     class="form-select 
-                                                    @error('room') is-invalid @enderror">
-                                                    <option selected hidden value="">Pilih ruangan</option>
+                                                    @error('room') is-invalid @enderror"
+                                                    required>
+                                                    <option selected hidden>Pilih ruangan</option>
                                                     @foreach ($rooms as $room)
                                                         @if (old('room') && old('room') == $room->id)
                                                             <option selected value="{{ $room->id }}">

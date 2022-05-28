@@ -1,13 +1,14 @@
 <?php
 
+use App\Models\Schedule;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RoomController;
-use Illuminate\Http\Client\Request;
 
 // Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

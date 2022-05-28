@@ -66,12 +66,30 @@ class Schedule extends Model
 
     public static function getExpired()
     {
+        // dd('2022-05-25' <= now()->format('Y-m-d'));
         // Return expired schedule
-        return self
+        // return self
+        //     ::whereDate('date', '<=', now()->format('Y-m-d'))
+        //     ->where('start', '<', now()->format('H:i:s'))
+        //     ->where('status', self::STATUS_PENDING)
+        //     ->orWhere('status', self::STATUS_DECLINE)
+        //     ->get();
+
+        $expiredSchedules = self
             ::where('status', self::STATUS_PENDING)
-            ->where('date', now()->format('Y-m-d'))
-            ->where('start', '<', now()->format('H:i:s'))
+            ->orWhere('status', self::STATUS_DECLINE)
             ->get();
+
+        foreach ($expiredSchedules as $exp) {
+            $expDate = Carbon::make($exp->date . ' ' . $exp->start)->format('Y-m-d H:i:s');
+            $now = now()->format('Y-m-d H:i:s');
+
+            if ($expDate < $now) {
+                $newExpiredSchedules[] = $exp;
+            }
+        }
+
+        return $newExpiredSchedules;
     }
 
     public static function getActive()
@@ -279,6 +297,7 @@ class Schedule extends Model
                 'end' => $data['end'],
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
+                'room_id' => $data['room'],
                 'status' => self::STATUS_ACTIVE,
                 'created_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
