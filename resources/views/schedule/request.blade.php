@@ -197,6 +197,11 @@
         </div>
     </div>
 
+    <div class="row">
+        <div id="calendar" class="col-12">
+        </div>
+    </div>
+
 </main>
 <!--End Page Main-->
 

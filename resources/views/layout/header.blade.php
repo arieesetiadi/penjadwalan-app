@@ -211,13 +211,13 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('room.index') }}">
                             <div class="parent-icon"><i class="bi bi-door-closed"></i>
                             </div>
                             <div class="menu-title">Kelola Ruangan</div>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
 
             </ul>

@@ -23,7 +23,6 @@
 <script src="{{ asset('js/schedule.js') }}"></script>
 <script src="{{ asset('js/toggler.js') }}"></script>
 <script src="{{ asset('js/note-image-preview.js') }}"></script>
-
 </body>
 
 </html>
