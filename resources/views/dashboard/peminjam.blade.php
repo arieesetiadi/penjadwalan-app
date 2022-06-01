@@ -160,7 +160,7 @@
                                     {{-- Countdown --}}
                                     <td>
                                         <center>
-                                            @if (!is_null($active->approved_at))
+                                            @if (!is_null($active->approved_at) || !is_null($active->created_at))
                                                 <strong>
                                                     <span class="countdown"
                                                         data-then="{{ $active->date . ' ' . $active->start }}"
@@ -580,11 +580,20 @@
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 title="{{ $finish->note ? '' : 'Upload Notulen' }}">
-                                                <button {{ $finish->note ? 'disabled' : '' }} type="button"
+                                                {{-- <button {{ $finish->note ? 'disabled' : '' }} type="button"
                                                     class="btn btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#modal-note-upload-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
-                                                </button>
+                                                </button> --}}
+                                                <form action="{{ route('note.upload') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="scheduleId" value="{{ $finish->id }}">
+                                                    <input type="hidden" name="noteTitle"
+                                                        value="Notulen {{ $finish->description }}">
+                                                    <button class="btn btn-sm">
+                                                        <i class="bi bi-upload"></i>
+                                                    </button>
+                                                </form>
                                             </div>
 
                                             <div class="modal fade" id="modal-note-upload-{{ $finish->id }}"

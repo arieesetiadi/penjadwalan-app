@@ -55,6 +55,11 @@ Route::middleware('rolecheck:3')->group(
         Route::patch('/request/update/{id}', [ScheduleController::class, 'requestUpdate'])->name('request.update');
         Route::delete('/schedule/cancel/{id}', [ScheduleController::class, 'scheduleCancel'])->name('schedule.cancel');
         Route::get('/schedule/finish/{id}', [ScheduleController::class, 'scheduleFinish'])->name('schedule.finish');
+
+        // Notes
+        Route::get('/note/upload/{id}', [NoteController::class, 'upload'])->name('note.upload');
+        Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
+        Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->name('note.broadcast');
     }
 );
 
@@ -69,10 +74,6 @@ Route::middleware('rolecheck:1,2')->group(
 
 Route::get('/change-month/{current}/{counter}', [ScheduleController::class, 'changeMonth'])->name('change-month');
 Route::resource('schedule', ScheduleController::class)->middleware('rolecheck:1,2');
-
-// Notes
-Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
-Route::get('/note/broadcast/{noteId}', [NoteController::class, 'broadcast'])->name('note.broadcast');
 
 // Demo
 Route::get('/reset', [ScheduleController::class, 'reset']);

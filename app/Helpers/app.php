@@ -101,3 +101,10 @@ function isPass($date)
 {
     return $date->format('Y-m-d') < now()->format('Y-m-d');
 }
+
+function isNoteEmpty($request)
+{
+    if (is_null($request->contentText) && is_null($request->contentImage) && is_null($request->contentFile)) {
+        return true;
+    }
+}

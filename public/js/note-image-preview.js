@@ -1,9 +1,13 @@
-function loadImage(id) {
-    console.log("#image-" + id);
+function loadImage() {
+    removeNoteEmpty();
+
+    // Show preview container
+    $("#image-preview-container").removeClass("d-none");
+
     let fReader = null;
-    let image = document.querySelector("#image-" + id);
+    let image = document.querySelector("#image");
     let imageName = image.files[0].name;
-    let imagePreview = document.querySelector("#image-preview-" + id);
+    let imagePreview = document.querySelector("#image-preview");
 
     fReader = new FileReader();
     fReader.readAsDataURL(image.files[0]);
