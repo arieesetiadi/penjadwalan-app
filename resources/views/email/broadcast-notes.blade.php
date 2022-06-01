@@ -23,7 +23,10 @@
                 <tr>
                     <td>Isi Notulen</td>
                     <td>:</td>
-                    <td>{{ $note['contentText'] }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3">{!! $note['contentText'] !!}</td>
                 </tr>
             @endif
         </table>

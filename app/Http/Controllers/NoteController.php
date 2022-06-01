@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NoteRequest;
 use App\Mail\BroadcastNotes;
 use App\Models\Note;
 use App\Models\Schedule;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Mail;
 
 class NoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function upload($id)
     {
         $data = [
@@ -21,24 +27,15 @@ class NoteController extends Controller
         return view('schedule.upload-notulen', $data);
     }
 
-    public function store(Request $request)
+    public function store(NoteRequest $request)
     {
         if (isNoteEmpty($request)) {
             return back()->with('noteEmpty', 'Cantumkan minimal satu informasi dari 3 pilihan dibawah sebagai notulen rapat.');
         }
 
-        dd($request->all(), $request->file('contentImage'), $request->file('contentFile'));
-        $result = $request->validate([
-            'title' => 'required',
-            'contentImage' => 'mimes:jpg,bmp,png',
-            'contentFile' => 'mimes:pdf,doc,docx,pptx,xlsx,txt'
-        ]);
-
-        dd($result);
-
-        dd($request->all());
         $contentImageName = null;
         $contentFileName = null;
+
         if ($request->hasFile('contentImage')) {
             // Buat nama gambar
             $content = $request->file('contentImage');
@@ -57,9 +54,10 @@ class NoteController extends Controller
             $content->move('uploaded/files/', $contentFileName);
         }
 
-        Note::upload($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
+        // Note::upload($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
 
         $this->broadcast($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
+        dd('sent');
 
         return redirect()->to('/')->with('status', 'Berhasil menambah notulen rapat');
     }

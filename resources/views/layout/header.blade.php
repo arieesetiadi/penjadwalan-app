@@ -37,6 +37,9 @@
     <link href="{{ asset('css/semi-dark.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/header-colors.css') }}" rel="stylesheet" />
 
+    {{-- CK Editor --}}
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 

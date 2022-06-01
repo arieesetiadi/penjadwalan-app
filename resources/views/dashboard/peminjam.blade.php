@@ -1,6 +1,14 @@
 {{-- Include header --}}
 @include('layout.header')
 
+<style>
+    p {
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+</style>
+
 <!--Start content-->
 <main class="page-content">
     <!--breadcrumb-->
@@ -537,15 +545,18 @@
                                                                     Notulen {{ $finish->description }}
                                                                 </h5>
                                                             </div>
-                                                            <div class="modal-body">
+                                                            <div class="modal-body"
+                                                                style="border: 1px solid black">
                                                                 <span>Diunggah pada :
                                                                     {{ dateTimeFormat($finish->note->created_at) }}</span>
                                                                 <hr>
 
                                                                 {{-- Content Text --}}
                                                                 @if ($finish->note->content_text)
-                                                                    <p class="text-wrap">
-                                                                        {{ $finish->note->content_text }}</p>
+                                                                    <p class="text-wrap w-100"
+                                                                        style="word-wrap: break-word">
+                                                                        sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                                                                        {!! $finish->note->content_text !!}</p>
                                                                 @endif
 
                                                                 {{-- Content Image --}}
@@ -585,12 +596,9 @@
                                                     data-bs-target="#modal-note-upload-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
                                                 </button> --}}
-                                                <form action="{{ route('note.upload') }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="scheduleId" value="{{ $finish->id }}">
-                                                    <input type="hidden" name="noteTitle"
-                                                        value="Notulen {{ $finish->description }}">
-                                                    <button class="btn btn-sm">
+                                                <form action="{{ route('note.upload', $finish->id) }}" method="GET">
+                                                    <button class="btn btn-sm"
+                                                        {{ $finish->note ? 'disabled' : '' }}>
                                                         <i class="bi bi-upload"></i>
                                                     </button>
                                                 </form>

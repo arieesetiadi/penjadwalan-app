@@ -62,30 +62,55 @@
                             <div class="mb-4">
                                 <label class="mb-2" for="contentText">Isi Notulen :</label>
                                 <div class="input-group">
-                                    <span class="input-group-text">
+                                    {{-- <span class="input-group-text">
                                         <i class="bi bi-chat-square-text"></i>
-                                    </span>
+                                    </span> --}}
                                     <textarea rows="6" name="contentText" id="contentText" type="text" class="form-control" placeholder="Isi notulen"
                                         aria-label="contentText" oninput="removeNoteEmpty()"></textarea>
+
+                                    <script>
+                                        CKEDITOR.replace('contentText');
+                                    </script>
                                 </div>
+                                @error('contentText')
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
+                                @enderror
                             </div>
 
                             {{-- Gambar Notulen --}}
                             <div class="mb-4">
-                                <label class="mb-2" for="image">Foto / Gambar :</label>
+                                <label class="mb-2" for="image">Foto / Gambar:</label>
                                 <div class="input-group">
                                     <input name="contentImage" class="form-control" type="file" id="image"
                                         accept="image/*" onchange="loadImage()">
                                 </div>
+                                @error('contentImage')
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
+                                @enderror
                             </div>
 
                             {{-- File Notulen --}}
-                            <div class="">
+                            <div class="mb-4">
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
                                     <input name="contentFile" class="form-control" type="file" id="contentFile"
                                         accept=".pdf,.doc,.docx,.pptx,.xlsx,.txt" onchange="removeNoteEmpty()">
                                 </div>
+                                @error('contentFile')
+                                    <span class="text-danger position-absolute d-block">
+                                        <small>
+                                            {{ $message }}
+                                        </small>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
