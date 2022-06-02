@@ -4,6 +4,7 @@
 <style>
     p {
         width: 100%;
+        text-align: justify;
         word-wrap: break-word;
     }
 
@@ -553,10 +554,10 @@
 
                                                                 {{-- Content Text --}}
                                                                 @if ($finish->note->content_text)
-                                                                    <p class="text-wrap w-100"
+                                                                    <div class="text-wrap w-100"
                                                                         style="word-wrap: break-word">
                                                                         sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                                                                        {!! $finish->note->content_text !!}</p>
+                                                                        {!! $finish->note->content_text !!}</div>
                                                                 @endif
 
                                                                 {{-- Content Image --}}

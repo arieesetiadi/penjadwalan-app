@@ -51,10 +51,13 @@
 
                             <hr>
                             @if (session('noteEmpty'))
-                                <div id="noteEmpty" class="mb-2">
-                                    <small class="text-danger">
+                                <div id="noteEmpty" class="mb-2 alert alert-danger alert-dismissible fade show"
+                                    role="alert">
+                                    <span>
                                         {{ session('noteEmpty') }}
-                                    </small>
+                                    </span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
                             @endif
 
@@ -66,7 +69,7 @@
                                         <i class="bi bi-chat-square-text"></i>
                                     </span> --}}
                                     <textarea rows="6" name="contentText" id="contentText" type="text" class="form-control" placeholder="Isi notulen"
-                                        aria-label="contentText" oninput="removeNoteEmpty()"></textarea>
+                                        aria-label="contentText"></textarea>
 
                                     <script>
                                         CKEDITOR.replace('contentText');
@@ -86,7 +89,7 @@
                                 <label class="mb-2" for="image">Foto / Gambar:</label>
                                 <div class="input-group">
                                     <input name="contentImage" class="form-control" type="file" id="image"
-                                        accept="image/*" onchange="loadImage()">
+                                        accept="image/*" onchange="loadImage()" multiple>
                                 </div>
                                 @error('contentImage')
                                     <span class="text-danger position-absolute d-block">
@@ -102,7 +105,7 @@
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
                                     <input name="contentFile" class="form-control" type="file" id="contentFile"
-                                        accept=".pdf,.doc,.docx,.pptx,.xlsx,.txt" onchange="removeNoteEmpty()">
+                                        accept=".pdf,.doc,.docx,.pptx,.xlsx,.txt" multiple>
                                 </div>
                                 @error('contentFile')
                                     <span class="text-danger position-absolute d-block">
@@ -119,9 +122,29 @@
                             <div class="row">
                                 <div id="image-preview-container" class="d-none col-12">
                                     <label class="mb-2">Preview gambar :</label>
-                                    <img id="image-preview" src="" alt="" class="w-100 rounded">
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                        <div id="carouselContainer" class="carousel-inner">
+                                            {{-- Images appended from note-image-preview.js --}}
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                            {{-- <div class="row">
+                                <div id="image-preview-container" class="d-none col-12">
+                                    <label class="mb-2">Preview gambar :</label>
+                                    <img id="image-preview" src="" alt="" class="w-100 rounded">
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="row">
@@ -138,10 +161,5 @@
 </main>
 <!--end page main-->
 
-<script>
-    function removeNoteEmpty() {
-        document.getElementById('noteEmpty').remove();
-    }
-</script>
 {{-- Include footer --}}
 @include('layout.footer')
