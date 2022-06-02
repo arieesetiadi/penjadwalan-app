@@ -19,15 +19,15 @@ class BroadcastNotes extends Mailable
      */
     public $users;
     public $note;
-    public $imageName;
-    public $fileName;
+    public $imageNames;
+    public $fileNames;
 
-    public function __construct($note, $imageName, $fileName)
+    public function __construct($note, $imageNames, $fileNames)
     {
         $this->users = User::all();
         $this->note = $note;
-        $this->imageName = $imageName;
-        $this->fileName = $fileName;
+        $this->imageNames = $imageNames;
+        $this->fileNames = $fileNames;
     }
 
     /**
@@ -37,23 +37,29 @@ class BroadcastNotes extends Mailable
      */
     public function build()
     {
-        $data = [
-            'note' => $this->note
-        ];
-
         $mail =  $this
             ->bcc($this->users)
             ->subject('Broadcast Notulen')
-            ->view('email.broadcast-notes', $data);
+            ->view('email.broadcast-notes', ['note' => $this->note]);
 
         // Kirim gambar jika ada
-        if ($this->imageName) {
-            $mail = $mail->attach(public_path('uploaded\images\\') . $this->imageName);
+        if ($this->imageNames) {
+            $imageNames = str($this->imageNames)->explode('|');
+
+            // Looping semua gambar sebagai attachment pada email
+            for ($i = 0; $i < count($imageNames) - 1; $i++) {
+                $mail = $mail->attach(public_path('uploaded\images\\') . $imageNames[$i]);
+            }
         }
 
         // Kirim file jika ada
-        if ($this->fileName) {
-            $mail = $mail->attach(public_path('uploaded\files\\') . $this->fileName);
+        if ($this->fileNames) {
+            $fileNames = str($this->fileNames)->explode('|');
+
+            // Looping semua file sebagai attachment pada email
+            for ($i = 0; $i < count($fileNames) - 1; $i++) {
+                $mail = $mail->attach(public_path('uploaded\files\\') . $fileNames[$i]);
+            }
         }
 
         return $mail;

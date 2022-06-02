@@ -88,10 +88,10 @@
                             <div class="mb-4">
                                 <label class="mb-2" for="image">Foto / Gambar:</label>
                                 <div class="input-group">
-                                    <input name="contentImage" class="form-control" type="file" id="image"
+                                    <input name="contentImages[]" class="form-control" type="file" id="image"
                                         accept="image/*" onchange="loadImage()" multiple>
                                 </div>
-                                @error('contentImage')
+                                @error('contentImages')
                                     <span class="text-danger position-absolute d-block">
                                         <small>
                                             {{ $message }}
@@ -104,10 +104,10 @@
                             <div class="mb-4">
                                 <label class="mb-2" for="contentFile">File :</label>
                                 <div class="input-group">
-                                    <input name="contentFile" class="form-control" type="file" id="contentFile"
+                                    <input name="contentFiles[]" class="form-control" type="file" id="contentFile"
                                         accept=".pdf,.doc,.docx,.pptx,.xlsx,.txt" multiple>
                                 </div>
-                                @error('contentFile')
+                                @error('contentFiles')
                                     <span class="text-danger position-absolute d-block">
                                         <small>
                                             {{ $message }}

@@ -556,26 +556,64 @@
                                                                 @if ($finish->note->content_text)
                                                                     <div class="text-wrap w-100"
                                                                         style="word-wrap: break-word">
-                                                                        sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
                                                                         {!! $finish->note->content_text !!}</div>
                                                                 @endif
 
                                                                 {{-- Content Image --}}
-                                                                @if ($finish->note->content_image)
+                                                                @php
+                                                                    $imageNames = str($finish->note->content_image)->explode('|');
+                                                                @endphp
+
+                                                                @if (count($imageNames) > 0)
                                                                     <hr>
-                                                                    <img width="100%"
-                                                                        src="{{ asset('uploaded/images/' . $finish->note->content_image) }}"
-                                                                        alt="Content Image" class="rounded">
+                                                                    <div id="carouselExampleControls"
+                                                                        class="carousel slide" data-bs-ride="carousel">
+                                                                        <div class="carousel-inner">
+                                                                            @for ($i = 0; $i < count($imageNames) - 1; $i++)
+                                                                                <div
+                                                                                    class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                                                                                    <img width="100%"
+                                                                                        src="{{ asset('uploaded/images/' . $imageNames[$i]) }}"
+                                                                                        alt="Content Image"
+                                                                                        class="rounded">
+                                                                                </div>
+                                                                            @endfor
+                                                                        </div>
+                                                                        <button class="carousel-control-prev"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-slide="prev">
+                                                                            <span class="carousel-control-prev-icon"
+                                                                                aria-hidden="true"></span>
+                                                                            <span
+                                                                                class="visually-hidden">Previous</span>
+                                                                        </button>
+                                                                        <button class="carousel-control-next"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-slide="next">
+                                                                            <span class="carousel-control-next-icon"
+                                                                                aria-hidden="true"></span>
+                                                                            <span class="visually-hidden">Next</span>
+                                                                        </button>
+                                                                    </div>
                                                                 @endif
 
                                                                 {{-- Content File --}}
-                                                                @if ($finish->note->content_file)
+                                                                @php
+                                                                    $fileNames = str($finish->note->content_file)->explode('|');
+                                                                @endphp
+
+                                                                @if (count($fileNames) > 0)
                                                                     <hr>
-                                                                    <a target="_blank"
-                                                                        href="{{ asset('uploaded/files/' . $finish->note->content_file) }}">
-                                                                        <i class="bi bi-download"></i> Download
-                                                                        Lampiran
-                                                                    </a>
+                                                                    @for ($i = 0; $i < count($fileNames) - 1; $i++)
+                                                                        <a target="_blank"
+                                                                            href="{{ asset('uploaded/files/' . $fileNames[$i]) }}"
+                                                                            class="d-block my-1">
+                                                                            <i class="bi bi-download"></i> Download
+                                                                            Lampiran | {{ $fileNames[$i] }}
+                                                                        </a>
+                                                                    @endfor
                                                                 @endif
                                                             </div>
                                                         </div>

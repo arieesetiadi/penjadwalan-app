@@ -25,8 +25,10 @@ class NoteRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'contentImage' => 'mimes:jpg,jpeg,bmp,png|image',
-            'contentFile' => 'mimes:pdf,doc,docx,pptx,xlsx,txt|file'
+            'contentImages' => 'array',
+            'contentFiles' => 'array',
+            'contentImages.*' => 'mimes:jpg,jpeg,bmp,png|image',
+            'contentFiles.*' => 'mimes:pdf,doc,docx,pptx,xlsx,txt|file'
         ];
     }
 
@@ -34,8 +36,8 @@ class NoteRequest extends FormRequest
     {
         return [
             'title' => 'Judul Notulen',
-            'contentImage' => 'Gambar',
-            'contentFile' => 'File'
+            'contentImages' => 'Gambar',
+            'contentFiles' => 'File'
         ];
     }
 

@@ -29,41 +29,64 @@ class NoteController extends Controller
 
     public function store(NoteRequest $request)
     {
+        $contentImageName = null;
+        $contentFileName = null;
+
+        // Redirect back jika tidak ada notulen yang dicantumkan
         if (isNoteEmpty($request)) {
             return back()->with('noteEmpty', 'Cantumkan minimal satu informasi dari 3 pilihan dibawah sebagai notulen rapat.');
         }
 
-        $contentImageName = null;
-        $contentFileName = null;
+        // Upload gambar dan ambil semua nama gambar
+        $imageNames = $this->uploadImages($request->contentImages);
 
-        if ($request->hasFile('contentImage')) {
-            // Buat nama gambar
-            $content = $request->file('contentImage');
-            $contentImageName = time() . '_' . str($content->getClientOriginalName())->lower();
+        // Upload file dan amgbil semua nama file
+        $fileNames = $this->uploadFiles($request->contentFiles);
 
-            // Move gambar ke public
-            $content->move('uploaded/images/', $contentImageName);
-        }
-
-        if ($request->hasFile('contentFile')) {
-            // Buat nama file
-            $content = $request->file('contentFile');
-            $contentFileName = time() . '_' . str($content->getClientOriginalName())->lower();
-
-            // Move gambar ke public
-            $content->move('uploaded/files/', $contentFileName);
-        }
-
-        // Note::upload($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
-
-        $this->broadcast($request->only('title', 'scheduleId', 'contentText'), $contentImageName, $contentFileName);
-        dd('sent');
+        Note::upload($request->only('title', 'scheduleId', 'contentText'), $imageNames, $fileNames);
+        $this->broadcast($request->only('title', 'scheduleId', 'contentText'), $imageNames, $fileNames);
 
         return redirect()->to('/')->with('status', 'Berhasil menambah notulen rapat');
     }
 
-    public function broadcast($note, $imageName, $fileName)
+    public function broadcast($note, $imageNames, $fileNames)
     {
-        Mail::send(new BroadcastNotes($note, $imageName, $fileName));
+        Mail::send(new BroadcastNotes($note, $imageNames, $fileNames));
+    }
+
+    public function uploadImages($images)
+    {
+        $imageNames = '';
+
+        if (count($images) > 0) {
+            foreach ($images as $image) {
+                // Buat nama gambar
+                $imageName = time() . '_' . str($image->getClientOriginalName())->lower();
+                $imageNames .= $imageName . '|';
+
+                // Move gambar ke public
+                $image->move('uploaded/images/', $imageName);
+            }
+        }
+
+        return $imageNames;
+    }
+
+    public function uploadFiles($files)
+    {
+        $fileNames = '';
+
+        if (count($files)) {
+            foreach ($files as $file) {
+                // Buat nama file
+                $fileName = time() . '_' . str($file->getClientOriginalName())->lower();
+                $fileNames .= $fileName . '|';
+
+                // Move gambar ke public
+                $file->move('uploaded/files/', $fileName);
+            }
+        }
+
+        return $fileNames;
     }
 }
