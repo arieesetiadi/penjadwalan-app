@@ -55,6 +55,7 @@
                                 <td>Keterangan</td>
                                 <td class="cell-head-center">Status</td>
                                 <td class="cell-head-center">Informasi</td>
+                                <td class="cell-head-center">Notulen</td>
                                 <td class="cell-head-center">Aksi</td>
                             </tr>
                         </thead>
@@ -168,13 +169,113 @@
                                         </div>
                                     </td>
 
+                                    {{-- Tampil Notulen --}}
+                                    <td>
+                                        @if ($schedule->note)
+                                            <div class="table-actions d-flex align-items-center gap-3">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Tampilkan Notulen" class="w-100 text-center">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-note-show-{{ $schedule->id }}">
+                                                        Tampil
+                                                    </a>
+                                                </div>
+
+                                                <div class="modal fade" id="modal-note-show-{{ $schedule->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title d-block" id="exampleModalLabel">
+                                                                    Notulen {{ $schedule->description }}
+                                                                </h5>
+                                                            </div>
+                                                            <div class="modal-body" style="border: 1px solid black">
+                                                                <span>Diunggah pada :
+                                                                    {{ dateTimeFormat($schedule->note->created_at) }}</span>
+                                                                <hr>
+
+                                                                {{-- Content Text --}}
+                                                                @if ($schedule->note->content_text)
+                                                                    <div class="text-wrap w-100"
+                                                                        style="word-wrap: break-word">
+                                                                        {!! $schedule->note->content_text !!}</div>
+                                                                @endif
+
+                                                                {{-- Content Image --}}
+                                                                @php
+                                                                    $imageNames = str($schedule->note->content_image)->explode('|');
+                                                                @endphp
+
+                                                                @if (count($imageNames) > 0)
+                                                                    <hr>
+                                                                    <div id="carouselExampleControls"
+                                                                        class="carousel slide" data-bs-ride="carousel">
+                                                                        <div class="carousel-inner">
+                                                                            @for ($i = 0; $i < count($imageNames) - 1; $i++)
+                                                                                <div
+                                                                                    class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                                                                                    <img width="100%"
+                                                                                        src="{{ asset('uploaded/images/' . $imageNames[$i]) }}"
+                                                                                        alt="Content Image"
+                                                                                        class="rounded">
+                                                                                </div>
+                                                                            @endfor
+                                                                        </div>
+                                                                        <button class="carousel-control-prev"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-slide="prev">
+                                                                            <span class="carousel-control-prev-icon"
+                                                                                aria-hidden="true"></span>
+                                                                            <span
+                                                                                class="visually-hidden">Previous</span>
+                                                                        </button>
+                                                                        <button class="carousel-control-next"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-slide="next">
+                                                                            <span class="carousel-control-next-icon"
+                                                                                aria-hidden="true"></span>
+                                                                            <span class="visually-hidden">Next</span>
+                                                                        </button>
+                                                                    </div>
+                                                                @endif
+
+                                                                {{-- Content File --}}
+                                                                @php
+                                                                    $fileNames = str($schedule->note->content_file)->explode('|');
+                                                                @endphp
+
+                                                                @if (count($fileNames) > 0)
+                                                                    <hr>
+                                                                    @for ($i = 0; $i < count($fileNames) - 1; $i++)
+                                                                        <a target="_blank"
+                                                                            href="{{ asset('uploaded/files/' . $fileNames[$i]) }}"
+                                                                            class="d-block my-1">
+                                                                            <i class="bi bi-download"></i> Download
+                                                                            Lampiran | {{ $fileNames[$i] }}
+                                                                        </a>
+                                                                    @endfor
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <center>-</center>
+                                        @endif
+                                    </td>
+
                                     {{-- Aksi --}}
                                     <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
                                             <form action="{{ route('schedule.edit', $schedule->id) }}" method="GET">
                                                 <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip"
                                                     data-bs-placement="bottom" title="Ubah"
-                                                    {{ $schedule->status == 'finish' ? 'disabled' : '' }}>
+                                                    {{ $schedule->status == 4 ? 'disabled' : '' }}>
                                                     <i class="bi bi-pen"></i>
                                                 </button>
                                             </form>
@@ -186,7 +287,7 @@
                                             <div>
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $schedule->id }}"
-                                                    {{ $schedule->status == 'finish' ? 'disabled' : '' }}>
+                                                    {{ $schedule->status == 4 ? 'disabled' : '' }}>
                                                     <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus"
                                                         class="bi bi-trash-fill"></i>
                                                 </button>

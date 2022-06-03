@@ -104,10 +104,6 @@ function isPass($date)
 
 function isNoteEmpty($request)
 {
-    // if (is_null($request->contentText) && is_null($request->contentImage) && is_null($request->contentFile)) {
-    //     return true;
-    // }
-
     if (is_null($request->contentText) && count($request->contentImages) == 0 && count($request->files) == 0) {
         return true;
     }
