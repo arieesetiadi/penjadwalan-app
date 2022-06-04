@@ -115,9 +115,8 @@ class ScheduleController extends Controller
     // Proses pengajuan
     public function requestProcess(StoreScheduleRequest $request)
     {
-        // dd($request->all());
         // Return back jika jam sudah lewat
-        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+        if (isDateTimePass($request)) {
             return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
         }
 

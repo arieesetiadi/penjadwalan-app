@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Berhasil Melakukan Pengajuan Jadwal</p>
+    <h1>Berhasil Melakukan Pengajuan Jadwal</h1>
     <br>
     <div>
-        <p>Deskripsi Pengajuan :</p>
+        <h3>Deskripsi Pengajuan :</h3>
         <table border="0">
             <tr>
                 <td>Tanggal</td>
@@ -35,11 +35,6 @@
                 <td>{{ $request['description'] }}</td>
             </tr>
         </table>
-        <hr>
-        <div>
-            <p>Login ke website <a href="{{ url('/') }}">Penjadwalan Ruang Rapat</a> untuk melakukan aksi tindak
-                lanjut.</p>
-        </div>
     </div>
 </body>
 

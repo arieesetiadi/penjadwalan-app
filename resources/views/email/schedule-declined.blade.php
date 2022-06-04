@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Pengajuan Jadwal Ditolak</p>
+    <h1>Pengajuan Jadwal Ditolak</h1>
     <br>
     <div>
-        <p>Deskripsi Jadwal :</p>
+        <h3>Deskripsi Jadwal :</h3>
         <table border="0">
             <tr>
                 <td>Tanggal</td>
@@ -31,7 +31,7 @@
             </tr>
         </table>
         <hr>
-        <p>Ditolak Oleh :</p>
+        <h3>Ditolak Oleh :</h3>
         <table border="0">
             <tr>
                 <td>Nama</td>

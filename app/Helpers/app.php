@@ -102,9 +102,15 @@ function isPass($date)
     return $date->format('Y-m-d') < now()->format('Y-m-d');
 }
 
+function isDateTimePass($request)
+{
+    $dateStart = Carbon::make($request->date . ' ' . $request->start);
+    $dateEnd = Carbon::make($request->date . ' ' . $request->end);
+
+    return $dateStart->isBefore(now()) || $dateEnd->isBefore(now());
+}
+
 function isNoteEmpty($request)
 {
-    if (is_null($request->contentText) && count($request->contentImages) == 0 && count($request->files) == 0) {
-        return true;
-    }
+    return is_null($request->contentText) && count($request->contentImages) == 0 && count($request->files) == 0;
 }

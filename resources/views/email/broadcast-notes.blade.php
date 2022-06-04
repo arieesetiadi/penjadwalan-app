@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Broadcast Notulen</p>
+    <h1>Broadcast Notulen</h1>
     <br>
     <div>
-        <p>Detail Notulen :</p>
+        <h3>Detail Notulen :</h3>
         <table border="0">
             <tr>
                 <td>Judul</td>

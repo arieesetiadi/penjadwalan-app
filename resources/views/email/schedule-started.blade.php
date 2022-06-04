@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Jadwal Anda Akan Segera Dimulai 10 Menit Lagi</p>
+    <h1>Jadwal Anda Akan Segera Dimulai 10 Menit Lagi</h1>
     <br>
     <div>
-        <p>Deskripsi Jadwal :</p>
+        <h3>Deskripsi Jadwal :</h3>
         <table border="0">
             <tr>
                 <td>Tanggal</td>

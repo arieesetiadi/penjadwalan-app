@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Permohonan Aktivasi Pengguna</p>
+    <h1>Permohonan Aktivasi Pengguna</h1>
     <br>
     <div>
-        <p>Detail Pengguna :</p>
+        <h3>Detail Pengguna :</h3>
         <table border="0">
             <tr>
                 <td>Nama</td>

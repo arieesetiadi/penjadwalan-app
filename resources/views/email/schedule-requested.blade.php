@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Pengajuan Jadwal</p>
+    <h1>Pengajuan Jadwal</h1>
     <br>
     <div>
-        <p>Detail Peminjam :</p>
+        <h3>Detail Peminjam :</h3>
         <table border="0">
             <tr>
                 <td>Nama</td>
@@ -36,8 +36,13 @@
             </tr>
         </table>
         <hr>
-        <p>Deskripsi Pengajuan :</p>
+        <h3>Deskripsi Pengajuan :</h3>
         <table border="0">
+            <tr>
+                <td>Ruangan</td>
+                <td>:</td>
+                <td>{{ $room}}</td>
+            </tr>
             <tr>
                 <td>Tanggal</td>
                 <td>:</td>
@@ -54,6 +59,11 @@
                 <td>{{ $request['description'] }}</td>
             </tr>
         </table>
+        <hr>
+        <div>
+            <p>Login ke website <a href="{{ url('/') }}">Penjadwalan Ruang Rapat</a> untuk melakukan aksi tindak
+                lanjut.</p>
+        </div>
     </div>
 </body>
 

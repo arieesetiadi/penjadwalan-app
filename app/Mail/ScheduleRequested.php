@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Room;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,6 +29,7 @@ class ScheduleRequested extends Mailable
         $data = [
             'request' => $this->request,
             'borrower' => $this->borrower,
+            'room' => Room::find($this->request['room'])['name']
         ];
 
         return $this

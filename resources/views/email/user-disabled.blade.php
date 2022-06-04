@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Akun anda telah dinonaktifkan dengan detail sebagai berikut :</p>
+    <h1>Akun Anda Telah Dinonaktifkan</h1>
     <br>
     <div>
-        <p>Detail Pengguna :</p>
+        <h3>Detail Pengguna :</h3>
         <table border="0">
             <tr>
                 <td>Nama</td>

@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <p>Jadwal Telah Disetujui</p>
+    <h1>Jadwal Telah Disetujui</h1>
     <br>
     <div>
-        <p>Deskripsi Jadwal :</p>
+        <h3>Deskripsi Jadwal :</h3>
         <table border="0">
             <tr>
                 <td>Tanggal</td>
@@ -31,7 +31,7 @@
             </tr>
         </table>
         <hr>
-        <p>Disetujui Oleh :</p>
+        <h3>Disetujui Oleh :</h3>
         <table border="0">
             <tr>
                 <td>Nama</td>
