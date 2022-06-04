@@ -36,7 +36,7 @@ function validateHour() {
             return;
         }
         // Disable jika jam mulai lebih besar dari jam selesai
-        else if (momentStart.isAfter(momentEnd)) {
+        else if (momentStart.isAfter(momentEnd) || momentStart.isSame(momentEnd)) {
             $("#btn-request-submit").addClass("disabled");
             $("#msg-time-invalid").removeClass("d-none");
             return;
