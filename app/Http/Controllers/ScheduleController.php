@@ -80,7 +80,7 @@ class ScheduleController extends Controller
     public function update(StoreScheduleRequest $request, $id)
     {
         // Return back jika jam sudah lewat
-        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+        if (isDateTimePass($request)) {
             return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
         }
 
@@ -188,7 +188,7 @@ class ScheduleController extends Controller
     public function requestUpdate($id, Request $request)
     {
         // Return back jika jam sudah lewat
-        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+        if (isDateTimePass($request)) {
             return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
         }
 
@@ -212,10 +212,9 @@ class ScheduleController extends Controller
 
     public function scheduleCancel($id, Request $request)
     {
-        Mail::send(new ScheduleCanceled($id, $request->cancelMessage));
-        dd('Sent');
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
+        Mail::send(new ScheduleCanceled($id, $request->cancelMessage));
 
         return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
     }

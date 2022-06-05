@@ -288,8 +288,7 @@
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $schedule->id }}"
                                                     {{ $schedule->status == 4 ? 'disabled' : '' }}>
-                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus"
-                                                        class="bi bi-trash-fill"></i>
+                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal" class="bi bi-x-circle-fill text-danger"></i>
                                                 </button>
                                             </div>
                                             <div class="modal fade"
