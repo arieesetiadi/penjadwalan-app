@@ -340,6 +340,7 @@ class Schedule extends Model
                 'date' => Carbon::make($data['date'])->format('Y-m-d'),
                 'start' => $data['start'],
                 'end' => $data['end'],
+                'status' => self::STATUS_ACTIVE,
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
                 'updated_at' => now()->format('Y-m-d H:i:s.u0')
