@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ScheduleCanceled;
 use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\Room;
@@ -209,8 +210,10 @@ class ScheduleController extends Controller
         return redirect()->route('dashboard')->with('status', 'Berhasil mengajukan jadwal peminjaman.');
     }
 
-    public function scheduleCancel($id)
+    public function scheduleCancel($id, Request $request)
     {
+        Mail::send(new ScheduleCanceled($id, $request->cancelMessage));
+        dd('Sent');
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
 
