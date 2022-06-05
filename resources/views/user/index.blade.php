@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div id="users-table-wrapper" class="table-responsive mt-3">
-                <table id="users-table" class="table align-middle">
+                <table id="users-table" class="table table-sm align-middle">
                     @if (count($users) > 0)
                         <thead>
                             <tr>
@@ -95,7 +95,7 @@
                                             <div class="table-actions d-flex align-items-center">
                                                 {{-- Ubah --}}
                                                 <a href="{{ route('user.edit', $user->id) }}"
-                                                    class="btn btn-sm text-dark" data-bs-toggle="tooltip"
+                                                    class="btn text-dark" data-bs-toggle="tooltip"
                                                     data-bs-placement="left" title="Ubah">
                                                     <i class="bi bi-pen"></i>
                                                 </a>
@@ -104,7 +104,7 @@
                                                     {{-- Tombol disable user --}}
                                                     <div data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="Nonaktifkan Pengguna">
-                                                        <button type="button" class="btn btn-sm"
+                                                        <button type="button" class="btn"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modal-user-disable-{{ $user->id }}">
                                                             <i class="fa-solid fa-power-off text-danger"></i>
@@ -114,7 +114,7 @@
                                                     {{-- Tombol Enable user --}}
                                                     <div data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="Aktifkan Pengguna">
-                                                        <button type="button" class="btn btn-sm"
+                                                        <button type="button" class="btn"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modal-user-enable-{{ $user->id }}">
                                                             <i class="fa-solid fa-power-off text-success"></i>

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Pengajuan Jadwal Dibatalkan</h1>
+    <h1>{{ $subject  }}</h1>
     <br>
     <div>
         <h3>Deskripsi Jadwal :</h3>

@@ -99,11 +99,10 @@ class ScheduleController extends Controller
     public function destroy($id, Request $request)
     {
         Mail::send(new ScheduleDestroyed($id, $request->cancelMessage));
-        dd('Sent');
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
 
-        return redirect()->route('schedule.index')->with('status', 'Jadwal telah dihapus');
+        return redirect()->route('schedule.index')->with('status', 'Jadwal telah dibatalkan');
     }
 
     // Halaman pengajuan
@@ -215,9 +214,9 @@ class ScheduleController extends Controller
 
     public function scheduleCancel($id, Request $request)
     {
+        Mail::send(new ScheduleCanceled($id, $request));
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
-        Mail::send(new ScheduleCanceled($id, $request->cancelMessage));
 
         return redirect()->to('/')->with('status', 'Jadwal telah dibatalkan');
     }

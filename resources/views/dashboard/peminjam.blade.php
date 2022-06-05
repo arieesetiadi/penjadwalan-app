@@ -210,6 +210,8 @@
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <input type="hidden" name="subject" value="Jadwal Telah Dibatalkan Oleh Peminjam">
+
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">
@@ -398,6 +400,7 @@
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <input type="hidden" name="subject" value="Pengajuan Jadwal Telah Dibatalkan Oleh Peminjam">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">

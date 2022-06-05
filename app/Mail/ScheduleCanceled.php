@@ -21,12 +21,14 @@ class ScheduleCanceled extends Mailable
     protected $schedule;
     protected $officers;
     protected $cancelMessage;
+    protected $mailSubject;
 
-    public function __construct($scheduleId, $cancelMessage)
+    public function __construct($scheduleId, $request)
     {
         $this->schedule = Schedule::getById($scheduleId)[0];
         $this->officers = User::getOfficers();
-        $this->cancelMessage = $cancelMessage;
+        $this->cancelMessage = $request->cancelMessage;
+        $this->mailSubject = $request->subject;
     }
 
     /**
@@ -38,10 +40,11 @@ class ScheduleCanceled extends Mailable
     {
         return $this
             ->bcc($this->officers)
-            ->subject('Pengajuan Jadwal Dibatalkan')
+            ->subject($this->mailSubject)
             ->view('email.schedule-canceled' , [
                 'schedule' => $this->schedule,
-                'cancelMessage' => $this->cancelMessage
+                'cancelMessage' => $this->cancelMessage,
+                'subject' => $this->mailSubject
             ]);
     }
 }

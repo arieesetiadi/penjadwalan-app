@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Jadwal Anda Telah Dibatalkan</title>
+    <title>Jadwal Anda Telah Dibatalkan Oleh Petugas</title>
 </head>
 
 <body>
-    <h1>Jadwal Anda Telah Dibatalkan</h1>
+    <h1>Jadwal Anda Telah Dibatalkan Oleh Petugas</h1>
     <br>
     <div>
         <h3>Deskripsi Jadwal :</h3>

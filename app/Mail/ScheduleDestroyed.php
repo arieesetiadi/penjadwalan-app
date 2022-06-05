@@ -36,7 +36,7 @@ class ScheduleDestroyed extends Mailable
     {
         return $this
             ->to($this->schedule->borrower)
-            ->subject('Jadwal Anda Telah Dibatalkan')
+            ->subject('Jadwal Anda Telah Dibatalkan Oleh Petugas')
             ->view('email.schedule-destroyed', [
                 'schedule' => $this->schedule,
                 'cancelMessage' => $this->cancelMessage
