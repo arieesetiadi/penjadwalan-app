@@ -343,6 +343,7 @@ class Schedule extends Model
                 'status' => self::STATUS_ACTIVE,
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
+                'approved_at' => now()->format('Y-m-d H:i:s.u0'),
                 'updated_at' => now()->format('Y-m-d H:i:s.u0')
             ]);
     }

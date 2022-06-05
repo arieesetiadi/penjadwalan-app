@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ScheduleCanceled;
+use App\Mail\ScheduleDestroyed;
 use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\Room;
@@ -95,8 +96,10 @@ class ScheduleController extends Controller
         return redirect()->route('schedule.index')->with('status', 'Berhasil mengubah jadwal peminjaman.');
     }
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        Mail::send(new ScheduleDestroyed($id, $request->cancelMessage));
+        dd('Sent');
         Schedule::deleteById($id);
         Note::deleteByScheduleId($id);
 

@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div id="schedules-table-wrapper" class="table-responsive mt-3">
-                <table id="schedules-table" class="table align-middle">
+                <table id="schedules-table" class="table table-sm align-middle">
                     @if (count($schedules) > 0)
                         <thead>
                             <tr>
@@ -306,9 +306,20 @@
                                                                 </h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Jadwal rapat
-                                                                <strong>{{ $schedule->description }}</strong> akan
-                                                                dibatalkan.
+                                                                 <span class="text-wrap">
+                                                                    Jadwal
+                                                                    <strong>{{ $schedule->description }}</strong> akan
+                                                                    dibatalkan. Silahkan cantumkan alasan dari pembatalan jadwal.
+                                                                </span>
+                                                                <div class="py-3">
+                                                                    <div class="form-floating">
+                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan" id="alasanPenolakan" style="height: 100px"></textarea>
+                                                                        <label for="alasanPenolakan">Alasan pembatalan</label>
+                                                                    </div>
+                                                                </div>
+                                                                <span>
+                                                                    Tekan <strong>OK</strong> untuk melanjutkan pembatalan jadwal.
+                                                                </span>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light border"

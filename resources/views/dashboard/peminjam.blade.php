@@ -217,9 +217,20 @@
                                                                 </h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Jadwal rapat
-                                                                <strong>{{ $active->description }}</strong> akan
-                                                                dibatalkan.
+                                                                 <span class="text-wrap">
+                                                                    Jadwal
+                                                                    <strong>{{ $active->description }}</strong> akan
+                                                                    dibatalkan. Silahkan cantumkan alasan dari pembatalan jadwal.
+                                                                </span>
+                                                                <div class="py-3">
+                                                                    <div class="form-floating">
+                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan" id="alasanPenolakan" style="height: 100px"></textarea>
+                                                                        <label for="alasanPenolakan">Alasan pembatalan</label>
+                                                                    </div>
+                                                                </div>
+                                                                <span>
+                                                                    Tekan <strong>OK</strong> untuk melanjutkan pembatalan jadwal.
+                                                                </span>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light border"
