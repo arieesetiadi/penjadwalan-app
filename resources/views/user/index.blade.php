@@ -52,9 +52,9 @@
                                 {{-- <th>Username</th> --}}
                                 <th>Email</th>
                                 <th>Telepon</th>
-                                <th>Status</th>
                                 <th>Divisi</th>
                                 <th>Tipe</th>
+                                <th>Status</th>
                                 <th class="cell-head-center">Aksi</th>
                             </tr>
                         </thead>
@@ -77,18 +77,16 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>
-                                            <center>
-                                                @if ($user->status)
-                                                    <span class="badge bg-success w-100">Aktif</span>
-                                                @else
-                                                    <span class="badge bg-danger w-100">Nonaktif</span>
-                                                @endif
-                                            </center>
-                                        </td>
-                                        <td>
                                             {{ $user->division->name }}
                                         </td>
                                         <td>{{ $user->role->name }}</td>
+                                        <td>
+                                            @if ($user->status)
+                                                <span class="badge bg-success w-100">Aktif</span>
+                                            @else
+                                                <span class="badge bg-danger w-100">Nonaktif</span>
+                                            @endif
+                                        </td>
 
                                         {{-- Aksi --}}
                                         <td class="d-flex justify-content-center">

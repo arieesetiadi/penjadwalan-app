@@ -109,7 +109,55 @@
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
                                         <td>{{ $active->room->name }}</td>
-                                        <td>{{ $active->borrower->name }}</td>
+
+                                        {{--Peminjam--}}
+                                        <td>
+                                            <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail Peminjam">
+                                                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-borrower-{{ $active->id }}">
+                                                    <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
+                                                </a>
+                                            </div>
+                                            {{ $active->borrower->name }}
+
+                                            <div class="modal fade" id="modal-borrower-{{ $active->id }}"
+                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Detail dari
+                                                                <strong>{{ $active->borrower->name }}</strong>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-sm table-borderless">
+                                                                <tr>
+                                                                    <td>Nama Lengkap</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $active->borrower->name  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Divisi</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $active->borrower->division->name  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alamat Email</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $active->borrower->email  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nomor Telepon</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $active->borrower->phone  }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
                                         <td>{{ dateFormat($active->date) }}</td>
                                         <td>{{ timeFormat($active->start) }}</td>
                                         <td>{{ timeFormat($active->end) }}</td>
@@ -250,7 +298,56 @@
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
                                         <td>{{ $pending->room->name }}</td>
-                                        <td>{{ $pending->borrower->name }}</td>
+
+
+                                        {{--Peminjam--}}
+                                        <td>
+                                            <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail Peminjam">
+                                                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-borrower-{{ $active->id }}">
+                                                    <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
+                                                </a>
+                                            </div>
+                                            {{ $pending->borrower->name }}
+
+                                            <div class="modal fade" id="modal-borrower-{{ $pending->id }}"
+                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Detail dari
+                                                                <strong>{{ $pending->borrower->name }}</strong>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-sm table-borderless">
+                                                                <tr>
+                                                                    <td>Nama Lengkap</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $pending->borrower->name  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Divisi</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $pending->borrower->division->name  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alamat Email</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $pending->borrower->email  }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nomor Telepon</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $pending->borrower->phone  }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
                                         <td>{{ dateFormat($pending->date) }}</td>
                                         <td>{{ timeFormat($pending->start) }}</td>
                                         <td>{{ timeFormat($pending->end) }}</td>

@@ -64,7 +64,60 @@
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $schedule->room->name }}</td>
-                                    <td>{{ $schedule->borrower->name }}</td>
+
+                                    {{--Peminjam--}}
+                                    <td>
+                                        <div>
+                                            <div class="d-inline-block" data-bs-toggle="tooltip"
+                                                 data-bs-placement="bottom" title="Detail Peminjam">
+                                                <a href="#" class="text-dark" data-bs-toggle="modal"
+                                                   data-bs-target="#modal-borrower-{{ $schedule->id }}">
+                                                    <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
+                                                </a>
+                                            </div>
+                                        {{ $schedule->borrower->name }}
+                                        </div>
+
+                                        <div class="modal fade" id="modal-borrower-{{ $schedule->id }}"
+                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            Detail dari
+                                                            <strong>{{ $schedule->borrower->name }}</strong>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-sm table-borderless">
+                                                            <tr>
+                                                                <td>Nama Lengkap</td>
+                                                                <td>:</td>
+                                                                <td>{{ $schedule->borrower->name  }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Divisi</td>
+                                                                <td>:</td>
+                                                                <td>{{ $schedule->borrower->division->name  }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Alamat Email</td>
+                                                                <td>:</td>
+                                                                <td>{{ $schedule->borrower->email  }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nomor Telepon</td>
+                                                                <td>:</td>
+                                                                <td>{{ $schedule->borrower->phone  }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+
                                     <td>{{ dateFormat($schedule->date) }}</td>
                                     <td>{{ timeFormat($schedule->start) }}</td>
                                     <td>{{ timeFormat($schedule->end) }}</td>
