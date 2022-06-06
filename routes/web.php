@@ -24,7 +24,7 @@ Route::get('/activate/request/{id}', [AuthController::class, 'activateRequest'])
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// ================= Resource Route ==================== 
+// ================= Resource Route ====================
 
 // Rooms
 Route::middleware('rolecheck:1')->group(function () {
@@ -76,7 +76,7 @@ Route::get('/change-month/{current}/{counter}', [ScheduleController::class, 'cha
 Route::resource('schedule', ScheduleController::class)->middleware('rolecheck:1,2');
 
 // Demo
-Route::get('/reset', [ScheduleController::class, 'reset']);
+//Route::get('/reset', [ScheduleController::class, 'reset']);
 Route::get('/demo', [ScheduleController::class, 'demo']);
 Route::get('/demo2', [ScheduleController::class, 'demo2']);
 Route::get('/demo3', [ScheduleController::class, 'demo3']);

@@ -15,6 +15,11 @@
         <h3>Deskripsi Jadwal :</h3>
         <table border="0">
             <tr>
+                <td>Ruangan</td>
+                <td>:</td>
+                <td>{{ $schedule->room->name}}</td>
+            </tr>
+            <tr>
                 <td>Tanggal</td>
                 <td>:</td>
                 <td>{{ dateFormat($schedule['date']) }}</td>

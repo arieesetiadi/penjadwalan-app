@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ScheduleCanceled;
 use App\Mail\ScheduleDestroyed;
+use App\Mail\ScheduleStarted;
 use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\Room;
@@ -252,12 +253,16 @@ class ScheduleController extends Controller
     // H - 10m
     public function demo()
     {
-        $newStart = now()->addMinute(11)->format('H:i');
+        $schedule = Schedule
+            ::where('status', 2)
+            ->first();
+
+        Mail::send(new ScheduleStarted($schedule->id));
+
+        $newStart = now()->addMinute(10)->addSecond(15)->format('H:i:s');
         $newEnd = now()->addMinute(15)->format('H:i');
 
-        Schedule
-            ::where('status', 2)
-            ->update([
+        $schedule->update([
                 'date' => now()->format('Y-m-d'),
                 'start' => $newStart,
                 'end' => $newEnd
@@ -275,6 +280,7 @@ class ScheduleController extends Controller
 
         Schedule
             ::where('status', 2)
+            ->first()
             ->update([
                 'date' => $nowDate,
                 'start' => $newStart,
@@ -287,10 +293,18 @@ class ScheduleController extends Controller
     // Jadwal selesai
     public function demo3()
     {
+        $nowDate = now()->format('Y-m-d');
+        $newStart = now()->subMinute(30)->format('H:i');
+        $newEnd = now()->subMinute(5)->format('H:i');
+
         Schedule
             ::where('status', 2)
+            ->first()
             ->update([
-                'status' => 4
+                'status' => 4,
+                'date' => $nowDate,
+                'start' => $newStart,
+                'end' => $newEnd
             ]);
 
         return redirect('/');

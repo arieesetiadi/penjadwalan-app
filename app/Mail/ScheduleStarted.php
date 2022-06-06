@@ -37,7 +37,7 @@ class ScheduleStarted extends Mailable
     {
         $data = [
             'borrower' => $this->borrower,
-            'schedule' => $this->schedule
+            'schedule' => $this->schedule,
         ];
 
         return $this
