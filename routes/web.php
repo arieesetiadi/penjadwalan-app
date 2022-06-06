@@ -80,3 +80,4 @@ Route::resource('schedule', ScheduleController::class)->middleware('rolecheck:1,
 Route::get('/demo', [ScheduleController::class, 'demo']);
 Route::get('/demo2', [ScheduleController::class, 'demo2']);
 Route::get('/demo3', [ScheduleController::class, 'demo3']);
+Route::get('/demo4', [ScheduleController::class, 'demo4']);

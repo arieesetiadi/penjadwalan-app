@@ -309,4 +309,24 @@ class ScheduleController extends Controller
 
         return redirect('/');
     }
+
+//    Pengajuan expired
+    public function demo4()
+    {
+        $nowDate = now()->format('Y-m-d');
+        $newStart = now()->subMinute(30)->format('H:i');
+        $newEnd = now()->subMinute(5)->format('H:i');
+
+        Schedule
+            ::where('status', 1)
+            ->first()
+            ->update([
+                'date' => $nowDate,
+                'start' => $newStart,
+                'end' => $newEnd,
+                'description' => 'Pengajuan yang sudah lewat waktu'
+            ]);
+
+        return redirect('/');
+    }
 }
