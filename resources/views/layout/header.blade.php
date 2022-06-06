@@ -80,18 +80,12 @@
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="user-setting d-flex align-items-center">
-                                    @if (auth()->user()->gender == 'Pria')
-                                        <img src="{{ asset('images/avatars/man.png') }}" alt=""
-                                            class="rounded-circle mx-4" width="35" height="35">
-                                    @else
-                                        <img src="{{ asset('images/avatars/woman.png') }}" alt=""
-                                            class="rounded-circle mx-4" width="35" height="35">
-                                    @endif
-                                    <div class="d-inline-block">
-                                        <span style="font-size: 90%"
-                                            class="d-block font-weight-lighter">{{ auth()->user()->name }}</span>
-                                        <span style="font-size: 80%" class="d-block text-secondary"
-                                            style="margin-top: 0">
+                                    <div class="d-inline-block mx-4" style="text-align: right">
+                                        <span style="font-size: 90%" class="d-block font-weight-lighter">
+                                            {{ auth()->user()->name }}
+                                        </span>
+                                        <span style="font-size: 80%" class="d-block text-secondary">
+                                            {{ auth()->user()->role->name }}
                                             @if (auth()->user()->role_id == 1)
                                                 <i class="fa-solid fa-crown text-warning"></i>
                                             @elseif (auth()->user()->role_id == 2)
@@ -99,9 +93,15 @@
                                             @elseif (auth()->user()->role_id == 3)
                                                 <i class="fa-solid fa-crown text-brown"></i>
                                             @endif
-                                            {{ auth()->user()->role->name }}
                                         </span>
                                     </div>
+                                    @if (auth()->user()->gender == 'Pria')
+                                        <img src="{{ asset('images/avatars/man.png') }}" alt=""
+                                             class="rounded-circle" width="35" height="35">
+                                    @else
+                                        <img src="{{ asset('images/avatars/woman.png') }}" alt=""
+                                             class="rounded-circle" width="35" height="35">
+                                    @endif
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -216,17 +216,17 @@
                         </a>
                     </li>
 
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('room.index') }}">
                             <div class="parent-icon"><i class="bi bi-door-closed"></i>
                             </div>
                             <div class="menu-title">Kelola Ruangan</div>
                         </a>
-                    </li> --}}
+                    </li>
                 @endif
-
             </ul>
             <!--end navigation-->
         </aside>
 
         <!--end sidebar -->
+    </div>

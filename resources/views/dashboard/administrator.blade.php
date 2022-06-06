@@ -446,11 +446,8 @@
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
                                                 {{-- Setuju --}}
-                                                <div>
-                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-approve-{{ $pending->id }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Setujui">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Setujui">
+                                                    <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-schedule-approve-{{ $pending->id }}">
                                                         <i class="bi bi-hand-thumbs-up-fill text-dark"></i>
                                                     </a>
                                                 </div>
@@ -482,11 +479,9 @@
                                                 </div>
 
                                                 {{-- Tolak --}}
-                                                <div>
-                                                    <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-schedule-decline-{{ $pending->id }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Tolak">
+                                                <div  data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                      title="Tolak">
+                                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#modal-schedule-decline-{{ $pending->id }}">
                                                         <i class="bi bi-x-circle-fill text-danger"></i>
                                                     </a>
                                                 </div>
