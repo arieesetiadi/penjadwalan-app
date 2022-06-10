@@ -39,9 +39,11 @@ class SetScheduleFinish extends Command
     public function handle()
     {
         // 1. Cari jadwal yang selesai saat ini
-        $schedule = Schedule::getAlmostFinish()[0];
+        $scheduleIds = Schedule::getFinished();
 
         // 2. Set jadwal ke finish
-        Schedule::setFinish($schedule->id);
+        foreach ($scheduleIds as $id) {
+            Schedule::setFinish($id);
+        }
     }
 }

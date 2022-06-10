@@ -53,15 +53,22 @@ class Schedule extends Model
         // ->get('id');
     }
 
-    public static function getAlmostFinish()
+    public static function getFinished()
     {
-        $date = now()->format('Y-m-d');
-        $now = Carbon::make(now()->format('H:i'))->format('H:i:s');
+        // Ambil jadwal yang date & end <= now
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $activeSchedules = self::where('status', self::STATUS_ACTIVE)->get();
 
-        return self
-            ::whereDate('date', $date)
-            ->where('end', $now)
-            ->get('id');
+        foreach($activeSchedules as $active){
+            $endDate = Carbon::make($active->date . ' ' . $active->end)->format('Y-m-d H:i:s');
+
+            //Ambil ID jika jadwal sudah berakhir
+            if($now >= $endDate){
+                $ids[] = $active->id;
+            }
+        }
+
+        return $ids;
     }
 
     public static function getExpired()

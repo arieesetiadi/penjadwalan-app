@@ -163,8 +163,8 @@
                     <h5 class="logo-text">KOMINFO</h5>
                 </a>
 
-                <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
-                </div>
+                {{--<div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>--}}
+                {{--</div>--}}
             </div>
             <!--navigation-->
             <ul class="metismenu" id="menu">

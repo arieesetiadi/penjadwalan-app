@@ -10,6 +10,12 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 
+//Route::get('/test', function(){
+//    foreach (Schedule::getFinished() as $id){
+//        dump($id);
+//    }
+//});
+
 // Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
