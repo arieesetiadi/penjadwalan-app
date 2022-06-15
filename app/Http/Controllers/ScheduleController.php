@@ -263,10 +263,10 @@ class ScheduleController extends Controller
         $newEnd = now()->addMinute(15)->format('H:i');
 
         $schedule->update([
-                'date' => now()->format('Y-m-d'),
-                'start' => $newStart,
-                'end' => $newEnd
-            ]);
+            'date' => now()->format('Y-m-d'),
+            'start' => $newStart,
+            'end' => $newEnd
+        ]);
 
         return redirect('/');
     }
@@ -310,12 +310,12 @@ class ScheduleController extends Controller
         return redirect('/');
     }
 
-//    Pengajuan expired
+    //    Pengajuan expired
     public function demo4()
     {
         $nowDate = now()->format('Y-m-d');
-        $newStart = now()->subMinute(30)->format('H:i');
-        $newEnd = now()->subMinute(5)->format('H:i');
+        $newStart = now()->subHour(2)->format('H:i');
+        $newEnd = now()->subHour(1)->format('H:i');
 
         Schedule
             ::where('status', 1)
@@ -324,8 +324,50 @@ class ScheduleController extends Controller
                 'date' => $nowDate,
                 'start' => $newStart,
                 'end' => $newEnd,
-                'description' => 'Pengajuan yang sudah lewat waktu'
             ]);
+
+        return redirect('/');
+    }
+
+    // Ready to roll
+    public function prepare()
+    {
+        $schedules = [
+            [
+                'date' => now()->addDay(1)->format('Y-m-d'),
+                'start' => '09:00',
+                'end' => '11:00',
+                'description' => 'Rapat A',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+            [
+                'date' => now()->addDay(1)->format('Y-m-d'),
+                'start' => '14:00',
+                'end' => '15:00',
+                'description' => 'Rapat B',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+            [
+                'date' => now()->addDay(2)->format('Y-m-d'),
+                'start' => '09:00',
+                'end' => '13:00',
+                'description' => 'Rapat C',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+        ];
+
+        foreach ($schedules as $schedule) {
+            Schedule::create($schedule);
+        }
 
         return redirect('/');
     }
