@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Schedule;
+use App\Mail\ScheduleExpired;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\RoomController;
@@ -28,7 +30,6 @@ Route::get('/activate/request/{id}', [AuthController::class, 'activateRequest'])
 
 // Route logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 // ================= Resource Route ====================
 
@@ -88,3 +89,5 @@ Route::get('/demo2', [ScheduleController::class, 'demo2']);
 Route::get('/demo3', [ScheduleController::class, 'demo3']);
 Route::get('/demo4', [ScheduleController::class, 'demo4']);
 Route::get('/prepare', [ScheduleController::class, 'prepare']);
+Route::get('/add-pending/{n}', [ScheduleController::class, 'addPending']);
+Route::get('/add-expired/{n}', [ScheduleController::class, 'addExpired']);

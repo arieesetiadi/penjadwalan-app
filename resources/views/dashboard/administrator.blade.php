@@ -110,17 +110,19 @@
                                         <td>{{ $i + 1 }}</td>
                                         <td>{{ $active->room->name }}</td>
 
-                                        {{--Peminjam--}}
+                                        {{-- Peminjam --}}
                                         <td>
-                                            <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail Peminjam">
-                                                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-borrower-{{ $active->id }}">
+                                            <div class="d-inline-block" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Detail Peminjam">
+                                                <a href="#" class="text-dark" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-borrower-{{ $active->id }}">
                                                     <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
                                                 </a>
                                             </div>
                                             {{ $active->borrower->name }}
 
                                             <div class="modal fade" id="modal-borrower-{{ $active->id }}"
-                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -134,22 +136,22 @@
                                                                 <tr>
                                                                     <td>Nama Lengkap</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $active->borrower->name  }}</td>
+                                                                    <td>{{ $active->borrower->name }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Divisi</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $active->borrower->division->name  }}</td>
+                                                                    <td>{{ $active->borrower->division->name }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Alamat Email</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $active->borrower->email  }}</td>
+                                                                    <td>{{ $active->borrower->email }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Nomor Telepon</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $active->borrower->phone  }}</td>
+                                                                    <td>{{ $active->borrower->phone }}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -300,17 +302,20 @@
                                         <td>{{ $pending->room->name }}</td>
 
 
-                                        {{--Peminjam--}}
+                                        {{-- Peminjam --}}
                                         <td>
-                                            <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail Peminjam">
-                                                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-borrower-{{ $active->id }}">
+                                            <div class="d-inline-block" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Detail Peminjam">
+                                                <a href="#" class="text-dark" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-borrower-{{ $pending->id }}">
                                                     <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
                                                 </a>
                                             </div>
                                             {{ $pending->borrower->name }}
 
                                             <div class="modal fade" id="modal-borrower-{{ $pending->id }}"
-                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -324,22 +329,23 @@
                                                                 <tr>
                                                                     <td>Nama Lengkap</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $pending->borrower->name  }}</td>
+                                                                    <td>{{ $pending->borrower->name }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Divisi</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $pending->borrower->division->name  }}</td>
+                                                                    <td>{{ $pending->borrower->division->name }}
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Alamat Email</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $pending->borrower->email  }}</td>
+                                                                    <td>{{ $pending->borrower->email }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Nomor Telepon</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $pending->borrower->phone  }}</td>
+                                                                    <td>{{ $pending->borrower->phone }}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -363,7 +369,8 @@
 
                                             {{-- Modal Detail Pengajuan --}}
                                             <div class="modal fade" id="modal-detail-pending-{{ $pending->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -446,8 +453,10 @@
                                         <td>
                                             <div class="table-actions d-flex align-items-center gap-3">
                                                 {{-- Setuju --}}
-                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Setujui">
-                                                    <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modal-schedule-approve-{{ $pending->id }}">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Setujui">
+                                                    <a href="#" class="text-dark" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-schedule-approve-{{ $pending->id }}">
                                                         <i class="bi bi-hand-thumbs-up-fill text-dark"></i>
                                                     </a>
                                                 </div>
@@ -468,7 +477,8 @@
                                                                     <strong>{{ $pending->description }}</strong>.
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light border"
+                                                                    <button type="button"
+                                                                        class="btn btn-light border"
                                                                         data-bs-dismiss="modal">Batal</button>
                                                                     <button type="submit"
                                                                         class="btn btn-primary">OK</button>
@@ -479,9 +489,10 @@
                                                 </div>
 
                                                 {{-- Tolak --}}
-                                                <div  data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                      title="Tolak">
-                                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#modal-schedule-decline-{{ $pending->id }}">
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Tolak">
+                                                    <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-schedule-decline-{{ $pending->id }}">
                                                         <i class="bi bi-x-circle-fill text-danger"></i>
                                                     </a>
                                                 </div>
@@ -489,7 +500,8 @@
                                                     id="modal-schedule-decline-{{ $pending->id }}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
-                                                        <form action="{{ route('schedule.decline') }}" method="POST">
+                                                        <form action="{{ route('schedule.decline') }}"
+                                                            method="POST">
                                                             @csrf
                                                             <input name="id" type="hidden"
                                                                 value="{{ $pending->id }}">
@@ -504,11 +516,11 @@
                                                                         Tuliskan pesan untuk peminjam !
                                                                     </p>
                                                                     <textarea class="form-control mb-3" name="declineMessage" id="declineMessage" rows="6"
-                                                                        placeholder="Alasan penolakan jadwal"
-                                                                        required></textarea>
+                                                                        placeholder="Alasan penolakan jadwal" required></textarea>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light border"
+                                                                    <button type="button"
+                                                                        class="btn btn-light border"
                                                                         data-bs-dismiss="modal">Batal</button>
                                                                     <button type="submit"
                                                                         class="btn btn-primary">OK</button>

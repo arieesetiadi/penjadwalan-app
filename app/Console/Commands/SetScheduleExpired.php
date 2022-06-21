@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\ScheduleExpired;
 use App\Models\Schedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SetScheduleExpired extends Command
 {
@@ -44,6 +46,9 @@ class SetScheduleExpired extends Command
         // Delete jadwal by ID
         foreach ($expiredSchedules as $expired) {
             Schedule::deleteById($expired->id);
+
+            // Kirim notifikasi ke peminjam bahwa jadwal telah expired dan dihapus
+            Mail::send(new ScheduleExpired($expired));
         }
     }
 }

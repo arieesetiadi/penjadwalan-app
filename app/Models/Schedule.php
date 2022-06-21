@@ -59,11 +59,11 @@ class Schedule extends Model
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $activeSchedules = self::where('status', self::STATUS_ACTIVE)->get();
 
-        foreach($activeSchedules as $active){
+        foreach ($activeSchedules as $active) {
             $endDate = Carbon::make($active->date . ' ' . $active->end)->format('Y-m-d H:i:s');
 
             //Ambil ID jika jadwal sudah berakhir
-            if($now >= $endDate){
+            if ($now >= $endDate) {
                 $ids[] = $active->id;
             }
         }

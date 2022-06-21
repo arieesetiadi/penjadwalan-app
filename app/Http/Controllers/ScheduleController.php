@@ -371,4 +371,40 @@ class ScheduleController extends Controller
 
         return redirect('/');
     }
+
+    public static function addPending($n)
+    {
+        for ($i = 0; $i < $n; $i++) {
+            Schedule::create([
+                'date' => now()->addDay(1)->format('Y-m-d'),
+                'start' => '09:00',
+                'end' => '11:00',
+                'description' => 'Rapat Review Aplikasi ABC',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'requested_at' => now()->format('Y-m-d H:i:s.u0')
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    public static function addExpired($n)
+    {
+        for ($i = 0; $i < $n; $i++) {
+            Schedule::create([
+                'date' => now()->subDay(1)->format('Y-m-d'),
+                'start' => '09:00',
+                'end' => '11:00',
+                'description' => 'Rapat Koordinasi',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'requested_at' => now()->subDay(2)->format('Y-m-d H:i:s.u0')
+            ]);
+        }
+
+        return redirect('/');
+    }
 }
