@@ -73,6 +73,22 @@ class User extends Authenticatable
             ]);
     }
 
+    public static function register($data)
+    {
+        self
+            ::create([
+                'username' => $data['username'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'],
+                'status' => 0,
+                'role_id' => 3,
+                'division_id' => $data['division'],
+                'gender' => $data['gender']
+            ]);
+    }
+
     public static function updateById($data, $id)
     {
         $user = self::where('id', $id);

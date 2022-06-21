@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Models\Division;
 use App\Mail\ActivateUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -14,6 +17,12 @@ class AuthController extends Controller
     public function login()
     {
         return view('auth.login');
+    }
+
+    public function register()
+    {
+        $data['divisions'] = Division::all();
+        return view('auth.register', $data);
     }
 
     // proses validasi data login
@@ -40,6 +49,14 @@ class AuthController extends Controller
 
         // redirect ke halaman dashboard
         return redirect()->to('/')->with('status', 'Selamat datang, ' . auth()->user()->name);
+    }
+
+    // Proses pendaftaran akun peminjam
+    public function registerProcess(RegisterRequest $request)
+    {
+        User::register($request->all());
+
+        return redirect()->route('login')->with('success', 'Berhasil melakukan pendaftaran akun sebagai peminjam. Mohon tunggu tindak lanjut dari Administrator untuk melakukan aktivasi akun');
     }
 
     // proses logout

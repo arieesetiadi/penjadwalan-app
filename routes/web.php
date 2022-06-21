@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Schedule;
-use App\Mail\ScheduleExpired;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\RoomController;
@@ -12,21 +8,17 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 
-//Route::get('/test', function(){
-//    foreach (Schedule::getFinished() as $id){
-//        dump($id);
-//    }
-//});
-
 // Route halaman dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Route halaman login
 Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
-
-// Route validasi login
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login-process');
 Route::get('/activate/request/{id}', [AuthController::class, 'activateRequest'])->name('activate.request');
+
+// Route halaman daftar sebagai peminjam
+Route::get('/register', [AuthController::class, 'register'])->middleware('guest')->name('register');
+Route::post('/register', [AuthController::class, 'registerProcess'])->middleware('guest')->name('register-process');
 
 // Route logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

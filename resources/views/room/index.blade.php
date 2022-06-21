@@ -141,7 +141,7 @@
                                 <input name="name" id="name" type="text"
                                     class="form-control 
                                             @error('name') is-invalid @enderror w-75"
-                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}" required>
+                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}" required autocomplete="off">
                             </div>
                             @error('name')
                                 <span class="text-danger position-absolute d-block">
