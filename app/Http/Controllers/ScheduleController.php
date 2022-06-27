@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use App\Mail\ScheduleApproved;
 use App\Mail\ScheduleDeclined;
 use App\Mail\ScheduleRequested;
-use App\Helpers\Notification\Email;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Requests\StoreScheduleRequest;
@@ -57,7 +56,7 @@ class ScheduleController extends Controller
             return back()->with('warning', 'Jadwal telah digunakan.')->withInput($request->all());
         }
 
-        // Insert data pengajuan
+        // Insert data pengajuan    
         Schedule::insert($request->all());
 
         return redirect()->route('schedule.index')->with('status', 'Berhasil menambah jadwal peminjaman.');
@@ -206,6 +205,9 @@ class ScheduleController extends Controller
         foreach ($officers as $officer) {
             Mail::send(new ScheduleRequested($request->all(), auth()->user()->id, $officer));
         }
+
+        // Kirim notifikasi ke peminjam bahwa telah mengajukan jadwal
+        Mail::send(new RequestSuccess($request->all(), auth()->user()->id));
 
         // Insert data pengajuan
         Schedule::updateRequest($request->all(), $id);

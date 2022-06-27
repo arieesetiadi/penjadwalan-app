@@ -29,9 +29,6 @@ class NoteController extends Controller
 
     public function store(NoteRequest $request)
     {
-        $contentImageName = null;
-        $contentFileName = null;
-
         // Redirect back jika tidak ada notulen yang dicantumkan
         if (isNoteEmpty($request)) {
             return back()->with('noteEmpty', 'Cantumkan minimal satu informasi dari 3 pilihan dibawah sebagai notulen rapat.');
@@ -40,7 +37,7 @@ class NoteController extends Controller
         // Upload gambar dan ambil semua nama gambar
         $imageNames = $this->uploadImages($request->contentImages);
 
-        // Upload file dan amgbil semua nama file
+        // Upload file dan ambil semua nama file
         $fileNames = $this->uploadFiles($request->contentFiles);
 
         Note::upload($request->only('title', 'scheduleId', 'contentText'), $imageNames, $fileNames);
@@ -58,14 +55,16 @@ class NoteController extends Controller
     {
         $imageNames = '';
 
-        if (count($images) > 0) {
-            foreach ($images as $image) {
-                // Buat nama gambar
-                $imageName = time() . '_' . str($image->getClientOriginalName())->lower();
-                $imageNames .= $imageName . '|';
+        if (!is_null($images)) {
+            if (count($images) > 0) {
+                foreach ($images as $image) {
+                    // Buat nama gambar
+                    $imageName = time() . '_' . str($image->getClientOriginalName())->lower();
+                    $imageNames .= $imageName . '|';
 
-                // Move gambar ke public
-                $image->move('uploaded/images/', $imageName);
+                    // Move gambar ke public
+                    $image->move('uploaded/images/', $imageName);
+                }
             }
         }
 
@@ -76,14 +75,16 @@ class NoteController extends Controller
     {
         $fileNames = '';
 
-        if (count($files)) {
-            foreach ($files as $file) {
-                // Buat nama file
-                $fileName = time() . '_' . str($file->getClientOriginalName())->lower();
-                $fileNames .= $fileName . '|';
+        if (!is_null($files)) {
+            if (count($files) > 0) {
+                foreach ($files as $file) {
+                    // Buat nama file
+                    $fileName = time() . '_' . str($file->getClientOriginalName())->lower();
+                    $fileNames .= $fileName . '|';
 
-                // Move gambar ke public
-                $file->move('uploaded/files/', $fileName);
+                    // Move gambar ke public
+                    $file->move('uploaded/files/', $fileName);
+                }
             }
         }
 
