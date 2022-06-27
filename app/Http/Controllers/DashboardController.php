@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -16,6 +15,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+        // Redirect back jika user tidak aktif
+        if (!auth()->user()->status) {
+            auth()->logout();
+            return redirect()->route('login')->with('inactive', 'inactive');
+        }
+
         $data['title'] = 'Dashboard';
 
         // Cek role dari user yang sedang login
