@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Mail\RequestSuccess;
+use App\Mail\ScheduleCreated;
+use App\Mail\ScheduleUpdate;
 
 class ScheduleController extends Controller
 {
@@ -47,7 +49,7 @@ class ScheduleController extends Controller
     public function store(StoreScheduleRequest $request)
     {
         // Return back jika jam sudah lewat
-        if ($request->start < now()->format('H:i') || $request->end < now()->format('H:i')) {
+        if (isDateTimePass($request)) {
             return back()->with('invalidTime', 'Invalid Time')->withInput($request->all());
         }
 
@@ -58,6 +60,9 @@ class ScheduleController extends Controller
 
         // Insert data pengajuan    
         Schedule::insert($request->all());
+
+        // Kirim email ke peminjam yang bersangkuan
+        Mail::send(new ScheduleCreated($request->all(), auth()->user()->id));
 
         return redirect()->route('schedule.index')->with('status', 'Berhasil menambah jadwal peminjaman.');
     }
@@ -92,6 +97,9 @@ class ScheduleController extends Controller
 
         // Insert data pengajuan
         Schedule::updateById($request->all(), $id);
+
+        // Kirim email ke peminjam yang bersangkutan
+        Mail::send(new ScheduleUpdate($request->all(), auth()->user()->id));
 
         return redirect()->route('schedule.index')->with('status', 'Berhasil mengubah jadwal peminjaman.');
     }
