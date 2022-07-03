@@ -113,8 +113,9 @@
                                                     <button type="submit" class="btn btn-outline-primary">Sign
                                                         In</button>
                                                 </div>
-                                                <p class="d-inline-block mt-3">Belum memilik akun ? <a
-                                                        href="/register">Daftar sebagai peminjam</a></p>
+                                                <p class="d-block mt-3 text-center">Belum memiliki akun ? <a
+                                                        href="/register">Daftar
+                                                        sebagai peminjam</a></p>
                                             </div>
                                         </div>
                                     </form>

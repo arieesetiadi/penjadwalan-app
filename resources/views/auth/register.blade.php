@@ -12,7 +12,7 @@
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-        {{-- Font Awesome --}}
+    {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -220,8 +220,11 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    <button class="btn btn-primary my-3 mt-4">Simpan</button>
+                                                <div class="col-lg-12">
+                                                    <button class="btn btn-outline-primary mt-3 w-100">Simpan</button>
+                                                    <p class="d-block mt-3 text-center">Sudah memiliki akun ? <a
+                                                            href="/login">Login</a>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -239,7 +242,7 @@
     </div>
     <!--end wrapper-->
 
-    
+
     <!--plugins-->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/pace.min.js') }}"></script>
