@@ -16,7 +16,9 @@ class AuthController extends Controller
     // halaman login
     public function login()
     {
-        return view('auth.login');
+        $data['admin'] = User::where('role_id', 1)->get()[0];
+
+        return view('auth.login', $data);
     }
 
     public function register()
