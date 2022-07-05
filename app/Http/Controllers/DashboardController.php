@@ -16,9 +16,11 @@ class DashboardController extends Controller
     public function index()
     {
         // Redirect back jika user tidak aktif
+        $userId = auth()->user()->id;
+
         if (!auth()->user()->status) {
             auth()->logout();
-            return redirect()->route('login')->with('inactive', 'inactive');
+            return redirect()->route('login')->with('inactive', $userId);
         }
 
         $data['title'] = 'Dashboard';
