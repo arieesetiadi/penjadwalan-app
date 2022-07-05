@@ -7,7 +7,6 @@
         text-align: justify;
         word-wrap: break-word;
     }
-
 </style>
 
 <!--Start content-->
@@ -210,7 +209,8 @@
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <input type="hidden" name="subject" value="Jadwal Telah Dibatalkan Oleh Peminjam">
+                                                        <input type="hidden" name="subject"
+                                                            value="Jadwal Telah Dibatalkan Oleh Peminjam">
 
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -219,19 +219,23 @@
                                                                 </h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                                 <span class="text-wrap">
+                                                                <span class="text-wrap">
                                                                     Jadwal
                                                                     <strong>{{ $active->description }}</strong> akan
-                                                                    dibatalkan. Silahkan cantumkan alasan dari pembatalan jadwal.
+                                                                    dibatalkan. Silahkan cantumkan alasan dari
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                                 <div class="py-3">
                                                                     <div class="form-floating">
-                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan" id="alasanPenolakan" style="height: 100px"></textarea>
-                                                                        <label for="alasanPenolakan">Alasan pembatalan</label>
+                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan"
+                                                                            id="alasanPenolakan" style="height: 100px"></textarea>
+                                                                        <label for="alasanPenolakan">Alasan
+                                                                            pembatalan</label>
                                                                     </div>
                                                                 </div>
                                                                 <span>
-                                                                    Tekan <strong>OK</strong> untuk melanjutkan pembatalan jadwal.
+                                                                    Tekan <strong>OK</strong> untuk melanjutkan
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                             </div>
                                                             <div class="modal-footer">
@@ -247,11 +251,13 @@
 
                                             {{-- Modal Selesaikan rapat --}}
                                             <div class="modal fade" id="modal-schedule-finish-{{ $active->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <form action="{{ route('schedule.finish', $active->id) }}"
                                                         method="GET">
-                                                        <input name="id" type="hidden" value="{{ $active->id }}">
+                                                        <input name="id" type="hidden"
+                                                            value="{{ $active->id }}">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">
@@ -385,22 +391,24 @@
                                             </a>
                                             {{-- Batalkan pengajuan --}}
                                             <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal">
-                                                <a href="#" type="button" class="d-inline-block" data-bs-toggle="modal"
+                                                <a href="#" type="button" class="d-inline-block"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $pending->id }}">
                                                     <i class="bi bi-x-circle-fill text-danger"></i>
                                                 </a>
                                             </div>
 
                                             {{-- Modal batal pengajuan --}}
-                                            <div class="modal fade"
-                                                id="modal-schedule-delete-{{ $pending->id }}" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="modal-schedule-delete-{{ $pending->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <form action="{{ route('schedule.cancel', $pending->id) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <input type="hidden" name="subject" value="Pengajuan Jadwal Telah Dibatalkan Oleh Peminjam">
+                                                        <input type="hidden" name="subject"
+                                                            value="Pengajuan Jadwal Telah Dibatalkan Oleh Peminjam">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">
@@ -411,16 +419,20 @@
                                                                 <span class="text-wrap">
                                                                     Jadwal
                                                                     <strong>{{ $pending->description }}</strong> akan
-                                                                    dibatalkan. Silahkan cantumkan alasan dari pembatalan jadwal.
+                                                                    dibatalkan. Silahkan cantumkan alasan dari
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                                 <div class="py-3">
                                                                     <div class="form-floating">
-                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan" id="alasanPenolakan" style="height: 100px"></textarea>
-                                                                        <label for="alasanPenolakan">Alasan pembatalan</label>
+                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan"
+                                                                            id="alasanPenolakan" style="height: 100px"></textarea>
+                                                                        <label for="alasanPenolakan">Alasan
+                                                                            pembatalan</label>
                                                                     </div>
                                                                 </div>
                                                                 <span>
-                                                                    Tekan <strong>OK</strong> untuk melanjutkan pembatalan jadwal.
+                                                                    Tekan <strong>OK</strong> untuk melanjutkan
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                             </div>
                                                             <div class="modal-footer">
@@ -567,12 +579,12 @@
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title d-block" id="exampleModalLabel">
+                                                                <h5 class="modal-title d-block"
+                                                                    id="exampleModalLabel">
                                                                     Notulen {{ $finish->description }}
                                                                 </h5>
                                                             </div>
-                                                            <div class="modal-body"
-                                                                style="border: 1px solid black">
+                                                            <div class="modal-body" style="border: 1px solid black">
                                                                 <span>Diunggah pada :
                                                                     {{ dateTimeFormat($finish->note->created_at) }}</span>
                                                                 <hr>
@@ -591,8 +603,9 @@
 
                                                                 @if (count($imageNames) > 0)
                                                                     <hr>
-                                                                    <div id="carouselExampleControls"
-                                                                        class="carousel slide" data-bs-ride="carousel">
+                                                                    <div id="carousel-{{ $finish->id }}"
+                                                                        class="carousel slide"
+                                                                        data-bs-ride="carousel">
                                                                         <div class="carousel-inner">
                                                                             @for ($i = 0; $i < count($imageNames) - 1; $i++)
                                                                                 <div
@@ -606,7 +619,7 @@
                                                                         </div>
                                                                         <button class="carousel-control-prev"
                                                                             type="button"
-                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-target="#carousel-{{ $finish->id }}"
                                                                             data-bs-slide="prev">
                                                                             <span class="carousel-control-prev-icon"
                                                                                 aria-hidden="true"></span>
@@ -615,7 +628,7 @@
                                                                         </button>
                                                                         <button class="carousel-control-next"
                                                                             type="button"
-                                                                            data-bs-target="#carouselExampleControls"
+                                                                            data-bs-target="#carousel-{{ $finish->id }}"
                                                                             data-bs-slide="next">
                                                                             <span class="carousel-control-next-icon"
                                                                                 aria-hidden="true"></span>
@@ -660,7 +673,8 @@
                                                     data-bs-target="#modal-note-upload-{{ $finish->id }}">
                                                     <i class="bi bi-upload"></i>
                                                 </button> --}}
-                                                <form action="{{ route('note.upload', $finish->id) }}" method="GET">
+                                                <form action="{{ route('note.upload', $finish->id) }}"
+                                                    method="GET">
                                                     <button class="btn btn-sm"
                                                         {{ $finish->note ? 'disabled' : '' }}>
                                                         <i class="bi bi-upload"></i>
@@ -669,7 +683,8 @@
                                             </div>
 
                                             <div class="modal fade" id="modal-note-upload-{{ $finish->id }}"
-                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     @include('components.notulen-form')
                                                 </div>
