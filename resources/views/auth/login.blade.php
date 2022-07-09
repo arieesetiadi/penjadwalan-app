@@ -113,13 +113,13 @@
                                                     <button type="submit" class="btn btn-outline-primary">Sign
                                                         In</button>
                                                 </div>
-                                                <p class="d-block mt-3 text-center">
+                                                {{-- <p class="d-block mt-3 text-center">
                                                     <a target="_blank" href="mailto:{{ $admin->email }}">
                                                         Hubungi Administrator untuk bantuan.
                                                     </a>
-                                                </p>
+                                                </p> --}}
                                                 {{-- <p class="d-block mt-3 text-center">
-                                                    Belum memiliki akun ? 
+                                                    Belum memiliki akun ?
                                                     <a href="/register">Daftar
                                                         sebagai peminjam
                                                     </a>

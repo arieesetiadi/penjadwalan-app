@@ -45,6 +45,7 @@ class Schedule extends Model
         return self
             ::whereDate('date', $date)
             ->where('start', $then)
+            ->where('status', self::STATUS_ACTIVE)
             ->get('id');
         // ::where([
         //     ['date', $date],

@@ -41,7 +41,7 @@ class RequestSuccess extends Mailable
 
         return $this
             ->to($this->borrower)
-            ->subject('Berhasil Melakukan Pengajuan Jadwal')
+            ->subject('Anda Berhasil Melakukan Pengajuan Jadwal')
             ->view('email.request-success', $data);
     }
 }
