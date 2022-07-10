@@ -55,7 +55,8 @@
                                                 <input name="date" id="date" type="date"
                                                     class="form-control
                                             @error('date') is-invalid @enderror"
-                                                    aria-label="date" value="{{ old('date') }}"
+                                                    aria-label="date"
+                                                    value="{{ old('date', now()->format('Y-m-d')) }}"
                                                     onchange="validateDate()">
                                             </div>
                                             @error('date')
@@ -138,8 +139,7 @@
                                                 <textarea rows="3" name="description" id="description" type="description"
                                                     class="form-control
                                             @error('description') is-invalid @enderror"
-                                                    placeholder="Description"
-                                                    aria-label="description">{{ old('description') }}</textarea>
+                                                    placeholder="Description" aria-label="description">{{ old('description') }}</textarea>
                                             </div>
                                             @error('description')
                                                 <span class="text-danger position-absolute d-block">

@@ -134,8 +134,7 @@
                                                 <textarea rows="3" name="description" id="description" type="description"
                                                     class="form-control
                                             @error('description') is-invalid @enderror"
-                                                    placeholder="Description"
-                                                    aria-label="description">{{ old('description') }}</textarea>
+                                                    placeholder="Description" aria-label="description">{{ old('description') }}</textarea>
                                             </div>
                                             @error('description')
                                                 <span class="text-danger position-absolute d-block">

@@ -4,15 +4,16 @@ $(function () {
         $(".date-button").removeClass("btn-secondary text-white");
         $(this).addClass("btn-secondary text-white");
         $(".date-button-active");
-        validateDate();
     });
-    validateHour();
+
     validateDate();
+    validateHour();
 });
 
 function setDateToForm(date) {
     // Set date to form
     $("input[name=date]").val(date);
+    validateDate();
     validateHour();
 }
 
@@ -23,30 +24,55 @@ function validateHour() {
     const start = $("input[name=start]").val();
     const end = $("input[name=end]").val();
 
-    // Validasi datetime jika jam sudah terisi
-    if (start != "" && end != "") {
-        const now = moment();
-        const momentStart = moment(date + " " + start);
-        const momentEnd = moment(date + " " + end);
+    const now = moment();
+    const momentStart = moment(date + " " + start);
+    const momentEnd = moment(date + " " + end);
 
+    // Validasi datetime jika jam sudah terisi
+    if (start != "" && end == "") {
         // Disable tombol jika jam sudah lewat
+        if (momentStart.isBefore(now)) {
+            $("button#btn-request-submit").prop('disabled', true);
+            $("#msg-time-invalid").removeClass("d-none");
+            return;
+        } else {
+            $("button#btn-request-submit").prop('disabled', false);
+            $("#msg-time-invalid").addClass("d-none");
+            return;
+        }
+    } else if (start == "" && end != "") {
+        // Disable tombol jika jam sudah lewat
+        if (momentEnd.isBefore(now)) {
+            $("button#btn-request-submit").prop('disabled', true);
+            $("#msg-time-invalid").removeClass("d-none");
+            return;
+        } else {
+            $("button#btn-request-submit").prop('disabled', false);
+            $("#msg-time-invalid").addClass("d-none");
+            return;
+        }
+    } else if (start != "" && end != "") {
         if (momentStart.isBefore(now) || momentEnd.isBefore(now)) {
-            $("#btn-request-submit").addClass("disabled");
+            $("button#btn-request-submit").prop('disabled', true);
             $("#msg-time-invalid").removeClass("d-none");
             return;
         }
         // Disable jika jam mulai lebih besar dari jam selesai
         else if (momentStart.isAfter(momentEnd) || momentStart.isSame(momentEnd)) {
-            $("#btn-request-submit").addClass("disabled");
+            $("button#btn-request-submit").prop('disabled', true);
             $("#msg-time-invalid").removeClass("d-none");
             return;
         }
         // Normal, hidupkan tombol
         else {
-            $("#btn-request-submit").removeClass("disabled");
+            $("button#btn-request-submit").prop('disabled', false);
             $("#msg-time-invalid").addClass("d-none");
             return;
         }
+    } else {
+        $("button#btn-request-submit").prop('disabled', false);
+        $("#msg-time-invalid").addClass("d-none");
+        return;
     }
 }
 
@@ -57,10 +83,10 @@ function validateDate() {
     let now = new Date().setHours(0, 0, 0, 0);
 
     if (selected < now) {
-        $("#btn-request-submit").addClass("disabled");
+        $("button#btn-request-submit").prop('disabled', true);
         $("#msg-date-invalid").removeClass("d-none");
     } else {
-        $("#btn-request-submit").removeClass("disabled");
+        $("button#btn-request-submit").prop('disabled', false);
         $("#msg-date-invalid").addClass("d-none");
     }
 }
