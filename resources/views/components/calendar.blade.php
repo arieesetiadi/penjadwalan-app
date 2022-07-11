@@ -25,8 +25,8 @@
                     {{-- Looping blank --}}
                     @for ($i = 0; $i < $offset; $i++)
                         <div class="col-7">
-                            <div class="btn w-100">
-                                <span class="d-block font-24 text-center my-2">-</span>
+                            <div class="btn btn-sm w-100">
+                                <span class="d-block font-24 text-center">-</span>
                             </div>
                         </div>
                     @endfor
@@ -36,7 +36,7 @@
                         <div class="col-7 mb-3">
                             {{-- Tombol date --}}
                             <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                class="date-button btn shadow-sm {{ isToday($dateOfMonth) ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative {{ isPass($dateOfMonth) ? 'disabled' : '' }}">
+                                class="date-button btn btn-sm shadow-sm {{ isToday($dateOfMonth) ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative {{ isPass($dateOfMonth) ? 'disabled bg-light text-secondary shadow-none' : '' }}">
                                 <span class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                 <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"
                                     data-bs-toggle="modal" data-bs-target="#modal-data-in-date-{{ $i }}">

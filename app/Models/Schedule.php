@@ -179,6 +179,19 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function getInMonthDashboard($dates)
+    {
+        foreach ($dates as $date) {
+            $schedules = self
+                ::whereDate('date', $date)
+                ->get();
+
+            $data[] = $schedules;
+        }
+
+        return $data;
+    }
+
     public static function getInMonth($dates)
     {
         foreach ($dates as $date) {

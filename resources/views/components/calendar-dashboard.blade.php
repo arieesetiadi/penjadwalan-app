@@ -1,6 +1,6 @@
 <section>
-    <div class="card">
-        <div class="card-header bg-light row">
+    <div class="card container">
+        <div class="card-header row">
             <div class="col-4 offset-4">
                 <h6 class="text-center text-dark mt-2">Kalender</h6>
             </div>
@@ -30,7 +30,7 @@
                     {{-- Looping blank --}}
                     @for ($i = 0; $i < $offset; $i++)
                         <div class="col-7">
-                            <div class="btn w-100">
+                            <div class="w-100">
                                 <span class="d-block font-24 text-center my-2">-</span>
                             </div>
                         </div>
@@ -40,8 +40,8 @@
                     @foreach ($datesOfMonth as $i => $dateOfMonth)
                         <div class="col-7 mb-3">
                             {{-- Tombol date --}}
-                            <button onclick="setDateToForm('{{ $dateOfMonth->format('Y-m-d') }}')"
-                                class="date-button btn shadow-sm {{ isToday($dateOfMonth) ? 'date-button-active btn-primary' : 'btn-outline-secondary' }} w-100 position-relative {{ isPass($dateOfMonth) ? 'disabled' : '' }}">
+                            <div
+                                class="shadow-sm rounded border py-1 {{ isToday($dateOfMonth) ? 'bg-primary rounded text-white' : '' }} {{ isPass($dateOfMonth) ? 'bg-light text-secondary shadow-none' : '' }} w-100 position-relative">
                                 <span class="d-block text-center my-2">{{ $dateOfMonth->isoFormat('D') }}</span>
                                 <a href="#" class="{{ count($dataInMonth[$i]) <= 0 ? 'd-none' : '' }}"
                                     data-bs-toggle="modal" data-bs-target="#modal-data-in-date-{{ $i }}">
@@ -49,7 +49,7 @@
                                         <i class="bi bi-info-circle-fill text-dark"></i>
                                     </span>
                                 </a>
-                            </button>
+                            </div>
 
                             {{-- Modal data jadwal --}}
                             <div class="modal fade" id="modal-data-in-date-{{ $i }}" tabindex="-1"

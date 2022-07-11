@@ -92,7 +92,7 @@ function getDashboardCalendarData()
     $data['current'] = $current;
 
     // Ambil seluruh data perhari di bulan ini
-    $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
+    $data['dataInMonth'] = Schedule::getInMonthDashboard($data['datesOfMonth']);
 
     return $data;
 }
