@@ -37,7 +37,8 @@
                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
                             class="bi bi-search"></i></div>
                     <form action="{{ route('user.search') }}" method="GET">
-                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari nama pengguna..">
+                        <input name="key" class="form-control ps-5" type="text"
+                            placeholder="Cari nama pengguna..">
                     </form>
                 </div>
             </div>
@@ -92,9 +93,8 @@
                                         <td class="d-flex justify-content-center">
                                             <div class="table-actions d-flex align-items-center">
                                                 {{-- Ubah --}}
-                                                <a href="{{ route('user.edit', $user->id) }}"
-                                                    class="btn text-dark" data-bs-toggle="tooltip"
-                                                    data-bs-placement="left" title="Ubah">
+                                                <a href="{{ route('user.edit', $user->id) }}" class="btn text-dark"
+                                                    data-bs-toggle="tooltip" data-bs-placement="left" title="Ubah">
                                                     <i class="bi bi-pen"></i>
                                                 </a>
 
@@ -102,8 +102,7 @@
                                                     {{-- Tombol disable user --}}
                                                     <div data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="Nonaktifkan Pengguna">
-                                                        <button type="button" class="btn"
-                                                            data-bs-toggle="modal"
+                                                        <button type="button" class="btn" data-bs-toggle="modal"
                                                             data-bs-target="#modal-user-disable-{{ $user->id }}">
                                                             <i class="fa-solid fa-power-off text-danger"></i>
                                                         </button>
@@ -112,8 +111,7 @@
                                                     {{-- Tombol Enable user --}}
                                                     <div data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="Aktifkan Pengguna">
-                                                        <button type="button" class="btn"
-                                                            data-bs-toggle="modal"
+                                                        <button type="button" class="btn" data-bs-toggle="modal"
                                                             data-bs-target="#modal-user-enable-{{ $user->id }}">
                                                             <i class="fa-solid fa-power-off text-success"></i>
                                                         </button>
@@ -178,9 +176,10 @@
 
                                                                         {{-- Alasan disable user --}}
                                                                         <div class="form-floating">
-                                                                            <textarea name="msg" class="form-control" placeholder="Alasan
-                                                                                pengguna di-nonaktifkan" id="msg"
-                                                                                style="height: 100px"></textarea>
+                                                                            <textarea name="msg" class="form-control"
+                                                                                placeholder="Alasan
+                                                                                pengguna di-nonaktifkan"
+                                                                                id="msg" style="height: 100px"></textarea>
                                                                             <label for="msg">Alasan
                                                                                 pengguna di-nonaktifkan</label>
                                                                         </div>
@@ -195,9 +194,10 @@
                                                                     @else
                                                                         {{-- Alasan disable user --}}
                                                                         <div class="form-floating">
-                                                                            <textarea name="msg" class="form-control" placeholder="Alasan
-                                                                                pengguna di-nonaktifkan" id="msg"
-                                                                                style="height: 100px"></textarea>
+                                                                            <textarea name="msg" class="form-control"
+                                                                                placeholder="Alasan
+                                                                                pengguna di-nonaktifkan"
+                                                                                id="msg" style="height: 100px"></textarea>
                                                                             <label for="msg">Alasan
                                                                                 pengguna di-nonaktifkan</label>
                                                                         </div>
@@ -214,7 +214,8 @@
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light border"
+                                                                    <button type="button"
+                                                                        class="btn btn-light border"
                                                                         data-bs-dismiss="modal">Batal</button>
                                                                     <button type="submit"
                                                                         class="btn btn-primary">OK</button>
@@ -243,7 +244,8 @@
                                                                     melanjutkan.
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light border"
+                                                                    <button type="button"
+                                                                        class="btn btn-light border"
                                                                         data-bs-dismiss="modal">Batal</button>
                                                                     <button type="submit"
                                                                         class="btn btn-primary">OK</button>

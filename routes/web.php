@@ -32,6 +32,10 @@ Route::middleware('rolecheck:1')->group(function () {
     Route::put('/room/update', [RoomController::class, 'update'])->name('room.update');
     Route::delete('/room/destroy/{id}', [RoomController::class, 'destroy'])->name('room.destroy');
 
+    // Disable & Enable room
+    Route::get('/room/enable/{id}', [RoomController::class, 'enable'])->name('room.enable');
+    Route::put('/room/disable/{id}', [RoomController::class, 'disable'])->name('room.disable');
+
     // Disable & Enable user
     Route::get('/user/enable/{id}', [UserController::class, 'enable'])->name('user.enable');
     Route::put('/user/disable/{id}', [UserController::class, 'disable'])->name('user.disable');

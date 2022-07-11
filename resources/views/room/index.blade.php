@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nama Ruangan</th>
+                                        <th class="cell-head-center">Status</th>
                                         <th class="cell-head-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -49,46 +50,111 @@
                                             <td>{{ $i + 1 }}</td>
                                             <td>{{ $room->name }}</td>
 
+                                            <td class="cell-head-center">
+                                                @if ($room->status)
+                                                    <span class="badge bg-success w-75">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-danger w-75">Nonaktif</span>
+                                                @endif
+                                            </td>
+
                                             {{-- Aksi --}}
                                             <td class="d-flex justify-content-center">
                                                 <div class="table-actions d-flex align-items-center">
                                                     {{-- Ubah --}}
                                                     <a class="btn-room-edit btn btn-sm text-dark"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ubah"
-                                                        data-name="{{ $room->name }}" data-id="{{ $room->id }}">
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Ubah" data-name="{{ $room->name }}"
+                                                        data-id="{{ $room->id }}">
                                                         <i class="bi bi-pen"></i>
                                                     </a>
 
-                                                    {{-- Hapus --}}
-                                                    <div data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Hapus">
-                                                        <button type="button" class="btn btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modal-room-delete-{{ $room->id }}">
-                                                            <i class="bi bi-trash-fill"></i>
-                                                        </button>
-                                                    </div>
+                                                    @if ($room->status)
+                                                        {{-- Tombol disable room --}}
+                                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                            title="Nonaktifkan Ruangan">
+                                                            <button type="button" class="btn" data-bs-toggle="modal"
+                                                                data-bs-target="#modal-room-disable-{{ $room->id }}">
+                                                                <i class="fa-solid fa-power-off text-danger"></i>
+                                                            </button>
+                                                        </div>
+                                                    @else
+                                                        {{-- Tombol enable room --}}
+                                                        <div data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                            title="Aktifkan Ruangan">
+                                                            <button type="button" class="btn" data-bs-toggle="modal"
+                                                                data-bs-target="#modal-room-enable-{{ $room->id }}">
+                                                                <i class="fa-solid fa-power-off text-success"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endif
 
-                                                    {{-- Modal Hapus --}}
-                                                    <div class="modal fade"
-                                                        id="modal-room-delete-{{ $room->id }}" tabindex="-1"
-                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <form action="{{ route('room.destroy', $room->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
+                                                    {{-- Modal enable --}}
+                                                    <div class="modal fade" id="modal-room-enable-{{ $room->id }}"
+                                                        tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <form action="{{ route('room.enable', $room->id) }}"
+                                                                method="GET">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="exampleModalLabel">
-                                                                            Konfirmasi
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Aktifkan Ruangan
                                                                         </h5>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         Ruangan <strong>{{ $room->name }}</strong>
                                                                         akan
-                                                                        dihapus dari sistem.
+                                                                        diaktifkan. Tekan <strong>OK</strong> untuk
+                                                                        melanjutkan.
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-light border"
+                                                                            data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">OK</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- Modal disable --}}
+                                                    <div class="modal fade" id="modal-room-disable-{{ $room->id }}"
+                                                        tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <form action="{{ route('room.disable', $room->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Nonaktifkan Ruangan
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {{-- Alasan disable room --}}
+                                                                        <div class="form-floating">
+                                                                            <textarea name="msg" class="form-control"
+                                                                                placeholder="Alasan
+                                                                                ruangan di-nonaktifkan"
+                                                                                id="msg" style="height: 100px"></textarea>
+                                                                            <label for="msg">Alasan
+                                                                                ruangan di-nonaktifkan</label>
+                                                                        </div>
+
+                                                                        <hr class="text-white">
+
+                                                                        <p class="d-block">
+                                                                            Ruangan
+                                                                            <strong>{{ $room->name }}</strong> akan
+                                                                            dinonaktifkan
+                                                                            dari sistem. Tekan <strong>OK</strong> untuk
+                                                                            melanjutkan.
+                                                                        </p>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button"
@@ -141,7 +207,8 @@
                                 <input name="name" id="name" type="text"
                                     class="form-control 
                                             @error('name') is-invalid @enderror w-75"
-                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}" required autocomplete="off">
+                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}"
+                                    required autocomplete="off">
                             </div>
                             @error('name')
                                 <span class="text-danger position-absolute d-block">
@@ -178,7 +245,8 @@
                                 <input id="input-room-name" name="name" type="text"
                                     class="form-control 
                                             @error('name') is-invalid @enderror w-75"
-                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}" required>
+                                    placeholder="Nama ruangan" aria-label="name" value="{{ old('name') }}"
+                                    required>
                             </div>
                             @error('name')
                                 <span class="text-danger position-absolute d-block">
