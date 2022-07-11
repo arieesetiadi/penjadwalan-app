@@ -179,10 +179,11 @@ class ScheduleController extends Controller
         // Ambil bulan selanjutnya berdasarkan counter
         $current = Carbon::make($current)->addMonth($counter);
 
-        $route = auth()->user()->role_id == 3 ? 'request' : 'schedule.create';
+        // $route = auth()->user()->role_id == 3 ? 'request' : 'schedule.create';
 
         // Redirect ke halaman request
-        return redirect()->route($route)->with('currentMonth', $current->toDateString());
+        // return redirect()->route($route)->with('currentMonth', $current->toDateString());
+        return back()->with('currentMonth', $current->toDateString());
     }
 
     public function requestEdit($id)

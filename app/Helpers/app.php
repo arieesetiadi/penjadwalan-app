@@ -82,6 +82,21 @@ function getCalendarData()
     return $data;
 }
 
+function getDashboardCalendarData()
+{
+    $current = session('currentMonth') ? Carbon::make(session('currentMonth')) : now();
+    $data['daysName'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+    $data['datesOfMonth'] = makePeriod($current);
+    $data['offset'] = getOffset($data['daysName'], $current->firstOfMonth());
+    // $data['activeSchedules'] = Schedule::getActive();
+    $data['current'] = $current;
+
+    // Ambil seluruh data perhari di bulan ini
+    $data['dataInMonth'] = Schedule::getInMonth($data['datesOfMonth']);
+
+    return $data;
+}
+
 function getRunningByUserId($id)
 {
     return Schedule::getRunningByUserId($id);

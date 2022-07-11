@@ -29,6 +29,9 @@ class DashboardController extends Controller
         switch (auth()->user()->role_id) {
                 // Dashboard Admin
             case 1:
+                $data = getDashboardCalendarData();
+
+                $data['title'] = 'Dashboard';
                 $data['pendingSchedules'] = Schedule::getPending();
                 $data['activeSchedules'] = Schedule::getActive();
 
@@ -41,6 +44,9 @@ class DashboardController extends Controller
 
                 // Dashboard Petugas
             case 2:
+                $data = getDashboardCalendarData();
+
+                $data['title'] = 'Dashboard';
                 $data['pendingSchedules'] = Schedule::getPending();
                 $data['activeSchedules'] = Schedule::getActive();
 
@@ -52,6 +58,8 @@ class DashboardController extends Controller
 
                 // Dashboard Peminjam
             default:
+                $data['title'] = 'Dashboard';
+
                 $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
                 $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
                 $data['finishSchedules'] = Schedule::getFinishByBorrowerId(auth()->user()->id);

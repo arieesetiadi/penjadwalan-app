@@ -541,6 +541,8 @@
                 @endif
             </div>
         </div>
+
+        @include('components.calendar-dashboard')
     </div>
 </main>
 <!--End Page Main-->
