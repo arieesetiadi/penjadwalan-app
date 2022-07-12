@@ -40,7 +40,7 @@ class ScheduleController extends Controller
     {
         $data = getCalendarData();
         $data['title'] = 'Tambah Jadwal';
-        $data['rooms'] = Room::all();
+        $data['rooms'] = Room::where('status', true)->get();
         $data['users'] = User::getBorrower();
 
         return view('schedule.create', $data);
@@ -77,7 +77,7 @@ class ScheduleController extends Controller
         $data = getCalendarData();
         $data['title'] = 'Ubah Jadwal';
         $data['users'] = User::getBorrower();
-        $data['rooms'] = Room::all();
+        $data['rooms'] = Room::where('status', true)->get();
         $data['schedule'] = Schedule::getById($id)[0];
 
         return view('schedule.edit', $data);
@@ -118,7 +118,7 @@ class ScheduleController extends Controller
     {
         $data = getCalendarData();
         $data['title'] = 'Pengajuan Jadwal';
-        $data['rooms'] = Room::all();
+        $data['rooms'] = Room::where('status', true)->get();
 
         return view('schedule.request', $data);
     }
@@ -191,7 +191,7 @@ class ScheduleController extends Controller
         $data = getCalendarData();
         $data['title'] = 'Jadwal';
         $data['schedule'] = Schedule::getById($id)[0];
-        $data['rooms'] = Room::all();
+        $data['rooms'] = Room::where('status', true)->get();
 
         return view('schedule.request-edit', $data);
     }
