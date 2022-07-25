@@ -16,58 +16,43 @@ class DashboardController extends Controller
     public function index()
     {
         // Redirect back jika user tidak aktif
-        $userId = auth()->user()->id;
-
         if (!auth()->user()->status) {
             auth()->logout();
-            return redirect()->route('login')->with('inactive', $userId);
+            return redirect()->route('login')->with('inactive', auth()->user()->id);
         }
 
+        // Prepare data untuk dashboard
         $data['title'] = 'Dashboard';
+        $data['pendingSchedules'] = Schedule::getPending();
+        $data['activeSchedules'] = Schedule::getActive();
+        $data['countActive'] = count($data['activeSchedules']);
+        $data['countPending'] = count($data['pendingSchedules']);
 
-        // Cek role dari user yang sedang login
+        // Cek user role
         switch (auth()->user()->role_id) {
-                // Dashboard Admin
             case 1:
-                $data = getDashboardCalendarData();
-
-                $data['title'] = 'Dashboard';
-                $data['pendingSchedules'] = Schedule::getPending();
-                $data['activeSchedules'] = Schedule::getActive();
-
+                // Dashboard Admin
+                $data = array_merge($data, getDashboardCalendarData());
                 $data['countUser'] = User::count();
-                $data['countActive'] = count($data['activeSchedules']);
-                $data['countPending'] = count($data['pendingSchedules']);
 
-                // Redirect ke dashboard Administrator
                 return view('dashboard.administrator', $data);
 
-                // Dashboard Petugas
             case 2:
-                $data = getDashboardCalendarData();
-
-                $data['title'] = 'Dashboard';
-                $data['pendingSchedules'] = Schedule::getPending();
-                $data['activeSchedules'] = Schedule::getActive();
-
+                // Dashboard Petugas
+                $data = array_merge($data, getDashboardCalendarData());
                 $data['countActive'] = count($data['activeSchedules']);
                 $data['countPending'] = count($data['pendingSchedules']);
 
-                // Redirect ke dashboard Petugas
                 return view('dashboard.petugas', $data);
 
-                // Dashboard Peminjam
             default:
-                $data['title'] = 'Dashboard';
-
+                // Dashboard Peminjam
                 $data['activeSchedules'] = Schedule::getActiveByBorrowerId(auth()->user()->id);
                 $data['pendingSchedules'] = Schedule::getPendingByBorrowerId(auth()->user()->id);
                 $data['finishSchedules'] = Schedule::getFinishByBorrowerId(auth()->user()->id);
-
                 $data['countActive'] = count($data['activeSchedules']);
                 $data['countPending'] = count($data['pendingSchedules']);
 
-                // Redirect ke dashboard Peminjam
                 return view('dashboard.peminjam', $data);
         }
     }

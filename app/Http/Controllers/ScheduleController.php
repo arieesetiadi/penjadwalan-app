@@ -367,11 +367,41 @@ class ScheduleController extends Controller
             [
                 'date' => now()->addDay(2)->format('Y-m-d'),
                 'start' => '09:00',
-                'end' => '13:00',
+                'end' => '11:00',
                 'description' => 'Rapat Uji Coba Aplikasi C',
                 'user_borrower_id' => 3,
                 'room_id' => 1,
                 'status' => 1,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+            [
+                'date' => now()->addDay(2)->format('Y-m-d'),
+                'start' => '13:00',
+                'end' => '15:00',
+                'description' => 'Rapat Uji Coba Aplikasi D',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 1,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+            [
+                'date' => now()->addDay(1)->format('Y-m-d'),
+                'start' => '11:00',
+                'end' => '13:00',
+                'description' => 'Rapat Uji Coba Aplikasi E',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 2,
+                'created_at' => now()->format('Y-m-d H:i:s.u0')
+            ],
+            [
+                'date' => now()->addDay(2)->format('Y-m-d'),
+                'start' => '11:00',
+                'end' => '13:00',
+                'description' => 'Rapat Uji Coba Aplikasi F',
+                'user_borrower_id' => 3,
+                'room_id' => 1,
+                'status' => 2,
                 'created_at' => now()->format('Y-m-d H:i:s.u0')
             ],
         ];

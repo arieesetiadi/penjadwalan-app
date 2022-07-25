@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\RoomDisabled;
 use App\Mail\RoomEnabled;
 use App\Models\Room;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -62,6 +63,7 @@ class RoomController extends Controller
         $room->update([
             'status' => false
         ]);
+
 
         Mail::send(new RoomDisabled($room, $request->msg));
 

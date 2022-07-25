@@ -33,6 +33,7 @@ class Schedule extends Model
         return self
             ::whereDate('date', '>=', now()->format('Y-m-d'))
             ->where('status', self::STATUS_PENDING)
+            ->orderBy('id', 'asc')
             ->get();
     }
 
@@ -41,17 +42,11 @@ class Schedule extends Model
         $date = now()->format('Y-m-d');
         $then = Carbon::make(now()->format('H:i'))->addMinute($diff)->format('H:i:s');
 
-
         return self
             ::whereDate('date', $date)
             ->where('start', $then)
             ->where('status', self::STATUS_ACTIVE)
             ->get('id');
-        // ::where([
-        //     ['date', $date],
-        //     ['start', $then],
-        // ])
-        // ->get('id');
     }
 
     public static function getFinished()
@@ -74,15 +69,6 @@ class Schedule extends Model
 
     public static function getExpired()
     {
-        // dd('2022-05-25' <= now()->format('Y-m-d'));
-        // Return expired schedule
-        // return self
-        //     ::whereDate('date', '<=', now()->format('Y-m-d'))
-        //     ->where('start', '<', now()->format('H:i:s'))
-        //     ->where('status', self::STATUS_PENDING)
-        //     ->orWhere('status', self::STATUS_DECLINE)
-        //     ->get();
-
         $expiredSchedules = self
             ::where('status', self::STATUS_PENDING)
             ->orWhere('status', self::STATUS_DECLINE)
@@ -127,6 +113,15 @@ class Schedule extends Model
             ->orderBy('start', 'asc')
             ->get();
     }
+
+    public static function getActiveByRoomId($id)
+    {
+        return self
+            ::where('room_id', $id)
+            ->where('status', self::STATUS_ACTIVE)
+            ->get();
+    }
+
 
     public static function getRunningByUserId($id)
     {
@@ -201,12 +196,13 @@ class Schedule extends Model
                     ['status', '!=', self::STATUS_DECLINE],
                     ['status', '!=', self::STATUS_FINISH]
                 ])
+                ->orderBy('start', 'asc')
                 ->get();
 
             // Cek ketersediaan data
             if (count($schedules) > 0) {
-                // Ambil data jika tanggal jadwal >= hari ini
-                if ($schedules[0]->date >= now()->format('Y-m-d')) {
+                // Hanya ambil jadwal yang akan datang
+                if ($schedules[0]['date'] >= now()->format('Y-m-d')) {
                     $data[] = $schedules;
                 } else {
                     $data[] = [];
