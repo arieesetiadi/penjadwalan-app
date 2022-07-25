@@ -33,7 +33,6 @@ class Schedule extends Model
         return self
             ::whereDate('date', '>=', now()->format('Y-m-d'))
             ->where('status', self::STATUS_PENDING)
-            ->orderBy('id', 'asc')
             ->get();
     }
 
@@ -146,7 +145,8 @@ class Schedule extends Model
         return self
             ::where('user_borrower_id', $id)
             ->where('status', self::STATUS_FINISH)
-            ->orderBy('id', 'desc')
+            ->orderBy('date', 'desc')
+            ->orderBy('start', 'desc')
             ->get();
     }
 
@@ -179,6 +179,7 @@ class Schedule extends Model
         foreach ($dates as $date) {
             $schedules = self
                 ::whereDate('date', $date)
+                ->orderBy('start', 'asc')
                 ->get();
 
             $data[] = $schedules;
