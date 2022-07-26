@@ -6,9 +6,7 @@ use App\Http\Requests\NoteRequest;
 use App\Mail\BroadcastNotes;
 use App\Models\Note;
 use App\Models\Schedule;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
 class NoteController extends Controller
 {
     public function __construct()

@@ -71,7 +71,11 @@
                                                                 <td>Mulai</td>
                                                                 <td>Selesai</td>
                                                                 <td>Keterangan</td>
-                                                                <td>Status</td>
+                                                                <td>
+                                                                    <center>
+                                                                        Status
+                                                                    </center>
+                                                                </td>
                                                             </tr>
 
                                                             {{-- Content --}}
@@ -89,7 +93,9 @@
 
                                                                     {{-- Status --}}
                                                                     <td>
-                                                                        {!! makeStatus($data->status) !!}
+                                                                        <center>
+                                                                            {!! makeStatus($data->status) !!}
+                                                                        </center>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

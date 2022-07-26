@@ -15,6 +15,11 @@
         <h3>Deskripsi Pengajuan :</h3>
         <table border="0">
             <tr>
+                <td>Ruangan</td>
+                <td>:</td>
+                <td>{{ $room }}</td>
+            </tr>
+            <tr>
                 <td>Tanggal</td>
                 <td>:</td>
                 <td>{{ dateFormat($request['date']) }}</td>
@@ -23,11 +28,6 @@
                 <td>Waktu</td>
                 <td>:</td>
                 <td>{{ timeFormat($request['start']) }} - {{ timeFormat($request['end']) }}</td>
-            </tr>
-            <tr>
-                <td>Ruangan</td>
-                <td>:</td>
-                <td>{{ $room }}</td>
             </tr>
             <tr>
                 <td>Keterangan</td>

@@ -466,7 +466,7 @@
         <div class="card-body" style="max-height: 260px; overflow-y: scroll">
             @if (count($finishSchedules) > 0)
                 <div id="users-table-wrapper" class="table-responsive">
-                    <table id="users-table" class="table align-middle">
+                    <table id="users-table" class="table table-sm align-middle">
                         <thead>
                             <tr>
                                 <td>#</td>
@@ -532,14 +532,14 @@
                                                             @endif
 
                                                             {{-- Dibuat Pada --}}
-                                                            @if ($finish->created_at)
+                                                            {{-- @if ($finish->created_at)
                                                                 <tr>
                                                                     <td>Dibuat pada</td>
                                                                     <td>:</td>
                                                                     <td>{{ dateTimeFormat($finish->created_at) }}
                                                                     </td>
                                                                 </tr>
-                                                            @endif
+                                                            @endif --}}
 
                                                             {{-- Notulen Diunggah Pada --}}
                                                             @if ($finish->note)
@@ -675,8 +675,7 @@
                                                 </button> --}}
                                                 <form action="{{ route('note.upload', $finish->id) }}"
                                                     method="GET">
-                                                    <button class="btn btn-sm"
-                                                        {{ $finish->note ? 'disabled' : '' }}>
+                                                    <button class="btn btn-sm" {{ $finish->note ? 'disabled' : '' }}>
                                                         <i class="bi bi-upload"></i>
                                                     </button>
                                                 </form>
