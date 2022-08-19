@@ -15,7 +15,8 @@ class Room extends Model
     public static function insert($name)
     {
         self::create([
-            'name' => $name
+            'name' => $name,
+            'status' => 1
         ]);
     }
 

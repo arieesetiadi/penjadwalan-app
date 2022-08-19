@@ -38,7 +38,7 @@
                             class="bi bi-search"></i></div>
                     <form action="{{ route('user.search') }}" method="GET">
                         <input name="key" class="form-control ps-5" type="text"
-                            placeholder="Cari nama pengguna..">
+                            placeholder="Cari nama pengguna.." autocomplete="off">
                     </form>
                 </div>
             </div>

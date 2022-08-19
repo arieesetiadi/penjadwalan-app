@@ -1,0 +1,29 @@
+Notulen Rapat - Uji Coba Aplikasi Damamaya
+
+Di bagian atas terdapat total jumlah website berdasarkan status tertentu. Contohnya pada bulan oktober, terdapat 52 website yang Deface dari 211 yang telah diperiksa.
+Terdapat total jumlah website yang sudah/belum diperiksa. Contohnya ada 13 web yang belum diperiksa dari 224 subdomain yang terdaftar.
+Terdapat total jumlah website yang sudah/belum ditindak lanjuti yang sejauh ini masih belum berfungsi. Contoh misalnya ada 100 web yang sudah ditindak lanjuti dari 155 web yang bermasalah (deface + tidak bisa diakses + lainnya).
+Terdapat table yang berisi semua website subdomain yang sudah terdaftar secara fix. Terdapat beberapa bagian pada table, yaitu :
+
+Status Periksa, untuk menampilkan status dari website tersebut pada pemeriksaan bulan oktober. Akan berisi tanda "-" jika website belum diperiksa.
+Hasil Pemeriksaan, untuk menampilkan detail dari hasil pemeriksaan, seperti tanggal, jam, capture website, dan juga keterangan pemeriksaan. Akan berisi tanda "-" jika belum dilakukan pemeriksaan.
+Hasil Tindak Lanjut, untuk menampilkan hasil penindak lanjutan dari website, seperti tanggal & jam penindakan, capture, keterangan, dan juga response time penindak lanjutan. Akan berisi tanda "-" jika belum ditindak lanjuti.
+
+Sekian kesimpulan dari pelaksanaan rapat pada hari ini, saya ucapkan terimakasih.
+
+
+
+<ol>
+	<li>Di bagian atas terdapat total jumlah website berdasarkan status tertentu. Contohnya pada bulan oktober, terdapat 52 website yang Deface dari 211 yang telah diperiksa.</li>
+	<li>Terdapat total jumlah website yang sudah/belum diperiksa. Contohnya ada 13 web yang belum diperiksa dari 224 subdomain yang terdaftar.</li>
+	<li>Terdapat total jumlah website yang sudah/belum ditindak lanjuti yang sejauh ini masih belum berfungsi. Contoh misalnya ada 100 web yang sudah ditindak lanjuti dari 155 web yang bermasalah (deface + tidak bisa diakses + lainnya).</li>
+	<li>Terdapat table yang berisi semua website subdomain yang sudah terdaftar secara fix. Terdapat beberapa bagian pada table, yaitu :</li>
+</ol>
+
+<ul>
+	<li>Status Periksa, untuk menampilkan status dari website tersebut pada pemeriksaan bulan oktober. Akan berisi tanda &quot;-&quot; jika website belum diperiksa.</li>
+	<li>Hasil Pemeriksaan, untuk menampilkan detail dari hasil pemeriksaan, seperti tanggal, jam, capture website, dan juga keterangan pemeriksaan. Akan berisi tanda &quot;-&quot; jika belum dilakukan pemeriksaan.</li>
+	<li>Hasil Tindak Lanjut, untuk menampilkan hasil penindak lanjutan dari website, seperti tanggal &amp; jam penindakan, capture, keterangan, dan juga response time penindak lanjutan. Akan berisi tanda &quot;-&quot; jika belum ditindak lanjuti.</li>
+</ul>
+
+<p>Sekian kesimpulan dari pelaksanaan rapat pada hari ini, saya ucapkan terimakasih.</p>

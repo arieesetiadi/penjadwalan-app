@@ -1,0 +1,11 @@
+Selamat sore pak, saya ijin melaporkan perkembangan project yang terkait dengan bidang Persandian. Disini saya coba membuat summary dari pemeriksaan pada semua subdomain pak.
+
+1. Di bagian atas terdapat total jumlah website berdasarkan status tertentu. Contohnya pada bulan oktober, terdapat 52 website yang Deface dari 211 yang telah diperiksa.
+2. Terdapat total jumlah website yang sudah/belum diperiksa. Contohnya ada 13 web yang belum diperiksa dari 224 subdomain yang terdaftar.
+3. Terdapat total jumlah website yang sudah/belum ditindak lanjuti yang sejauh ini masih belum berfungsi. Contoh misalnya ada 100 web yang sudah ditindak lanjuti dari 155 web yang bermasalah (deface + tidak bisa diakses + lainnya).
+4. Terdapat table yang berisi semua website subdomain yang sudah terdaftar secara fix. Terdapat beberapa bagian pada table, yaitu :
+- Status Periksa, untuk menampilkan status dari website tersebut pada pemeriksaan bulan oktober. AKan berisi tanda "-" jika website belum diperiksa.
+- Hasil Pemeriksaan, untuk menampilkan detail dari hasil pemeriksaan, seperti tanggal, jam, capture website, dan juga keterangan pemeriksaan. Akan berisi tanda "-" jika belum dilakukan pemeriksaan.
+- Hasil Tindak Lanjut, untuk menampilkan hasil penindak lanjutan dari website, seperti tanggal & jam penindakan, capture, keterangan, dan juga response time penindak lanjutan. Akan berisi tanda "-" jika belum ditindak lanjuti.
+
+Mungkin sekian yang bisa saya tunjukan pak, terimakasih 

@@ -37,7 +37,8 @@
                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
                             class="bi bi-search"></i></div>
                     <form action="{{ route('schedule.search') }}" method="GET">
-                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari jadwal..">
+                        <input name="key" class="form-control ps-5" type="text" placeholder="Cari jadwal.."
+                            autocomplete="off">
                     </form>
                 </div>
             </div>
@@ -65,21 +66,21 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $schedule->room->name }}</td>
 
-                                    {{--Peminjam--}}
+                                    {{-- Peminjam --}}
                                     <td>
                                         <div>
                                             <div class="d-inline-block" data-bs-toggle="tooltip"
-                                                 data-bs-placement="bottom" title="Detail Peminjam">
+                                                data-bs-placement="bottom" title="Detail Peminjam">
                                                 <a href="#" class="text-dark" data-bs-toggle="modal"
-                                                   data-bs-target="#modal-borrower-{{ $schedule->id }}">
+                                                    data-bs-target="#modal-borrower-{{ $schedule->id }}">
                                                     <i class="bi bi-info-circle-fill d-inline-block mx-1"></i>
                                                 </a>
                                             </div>
-                                        {{ $schedule->borrower->name }}
+                                            {{ $schedule->borrower->name }}
                                         </div>
 
-                                        <div class="modal fade" id="modal-borrower-{{ $schedule->id }}"
-                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modal-borrower-{{ $schedule->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -93,22 +94,22 @@
                                                             <tr>
                                                                 <td>Nama Lengkap</td>
                                                                 <td>:</td>
-                                                                <td>{{ $schedule->borrower->name  }}</td>
+                                                                <td>{{ $schedule->borrower->name }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Divisi</td>
                                                                 <td>:</td>
-                                                                <td>{{ $schedule->borrower->division->name  }}</td>
+                                                                <td>{{ $schedule->borrower->division->name }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Alamat Email</td>
                                                                 <td>:</td>
-                                                                <td>{{ $schedule->borrower->email  }}</td>
+                                                                <td>{{ $schedule->borrower->email }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Nomor Telepon</td>
                                                                 <td>:</td>
-                                                                <td>{{ $schedule->borrower->phone  }}</td>
+                                                                <td>{{ $schedule->borrower->phone }}</td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -139,8 +140,8 @@
                                         </center>
 
                                         {{-- Modal Detail Jadwal --}}
-                                        <div class="modal fade" id="modal-detail-{{ $schedule->id }}"
-                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modal-detail-{{ $schedule->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -264,7 +265,8 @@
                                                                 @if (count($imageNames) > 0)
                                                                     <hr>
                                                                     <div id="carouselExampleControls"
-                                                                        class="carousel slide" data-bs-ride="carousel">
+                                                                        class="carousel slide"
+                                                                        data-bs-ride="carousel">
                                                                         <div class="carousel-inner">
                                                                             @for ($i = 0; $i < count($imageNames) - 1; $i++)
                                                                                 <div
@@ -325,7 +327,8 @@
                                     {{-- Aksi --}}
                                     <td class="d-flex justify-content-center">
                                         <div class="table-actions d-flex align-items-center gap-3">
-                                            <form action="{{ route('schedule.edit', $schedule->id) }}" method="GET">
+                                            <form action="{{ route('schedule.edit', $schedule->id) }}"
+                                                method="GET">
                                                 <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip"
                                                     data-bs-placement="bottom" title="Ubah"
                                                     {{ $schedule->status == 4 ? 'disabled' : '' }}>
@@ -341,12 +344,13 @@
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#modal-schedule-delete-{{ $schedule->id }}"
                                                     {{ $schedule->status == 4 ? 'disabled' : '' }}>
-                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Batal" class="bi bi-x-circle-fill text-danger"></i>
+                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Batal" class="bi bi-x-circle-fill text-danger"></i>
                                                 </button>
                                             </div>
-                                            <div class="modal fade"
-                                                id="modal-schedule-delete-{{ $schedule->id }}" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="modal-schedule-delete-{{ $schedule->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <form action="{{ route('schedule.destroy', $schedule->id) }}"
                                                         method="post">
@@ -359,19 +363,23 @@
                                                                 </h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                                 <span class="text-wrap">
+                                                                <span class="text-wrap">
                                                                     Jadwal
                                                                     <strong>{{ $schedule->description }}</strong> akan
-                                                                    dibatalkan. Silahkan cantumkan alasan dari pembatalan jadwal.
+                                                                    dibatalkan. Silahkan cantumkan alasan dari
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                                 <div class="py-3">
                                                                     <div class="form-floating">
-                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan" id="alasanPenolakan" style="height: 100px"></textarea>
-                                                                        <label for="alasanPenolakan">Alasan pembatalan</label>
+                                                                        <textarea required name="cancelMessage" class="form-control" placeholder="Masukan alasan penolakan"
+                                                                            id="alasanPenolakan" style="height: 100px"></textarea>
+                                                                        <label for="alasanPenolakan">Alasan
+                                                                            pembatalan</label>
                                                                     </div>
                                                                 </div>
                                                                 <span>
-                                                                    Tekan <strong>OK</strong> untuk melanjutkan pembatalan jadwal.
+                                                                    Tekan <strong>OK</strong> untuk melanjutkan
+                                                                    pembatalan jadwal.
                                                                 </span>
                                                             </div>
                                                             <div class="modal-footer">

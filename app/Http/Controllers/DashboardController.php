@@ -17,8 +17,9 @@ class DashboardController extends Controller
     {
         // Redirect back jika user tidak aktif
         if (!auth()->user()->status) {
+            $userId = auth()->user()->id;
             auth()->logout();
-            return redirect()->route('login')->with('inactive', auth()->user()->id);
+            return redirect()->route('login')->with('inactive', $userId);
         }
 
         // Prepare data untuk dashboard

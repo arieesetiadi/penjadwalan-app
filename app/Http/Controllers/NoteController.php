@@ -7,6 +7,7 @@ use App\Mail\BroadcastNotes;
 use App\Models\Note;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Mail;
+
 class NoteController extends Controller
 {
     public function __construct()

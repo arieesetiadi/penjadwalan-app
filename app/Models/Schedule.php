@@ -360,6 +360,7 @@ class Schedule extends Model
                 'start' => $data['start'],
                 'end' => $data['end'],
                 'status' => self::STATUS_ACTIVE,
+                'room_id' => $data['room'],
                 'description' => $data['description'],
                 'user_borrower_id' => $data['user'],
                 'updated_at' => now()->format('Y-m-d H:i:s.u0')
