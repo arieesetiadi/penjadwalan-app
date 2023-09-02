@@ -51,6 +51,7 @@ class Schedule extends Model
     public static function getFinished()
     {
         // Ambil jadwal yang date & end <= now
+        $ids = [];
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $activeSchedules = self::where('status', self::STATUS_ACTIVE)->get();
 
@@ -68,6 +69,7 @@ class Schedule extends Model
 
     public static function getExpired()
     {
+        $newExpiredSchedules = [];
         $expiredSchedules = self
             ::where('status', self::STATUS_PENDING)
             ->orWhere('status', self::STATUS_DECLINE)
