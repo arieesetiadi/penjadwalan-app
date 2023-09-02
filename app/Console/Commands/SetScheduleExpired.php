@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\ScheduleExpired;
 use App\Models\Schedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SetScheduleExpired extends Command
@@ -50,5 +51,7 @@ class SetScheduleExpired extends Command
             // Kirim notifikasi ke peminjam bahwa jadwal telah expired dan dihapus
             Mail::send(new ScheduleExpired($expired));
         }
+
+        Log::info('Schedule executed: schedule:expired');
     }
 }

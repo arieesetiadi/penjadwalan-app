@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Schedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SetScheduleFinish extends Command
 {
@@ -45,5 +46,7 @@ class SetScheduleFinish extends Command
         foreach ($scheduleIds as $id) {
             Schedule::setFinish($id);
         }
+
+        Log::info('Schedule executed: schedule:finish');
     }
 }

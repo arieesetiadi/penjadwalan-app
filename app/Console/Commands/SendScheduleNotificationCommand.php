@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\ScheduleStarted;
 use App\Models\Schedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendScheduleNotificationCommand extends Command
@@ -50,5 +51,7 @@ class SendScheduleNotificationCommand extends Command
                 Mail::send(new ScheduleStarted($schedule->id));
             }
         }
+
+        Log::info('Schedule executed: notification:send');
     }
 }
